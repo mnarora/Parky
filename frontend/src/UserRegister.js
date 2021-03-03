@@ -10,7 +10,8 @@ export default class UserRegister extends Component {
         uname : '',
         email : '',
         contact: '',
-        password : ''
+        password : '',
+        isuser: true
     };
 
 
@@ -51,10 +52,11 @@ export default class UserRegister extends Component {
         return (
             <div>
                 <NavigationBar/>
-                <h1 className="ml-5 mt-5">User Registration</h1>
+                
                 <div align="center">
                 <form className={userregister.regform} onSubmit={this.onSubmit}>
-                    <div className="form-group">
+                <h1>User Registration</h1>
+                    <div className="form-group mt-5">
                         <label className="form-label" for="name">Name</label>
                         <input className="form-control" type="text" onChange={(e) => this.setState({uname : e.target.value})} placeholder="name" required />
                     </div>

@@ -15,7 +15,8 @@ export default class UserRegister extends Component {
           axios.post('http://localhost:3001/userlogin', this.state)
             .then(res => {
                 console.log(res)
-                window.localStorage.setItem('token', res.data.token)
+                window.localStorage.setItem('token', res.data.token);
+                window.localStorage.setItem('isuser', res.data.user.isuser);
                 this.props.history.push("/");
             })
             .catch(err => {
@@ -30,11 +31,11 @@ export default class UserRegister extends Component {
         return (
             <div>
                 <NavigationBar/>
-                <h1 className="ml-5 mt-5">User Login</h1>
-                <div align="center">
+                
+                <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
-                   
-                    <div className="form-group ">
+                <h1>User Login</h1>
+                    <div className="form-group mt-5">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
                     </div>

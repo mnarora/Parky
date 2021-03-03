@@ -33,15 +33,13 @@ app.get("/", (req, res) => {
 })
 
 app.post('/userregistration', (req, res) => {
-    console.log(req.body);
-    const { uname, email, contact, password } = req.body;
-    
+    const { email } = req.body;
     User.findOne({email}) 
         .then(user => {
             if(user)
                 return res.status(400).json({msg: "User already exists"});
             const newUser = new User({
-                uname, email, contact, password
+                ...req.body
             });
 
             bcrypt.genSalt(10, (err, salt) => {
@@ -72,6 +70,8 @@ app.post('/userregistration', (req, res) => {
                 });
             });
         });
+    
+    
 });
 
 
@@ -101,8 +101,8 @@ app.post("/userlogin", (req, res) => {
                             token,
                             user: {
                                 id: user.id,
-                                name: user.uname,
-                                email: user.email
+                                email: user.email,
+                                isuser: user.isuser
                             }    
                         });
                     }
