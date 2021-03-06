@@ -18,6 +18,6 @@ const UserSchema = new Schema({
     isuser: {
         type: Boolean
     }
-});
+},   { strict: false });
 
 module.exports = User = mongoose.model('user', UserSchema);

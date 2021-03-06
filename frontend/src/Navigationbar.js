@@ -6,6 +6,7 @@ export default class NavigationBar extends Component {
     state = {
         loggedIn: false
     }
+
     componentWillMount() {
         if (localStorage.getItem('token')) {
             this.setState({loggedIn : true});
@@ -13,9 +14,10 @@ export default class NavigationBar extends Component {
         else 
           this.setState({loggedIn : false});
     }
-
+    
     logout = () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('isuser')
       console.log(this.props);
     }
 

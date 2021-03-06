@@ -1,0 +1,27 @@
+
+.search {
+    background-color: blueviolet;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+
+input {
+    display: block;
+    width: 50%;
+    height: 50px;
+    margin: 0 auto;
+    border-width: 0px 0px 2px 0px;
+    border-color: #fff;
+    border-style: solid;
+    padding-left: 30px;
+    font-size: 30px;
+    font-weight: lighter;
+    color: #fff;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-position: left center;
+    background-color: none;
+    outline: none;
+}

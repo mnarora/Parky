@@ -17,7 +17,10 @@ export default class UserRegister extends Component {
                 console.log(res)
                 window.localStorage.setItem('token', res.data.token);
                 window.localStorage.setItem('isuser', res.data.user.isuser);
-                this.props.history.push("/");
+                if (res.data.user.isuser)
+                    this.props.history.push("/bookaslot");
+                else 
+                    this.props.history.push("/");
             })
             .catch(err => {
                 console.log(err)
