@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import login from './login.module.css';
 import axios from 'axios';
 import NavigationBar from './Navigationbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class UserRegister extends Component {
     state = {
@@ -10,20 +12,32 @@ export default class UserRegister extends Component {
         password : ''
     };
 
-      onSubmit = (e) => {
+      onSubmit = async (e) => {
           e.preventDefault()    
-          axios.post('http://localhost:3001/userlogin', this.state)
-            .then(res => {
-                console.log(res)
-                window.localStorage.setItem('token', res.data.token);
-                window.localStorage.setItem('isuser', res.data.user.isuser);
-                if (res.data.user.isuser)
-                    this.props.history.push("/bookaslot");
-                else 
-                    this.props.history.push("/");
+          await axios.post('http://localhost:3001/userlogin', this.state)
+            .then(async res => {
+                if (res.data.msg)
+                    toast.error(res.data.msg);
+                else {
+
+                    window.localStorage.setItem('token', res.data.token);
+                    window.localStorage.setItem('isuser', res.data.user.isuser);
+                    if (res.data.user.isuser) {
+                        this.props.history.push({
+                            pathname: "/bookaslot",
+                            state: {loggedin : true}
+                        });
+                    }
+                    else
+                        this.props.history.push("/");
+                    toast.success("Successfully Logged In")
+                }
+                
             })
             .catch(err => {
-                console.log(err)
+                alert("In error");
+                console.log(err);
+                toast.error(err);
             })
       }
 
@@ -51,6 +65,7 @@ export default class UserRegister extends Component {
                     <button type="submit" id="submit" className="btn btn-primary">Login</button>
                 </form>
                 </div>
+                <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )
     }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavigationBar from './Navigationbar';
 import css from './BookaSlot.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
     
@@ -44,7 +46,7 @@ import css from './BookaSlot.module.css';
       console.log(addressObject);
     }
     
-    function BookaSlot() {
+    function BookaSlot(props) {
       const [query, setQuery] = useState("");
       const autoCompleteRef = useRef(null);
     
@@ -64,14 +66,12 @@ import css from './BookaSlot.module.css';
     //         value={query}
     //       />
     //     </div>
-    //   );
-    
+    //  .loggedin    
     
         return (
             <div>
                 <NavigationBar />
                 <div className={css.search}>
-                    
                     <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     <h2>Book a Parking Spot</h2>
                     <input type="text" ref={autoCompleteRef}
@@ -81,6 +81,7 @@ import css from './BookaSlot.module.css';
 
 
                 </div>
+                <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )
         }
