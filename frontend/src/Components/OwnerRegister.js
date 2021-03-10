@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import userregister from './OwnerRegister.module.css';
+import userregister from '../CSS/OwnerRegister.module.css';
 import NavigationBar from './Navigationbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -42,7 +42,7 @@ export default class UserRegister extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg)
                 else {
-                    this.props.history.push('/login')
+                    this.props.history.push('/ownerlogin')
                     toast.success("Successfully Registered, Login to Continue")
                 }
             })

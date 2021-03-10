@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import login from './login.module.css';
+import login from '../CSS/login.module.css';
 import axios from 'axios';
 import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,7 +14,7 @@ export default class UserRegister extends Component {
 
       onSubmit = async (e) => {
           e.preventDefault()    
-          await axios.post('http://localhost:3001/userlogin', this.state)
+          await axios.post('http://localhost:3001/login', this.state)
             .then(async res => {
                 if (res.data.msg)
                     toast.error(res.data.msg);
@@ -35,7 +35,7 @@ export default class UserRegister extends Component {
                 
             })
             .catch(err => {
-                alert("In error");
+                alert(err);
                 console.log(err);
                 toast.error(err);
             })

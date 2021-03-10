@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import userregister from './UserRegister.module.css';
+import userregister from '../CSS/UserRegister.module.css';
 import NavigationBar from './Navigationbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,14 +35,14 @@ export default class UserRegister extends Component {
         }
       };
 
-      onSubmit = (e) => {
+    onSubmit = (e) => {
           e.preventDefault()    
           axios.post('http://localhost:3001/userregistration', this.state)
             .then(res => {
                 if (res.data.msg)
                     toast.error(res.data.msg)
                 else {
-                    this.props.history.push('/login')
+                    this.props.history.push('/userlogin')
                     toast.success("Successfully Registered, Login to Continue")
                 }
             })

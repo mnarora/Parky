@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavigationBar from './Navigationbar';
-import css from './BookaSlot.module.css';
+import css from '../CSS/BookaSlot.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
