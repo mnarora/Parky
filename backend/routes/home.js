@@ -3,9 +3,16 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
-
+const Razorpay = require('razorpay')
+const shortid = require('shortid')
 
 const router = express.Router()
+
+const razorpay = new Razorpay({
+	key_id: 'rzp_test_4z2vw67s30xv3b',
+	key_secret: 'xXsnlR6bo0TQd86ya5j7yjd7'
+})
+
 
 router.get("/", (req, res) => {
     return res.send("In / func");
@@ -86,4 +93,30 @@ router.post("/login",async (req, res) => {
    
 
 });
+
+router.post('/razorpay', async (req, res) => {
+	const payment_capture = 1
+	const amount = 1
+	const currency = 'INR'
+
+	const options = {
+		amount: amount * 100,
+		currency,
+		receipt: shortid.generate(),
+		payment_capture
+	}
+
+	try {
+		const response = await razorpay.orders.create(options)
+		console.log(response)
+		res.json({
+			id: response.id,
+			currency: response.currency,
+			amount: response.amount
+		})
+	} catch (error) {
+		console.log(error)
+	}
+})
+
 module.exports = router;

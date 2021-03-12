@@ -5,6 +5,7 @@ import Ownerlogin from './Components/ownerlogin';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
 import BookaSlot from './Components/BookaSlot';
+import Payment from './Components/Payment';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 class ProtectedRoute extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path="/ownerregister" exact component={OwnerRegister} />
           <Route path="/userregister" exact component={UserRegister} />
           <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
+          <Route path="/payment" exact component={Payment} />
         </Switch>
       </BrowserRouter>
       </div>
