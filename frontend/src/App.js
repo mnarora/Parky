@@ -3,8 +3,9 @@ import Homepage from './Homepage';
 import Login from './Login';
 import OwnerRegister from './OwnerRegister';
 import UserRegister from './UserRegister';
-import BookaSlot from './BookaSlot';
+//import BookaSlot from './BookaSlot';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import GoogleMap from './GoogleMap';
 
 class ProtectedRoute extends Component {
   render() {
@@ -36,7 +37,7 @@ class App extends Component {
           <Route path="/login" exact component={Login} />
           <Route path="/ownerregister" exact component={OwnerRegister} />
           <Route path="/userregister" exact component={UserRegister} />
-          <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
+          <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
         </Switch>
       </BrowserRouter>
       </div>
