@@ -7,7 +7,9 @@ import UserRegister from './Components/UserRegister';
 import BookaSlot from './Components/BookaSlot';
 import Payment from './Components/Payment';
 import ResetPassword from './Components/ResetPassword';
+import GoogleMap from './Components/GoogleMap'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
 
 class ProtectedRoute extends Component {
   render() {
@@ -40,7 +42,8 @@ class App extends Component {
           <Route path="/ownerlogin" exact component={Ownerlogin}/>
           <Route path="/ownerregister" exact component={OwnerRegister} />
           <Route path="/userregister" exact component={UserRegister} />
-          <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
+          <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
+          /<ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
           <Route path="/resetpassword" exact component={ResetPassword} />
         </Switch>

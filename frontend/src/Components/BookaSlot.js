@@ -20,18 +20,16 @@ import 'react-toastify/dist/ReactToastify.css';
             callback();
           }
         };
-      } else {
-        script.onload = () => callback();
-      }
-    
-      script.src = url;
+      }/* else {
+        script.onload = () => callb
+        <ToastContainer position={toast.POSITION.TOP_CENTER}/>
       document.getElementsByTagName("head")[0].appendChild(script);
-    };
+      */}
     
     function handleScriptLoad(updateQuery, autoCompleteRef) {
       autoComplete = new window.google.maps.places.Autocomplete(
         autoCompleteRef.current,
-        { types: ["(cities)"], componentRestrictions: { country: "in" } }
+        { types: ["(regions)"], componentRestrictions: { country: "in" } }
       );
       autoComplete.setFields(["address_components", "formatted_address"]);
       autoComplete.addListener("place_changed", () =>
