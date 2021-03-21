@@ -51,7 +51,10 @@ export default class Ownerlogin extends Component {
                 
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
-                <h1>Owner Login</h1>
+                <center>
+                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" height="150px"/>
+                    <h1>Owner Login</h1>
+                </center>
                     <div className="form-group mt-5">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
@@ -62,9 +65,11 @@ export default class Ownerlogin extends Component {
                         <input type="password" className="form-control" id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required/>
                     </div>
                     
-                    <button type="submit" id="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" id="submit" className={"btn btn-primary "+login.buttonn}>Login</button>
+                    <a href="/resetpassword" ><p className="mt-2 text-muted" align="right">Forgot Password</p></a>                
                 </form>
                 </div>
+                
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )

@@ -18,3 +18,12 @@ body {
 label {
     font-weight: bold;
 }
+
+.buttonn {
+    width: 100%;
+    background-color: black;
+    padding: 10px 10px;
+    font-size: larger;
+    color: white;
+
+}

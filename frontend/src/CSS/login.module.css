@@ -5,7 +5,7 @@ body {
 .logform {
     margin-left: auto;
     display: inline-block;
-    padding: 5% 5%;
+    padding: 2% 5%;
     background-color: white;
     text-align: left;
     border: 3px solid black;
@@ -17,4 +17,13 @@ body {
 
 label {
     font-weight: bold;
+}
+
+.buttonn {
+    width: 100%;
+    background-color: black;
+    padding: 10px 10px;
+    font-size: larger;
+
+
 }

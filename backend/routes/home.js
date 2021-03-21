@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 const Razorpay = require('razorpay')
 const shortid = require('shortid')
+const nodemailer = require('nodemailer');
 
 const router = express.Router()
 
@@ -117,6 +118,50 @@ router.post('/razorpay', async (req, res) => {
 	} catch (error) {
 		console.log(error)
 	}
+})
+
+router.post('/sendmail', async (req, res) => {
+    var otp = Math.floor((Math.random() * 10000) + 1);
+    otp = otp.toString();
+    console.log(req.body)
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'pms.parking24by7@gmail.com',
+          pass: 'pms@parking#24#7'
+        }
+      });
+      var mailOptions = {
+        from: 'pms.parking24by7@gmail.com',
+        to: req.body.email,
+        subject: 'OTP to reset Password',
+        text: `\nYou have requested to reset your password of Parking Management System. Your One Time Confidential Password to reset your password is ${otp}\n`
+      };
+      
+      await transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+          return res.status(200).json({OTP: otp})
+        }
+      });
+})
+
+router.post('/resetpassword', async (req, res) => {
+    const email = req.body.email;
+    const user = await User.findOne({ email });
+    console.log(req.body);
+    console.log(user);
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            user.password = hash;
+            user.save();
+            return res.status(200).json({msg: "Password reseted successfully"})
+        })
+    })
+
 })
 
 module.exports = router;

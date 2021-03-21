@@ -6,6 +6,7 @@ import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
 import BookaSlot from './Components/BookaSlot';
 import Payment from './Components/Payment';
+import ResetPassword from './Components/ResetPassword';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 class ProtectedRoute extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path="/userregister" exact component={UserRegister} />
           <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
+          <Route path="/resetpassword" exact component={ResetPassword} />
         </Switch>
       </BrowserRouter>
       </div>
