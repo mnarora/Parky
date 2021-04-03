@@ -5,13 +5,10 @@ import Ownerlogin from './Components/ownerlogin';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
 import BookaSlot from './Components/BookaSlot';
-<<<<<<< HEAD
 import Payment from './Components/Payment';
 import ResetPassword from './Components/ResetPassword';
 import GoogleMap from './Components/GoogleMap'
-=======
 import AddParkingSpace from './Components/AddParkingSpace';
->>>>>>> test
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 
@@ -46,15 +43,12 @@ class App extends Component {
           <Route path="/ownerlogin" exact component={Ownerlogin}/>
           <Route path="/ownerregister" exact component={OwnerRegister} />
           <Route path="/userregister" exact component={UserRegister} />
-<<<<<<< HEAD
           <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
           /<ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
           <Route path="/resetpassword" exact component={ResetPassword} />
-=======
           <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/ParkingSpace/Add"  exact component={AddParkingSpace} />
->>>>>>> test
         </Switch>
       </BrowserRouter>
       </div>
