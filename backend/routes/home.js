@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
-
+const ParkingSpace = require('../models/Parkingspace.models');
 
 const router = express.Router()
 
@@ -86,4 +86,22 @@ router.post("/login",async (req, res) => {
    
 
 });
+
+router.post("/parkingspace/add", async(req, res) => {
+    //console.log(req.body)
+    const newSpace = new ParkingSpace(req.body)
+    newSpace.save()
+        .then(space => {
+            console.log("Saves sucessfully")
+            return res.status(200).json({
+                msg : "Parking Space details saved successfully"
+              });
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(200).json({error : err})
+        })
+    
+})
+
 module.exports = router;

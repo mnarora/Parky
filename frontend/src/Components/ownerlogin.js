@@ -29,7 +29,7 @@ export default class Ownerlogin extends Component {
                         });
                     }
                     else
-                        this.props.history.push("/");
+                        this.props.history.push("/ParkingSpace/Add");
                     toast.success("Successfully Logged In")
                 }
                 
