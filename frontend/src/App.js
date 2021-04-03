@@ -22,7 +22,7 @@ class ProtectedRoute extends Component {
         render={props => (
           localStorage.getItem('isuser') ?
             <Component {...props} /> :
-            <Redirect to='/login' />
+            <Redirect to='/userlogin' />
         )} 
       />
     )
