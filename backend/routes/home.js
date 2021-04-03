@@ -144,7 +144,7 @@ router.post('/sendmail', async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-            console.log('Email sent: ' + info.response);
+            console.log("Email sent: " + info.response);
           return res.status(200).json({OTP: otp})
         }
       });
