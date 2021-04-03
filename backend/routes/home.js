@@ -3,9 +3,13 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
+<<<<<<< HEAD
 const Razorpay = require('razorpay')
 const shortid = require('shortid')
 const nodemailer = require('nodemailer');
+=======
+const ParkingSpace = require('../models/Parkingspace.models');
+>>>>>>> test
 
 const router = express.Router()
 
@@ -95,6 +99,7 @@ router.post("/login",async (req, res) => {
 
 });
 
+<<<<<<< HEAD
 router.post('/razorpay', async (req, res) => {
 	const payment_capture = 1
 	const amount = 1
@@ -162,6 +167,23 @@ router.post('/resetpassword', async (req, res) => {
         })
     })
 
+=======
+router.post("/parkingspace/add", async(req, res) => {
+    //console.log(req.body)
+    const newSpace = new ParkingSpace(req.body)
+    newSpace.save()
+        .then(space => {
+            console.log("Saves sucessfully")
+            return res.status(200).json({
+                msg : "Parking Space details saved successfully"
+              });
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(200).json({error : err})
+        })
+    
+>>>>>>> test
 })
 
 module.exports = router;
