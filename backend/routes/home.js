@@ -150,17 +150,19 @@ router.post('/sendmail', async (req, res) => {
       });
 })
 
-router.post('/resetpassword', async (req, res) => {
+
+router.post("/resetpassword", async(req, res) => {
     const email = req.body.email;
-    const user = await User.findOne({ email });
-    console.log(req.body);
-    console.log(user);
+    const user = await User.findOne({email});
+    console.log(req.body)
+    console.log(user)
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
-            user.password = hash;
-            user.save();
+            user.password = hash
+            user.save()
             return res.status(200).json({msg: "Password reseted successfully"})
         })
+    })
 })
 
 router.post("/parkingspace/add", async(req, res) => {
