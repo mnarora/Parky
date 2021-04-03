@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const Razorpay = require('razorpay')
 const shortid = require('shortid')
 const nodemailer = require('nodemailer');
+const ParkingSpace = require('../models/Parkingspace.models');
 
 const router = express.Router()
 
@@ -143,25 +144,42 @@ router.post('/sendmail', async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-            console.log('Email sent: ' + info.response);
+            console.log("Email sent: " + info.response);
           return res.status(200).json({OTP: otp})
         }
       });
 })
 
-router.post('/resetpassword', async (req, res) => {
+
+router.post("/resetpassword", async(req, res) => {
     const email = req.body.email;
-    const user = await User.findOne({ email });
-    console.log(req.body);
-    console.log(user);
+    const user = await User.findOne({email});
+    console.log(req.body)
+    console.log(user)
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
-            user.password = hash;
-            user.save();
+            user.password = hash
+            user.save()
             return res.status(200).json({msg: "Password reseted successfully"})
         })
     })
+})
 
+router.post("/parkingspace/add", async(req, res) => {
+    //console.log(req.body)
+    const newSpace = new ParkingSpace(req.body)
+    newSpace.save()
+        .then(space => {
+            console.log("Saves sucessfully")
+            return res.status(200).json({
+                msg : "Parking Space details saved successfully"
+              });
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(200).json({error : err})
+        })
+    
 })
 
 module.exports = router;

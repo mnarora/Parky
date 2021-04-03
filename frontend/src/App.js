@@ -8,6 +8,7 @@ import BookaSlot from './Components/BookaSlot';
 import Payment from './Components/Payment';
 import ResetPassword from './Components/ResetPassword';
 import GoogleMap from './Components/GoogleMap'
+import AddParkingSpace from './Components/AddParkingSpace';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 
@@ -46,6 +47,8 @@ class App extends Component {
           /<ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
           <Route path="/resetpassword" exact component={ResetPassword} />
+          <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
+          <Route path="/ParkingSpace/Add"  exact component={AddParkingSpace} />
         </Switch>
       </BrowserRouter>
       </div>
