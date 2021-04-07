@@ -84,7 +84,7 @@ export default class UserRegister extends Component {
                         <span id="msg"></span>
                     </div>
                     
-                    <button className={userregister.buttonn} type="submit" id="submit" >Register</button>
+                    <button className={userregister.buttonnx} type="submit" id="submit" >Register</button>
                 </form>
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>

@@ -7,6 +7,7 @@ const Razorpay = require('razorpay')
 const shortid = require('shortid')
 const nodemailer = require('nodemailer');
 const ParkingSpace = require('../models/Parkingspace.models');
+require('dotenv').config();
 
 const router = express.Router()
 
@@ -66,7 +67,6 @@ router.post('/userregistration', async (req, res) => {
 router.post("/login",async (req, res) => {
     console.log(req.body);
     const { email, password } = req.body;
-    
       try {
         // Check for existing user
         const user = await User.findOne({ email });
@@ -122,6 +122,10 @@ router.post('/razorpay', async (req, res) => {
 })
 
 router.post('/sendmail', async (req, res) => {
+    const email = req.body.email;
+    const user = await User.findOne({email});
+    if (!user)
+      return res.status(200).json({msg: 'User Account Does not exist'});
     var otp = Math.floor((Math.random() * 10000) + 1);
     otp = otp.toString();
     console.log(req.body)
@@ -129,8 +133,8 @@ router.post('/sendmail', async (req, res) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'pms.parking24by7@gmail.com',
-          pass: 'pms@parking#24#7'
+          user: process.env.PARKY_EMAIL_ID,
+          pass: process.env.PARKY_EMAIL_PASS
         }
       });
       var mailOptions = {

@@ -69,6 +69,14 @@ export default class AddParkingSpace extends Component {
                 <NavigationBar />
 
                 <div >
+                    <div style={{backgroundColor : "blueviolet", height: "50vh"}}>
+                        <br /><br />
+                        <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
+                        <center className="mt-5">
+                        <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" />
+                        </center>
+
+                    </div>
                     <h1 style={{ textAlign: 'center' }}>Add Parking Space</h1>
                     <Form style={{ width: '50%', marginLeft: '450px' }} onSubmit= {this.onSubmit}> 
                         <FormGroup>

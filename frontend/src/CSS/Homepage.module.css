@@ -3,16 +3,18 @@ body, html {
     margin: 0;
 }
 
-.homepage {
-    background-image: url('https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHBhcmtpbmd8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
-
-    /* Full height */
-    height: 100vh; 
-
-    /* Center and scale the image nicely */
-    background-position: center;
+/* .homepage {
+    background-image: url('https://miro.medium.com/max/1080/1*MEeIEhTP56vE1TW8fht5nQ.jpeg');
+    height:100vh;
+    background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: scroll;
+    background-color: #464646;
+} */
+
+.homepage {
+    height: 70vh;
 }
 
 .font {
@@ -20,4 +22,14 @@ body, html {
     margin-top: 12%;
     margin-left: 10%;
     font-style: oblique;
+}
+
+.btn {
+    height: auto;
+    width: auto;
+    background-color: lightseagreen;
+    font-size: large;
+    font-weight: 600;
+    padding: 10px 10px;
+    border-radius: 12px;
 }

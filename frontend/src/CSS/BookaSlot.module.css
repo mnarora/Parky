@@ -1,4 +1,7 @@
 
+body {
+    background-color: white;
+}
 .search {
     background-color: blueviolet;
     text-align: center;
@@ -25,3 +28,14 @@ input {
     background-color: none;
     outline: none;
 }
+
+button {
+    height: auto;
+    width: auto;
+    background-color: darkslateblue;
+    font-size: x-large;
+    font-weight: 600;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+

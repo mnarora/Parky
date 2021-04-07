@@ -3,6 +3,7 @@ import NavigationBar from './Navigationbar';
 import css from '../CSS/BookaSlot.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
     
@@ -20,11 +21,13 @@ import 'react-toastify/dist/ReactToastify.css';
             callback();
           }
         };
-      }/* else {
-        script.onload = () => callb
-        <ToastContainer position={toast.POSITION.TOP_CENTER}/>
+      } else {
+        script.onload = () => callback();
+      }
+    
+      script.src = url;
       document.getElementsByTagName("head")[0].appendChild(script);
-      */}
+    };
     
     function handleScriptLoad(updateQuery, autoCompleteRef) {
       autoComplete = new window.google.maps.places.Autocomplete(
@@ -50,7 +53,7 @@ import 'react-toastify/dist/ReactToastify.css';
     
       useEffect(() => {
         loadScript(
-          `https://maps.googleapis.com/maps/api/js?key=AIzaSyDGHnReAan_xlwXNhRHEH2V40UuByEZy2g&libraries=places`,
+          `https://maps.googleapis.com/maps/api/js?key=AIzaSyBPThzljDTi_ZRsR-Xg3R05x2xP9OAieaE&libraries=places`,
           () => handleScriptLoad(setQuery, autoCompleteRef)
         );
       }, []);
@@ -70,11 +73,17 @@ import 'react-toastify/dist/ReactToastify.css';
             <div>
                 <NavigationBar />
                 <div className={css.search}>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                    <h2>Book a Parking Spot</h2>
+                    <br></br><br></br>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <h1 style={{fontWeight : "900"}}>PARKING JUST GOT A LOT SIMPLER</h1>
+                    <h3 style={{fontStyle: "italic"}}>Book the Best Spaces and Save up to 20% off</h3>
+                    <br /><br /><br />
+                    <h2 className="mt-5">Where do You want to Park?</h2>
                     <input type="text" ref={autoCompleteRef}
                     onChange={event => setQuery(event.target.value)}
                     value={query} placeholder="Enter Address"/>
+
+                    <button className="mt-5" type="submit">Search Your Parking Space</button>
                     <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
 

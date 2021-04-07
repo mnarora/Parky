@@ -33,9 +33,15 @@ export default class ResetPassword extends Component {
 
         await axios.post('http://localhost:3001/sendmail', {email:this.state.email})
         .then(async res => {
-            this.setState({originalotp: res.data.OTP});
-            document.getElementById('otp').style.color = 'red';
-            document.getElementById('otp').innerHTML = 'OTP sent Successfully';
+            if (res.data.msg) {
+                document.getElementById('otp').style.color = 'red';
+                document.getElementById('otp').innerHTML = res.data.msg;
+            }
+            else {
+                this.setState({originalotp: res.data.OTP});
+                document.getElementById('otp').style.color = 'red';
+                document.getElementById('otp').innerHTML = 'OTP sent Successfully';
+            }
 
         })
         .catch(err => {
@@ -61,7 +67,6 @@ export default class ResetPassword extends Component {
         return (
             
             <div>
-                {console.log(this.props)}
                 <NavigationBar/>
                 <div class="mt-5" align="center">
                     <form className={login.logform} onSubmit={this.onSubmit}>

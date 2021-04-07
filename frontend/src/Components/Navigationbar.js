@@ -23,8 +23,8 @@ export default class NavigationBar extends Component {
 
     render() {
         return (
-                <Navbar bg="light" variant="light" expand="lg">
-                <Navbar.Brand href="/">PMS</Navbar.Brand>
+                <Navbar style={{height: '70px'}} bg="dark" variant="dark" expand="lg">
+                <Navbar.Brand href="/">Parky</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
               
@@ -46,6 +46,10 @@ export default class NavigationBar extends Component {
                 ):(
                   <div className="ml-auto mr-5">
                     <Nav >
+                        <NavDropdown className="mr-4" title="Manish" id="basic-nav-dropdown">
+                          <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                          <NavDropdown.Item href="/history">Booking History</NavDropdown.Item>
+                        </NavDropdown>
                       <Nav.Link onClick={this.logout} href="/">Logout</Nav.Link>
                     </Nav>
                   </div>

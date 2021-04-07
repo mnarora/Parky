@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const homeRouter = require('./routes/home');
+require('dotenv').config();
+
 
 const app = express();
 
@@ -14,7 +16,7 @@ app.use("/", homeRouter);
 
 
 const Port = 3001;
-const URI = "mongodb+srv://manish:Pass@1234@cluster0.kzjdx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const URI = process.env.DB_URI;
 
 const connectDB = async() => {
     await mongoose.connect(URI, {
