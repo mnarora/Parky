@@ -11,7 +11,9 @@ import GoogleMap from './Components/GoogleMap'
 import AddParkingSpace from './Components/AddParkingSpace';
 import GetDirections from './Components/GetDirections';
 import Profile from './Components/Profile';
+import History from './Components/BookingHistory';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import BookingHistory from './Components/BookingHistory';
 
 
 class ProtectedRoute extends Component {
@@ -53,6 +55,7 @@ class App extends Component {
           <Route path="/getdirections" exact component={GetDirections} />
           <Route path="/ParkingSpace/Add" exact component={AddParkingSpace} />
           <ProtectedRoute path="/profile" exact component={Profile} />
+          <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
           
         </Switch>
       </BrowserRouter>

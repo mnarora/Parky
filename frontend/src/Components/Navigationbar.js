@@ -48,7 +48,7 @@ export default class NavigationBar extends Component {
                     <Nav >
                         <NavDropdown className="mr-4" title="Manish" id="basic-nav-dropdown">
                           <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                          <NavDropdown.Item href="/history">Booking History</NavDropdown.Item>
+                          <NavDropdown.Item href="/bookinghistory">Booking History</NavDropdown.Item>
                         </NavDropdown>
                       <Nav.Link onClick={this.logout} href="/">Logout</Nav.Link>
                     </Nav>
