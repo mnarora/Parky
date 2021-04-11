@@ -5,7 +5,7 @@ import axios from 'axios';
 import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import emailjs from 'emailjs-com';
+import { Link } from 'react-router-dom';
 
 export default class UserRegister extends Component {
     state = {
@@ -25,7 +25,7 @@ export default class UserRegister extends Component {
                     window.localStorage.setItem('isuser', res.data.user.isuser);
                     if (res.data.user.isuser) {
                         this.props.history.push({
-                            pathname: "/bookaslot",
+                            pathname: "/searchspace",
                             state: {loggedin : true}
                         });
                     }
@@ -70,7 +70,7 @@ export default class UserRegister extends Component {
                     </div>
                     
                     <button type="submit" id="submit" className={"btn btn-primary " + login.buttonn}>Login</button>
-                    <a href="/resetpassword" ><p className="mt-2 text-muted" align="right">Forgot Password</p></a>
+                    <Link to="/resetpassword" style={{ textDecoration: 'none', color: 'black' }}><p className="mt-2 text-muted" align="right">Forgot Password</p></Link>
                 </form>
                 
                 </div>

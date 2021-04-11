@@ -5,6 +5,7 @@ import axios from 'axios';
 import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 export default class Ownerlogin extends Component {
     state = {
@@ -66,7 +67,7 @@ export default class Ownerlogin extends Component {
                     </div>
                     
                     <button type="submit" id="submit" className={"btn btn-primary "+login.buttonn}>Login</button>
-                    <a href="/resetpassword" ><p className="mt-2 text-muted" align="right">Forgot Password</p></a>                
+                    <Link to="/resetpassword" style={{ textDecoration: 'none', color: 'black' }}><p className="mt-2 text-muted" align="right">Forgot Password</p></Link>                
                 </form>
                 </div>
                 

@@ -71,7 +71,7 @@ export default class ResetPassword extends Component {
                 <div class="mt-5" align="center">
                     <form className={login.logform} onSubmit={this.onSubmit}>
                         <h2>Reset Password</h2>
-                        <label>Enter Your Email</label>
+                        <p>Enter your user account's verified email address and we will send you a One Time Password to reset your Password.</p>
                         <input type="email" onChange={(e) => this.setState({email: e.target.value})} className="form-control" placeholder="Email" required />
                         <button style={{backgroundColor: 'black'}} onClick={this.generateOTP} class="btn btn-primary mt-4">Submit</button>
                         <br />

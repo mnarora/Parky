@@ -26,7 +26,7 @@ class ProtectedRoute extends Component {
         render={props => (
           localStorage.getItem('isuser') ?
             <Component {...props} /> :
-            <Redirect to='/userlogin' />
+            <Redirect to='/' />
         )} 
       />
     )
@@ -47,13 +47,13 @@ class App extends Component {
           <Route path="/ownerlogin" exact component={Ownerlogin}/>
           <Route path="/ownerregister" exact component={OwnerRegister} />
           <Route path="/userregister" exact component={UserRegister} />
-          {/* <ProtectedRoute path="/bookaslot" exact component={GoogleMap} /> */}
-          <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
+          <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
+          <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
           <Route path="/resetpassword" exact component={ResetPassword} />
           <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/getdirections" exact component={GetDirections} />
-          <Route path="/ParkingSpace/Add" exact component={AddParkingSpace} />
+          <ProtectedRoute path="/ParkingSpace/Add" exact component={AddParkingSpace} />
           <ProtectedRoute path="/profile" exact component={Profile} />
           <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
           

@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "google-maps-react": "^2.0.6",
-    "react-places-autocomplete": "^7.3.0"
-  }
-}

@@ -4,6 +4,8 @@ import css from '../CSS/BookaSlot.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import Footer from './Footer';
 
 
     
@@ -50,6 +52,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
     function BookaSlot(props) {
       const [query, setQuery] = useState("");
       const autoCompleteRef = useRef(null);
+
+      const handleSubmit = () => {
+        props.history.push({
+          pathname: "/bookaslot",
+          state: {areaname: query}
+        })
+      }
     
       useEffect(() => {
         loadScript(
@@ -57,17 +66,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
           () => handleScriptLoad(setQuery, autoCompleteRef)
         );
       }, []);
-    
-    //   return (
-    //     <div className="search-location-input">
-    //       <input
-    //         ref={autoCompleteRef}
-    //         onChange={event => setQuery(event.target.value)}
-    //         placeholder="Enter a City"
-    //         value={query}
-    //       />
-    //     </div>
-    //  .loggedin    
     
         return (
             <div>
@@ -83,11 +81,50 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                     onChange={event => setQuery(event.target.value)}
                     value={query} placeholder="Enter Address"/>
 
-                    <button className="mt-5" type="submit">Search Your Parking Space</button>
+                    <button onClick={handleSubmit} className="mt-5" type="submit">Search Your Parking Space</button>
                     <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
 
                 </div>
+
+                <div className="mt-5">
+                  <center>
+                    <h1>How Parky Works?</h1>
+                    <img className="container" style={{width: "45%"}} src ="https://whatech.b-cdn.net/images/13082/parking-app.jpg" />
+                    <div className="container row mt-5">
+                      <div className="col-sm-4">
+                        <div className="card" style={{border: "2px solid black", borderRadius: "2px"}}>
+                          <div className="card-body">
+                            <img class="card-img-top" style={{width: "50%"}} src="https://1.bp.blogspot.com/-kDGZfSwIDa4/WZztdtLZI_I/AAAAAAAAA_g/OIv9xHrf258vS5CxoieYGa8pAeVZ1WQvQCLcBGAs/s1600/1415483967locationsearch.png" alt="Card image cap" />
+                            <h5 className="card-title mt-3">Search</h5>
+                            <p className="text-muted">Search the parking space anytime at your location by using our Website.<br/> Simple And Quick.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-sm-4">
+                        <div className="card" style={{border: "2px solid black"}}>
+                            <div className="card-body">
+                              <img class="card-img-top" style={{width: "50%"}} src="https://www.paymypark.com/Images/blue-logo.png" alt="Card image cap" />
+                              <h5 className="card-title mt-3">Book</h5>
+                              <p className="text-muted">Book space which you searched by your convenience by paying standard amount.<br /> Trusted And Affordable</p>
+                            </div>
+                        </div>
+                      </div>
+                      <div className="col-sm-4">
+                        <div className="card" style={{border: "2px solid black"}}>
+                            <div className="card-body">
+                              <img class="card-img-top" style={{width: "50%"}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcg398cdTk74rWWFL9JkZRq0DW5qOJqIA6Ew&usqp=CAU" alt="Card image cap" />
+                              <h5 className="card-title mt-3">Park</h5>
+                              <p className="text-muted">Park vehicle on your dedicated space for the period of time you have booked for. Safe And Secure.</p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </center>
+
+                </div>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <Footer />
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )

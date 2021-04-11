@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
 import {Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../CSS/NavigationBar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import { Link } from 'react-router-dom';
 
 export default class NavigationBar extends Component {
 
     state = {
-        loggedIn: false
+        loggedIn: Boolean,
+        isuser: Boolean,
     }
 
     componentWillMount() {
         if (localStorage.getItem('token')) {
-            this.setState({loggedIn : true});
+            this.setState({loggedIn : true, isuser: Boolean(localStorage.getItem('isuser'))});
         }
         else 
-          this.setState({loggedIn : false});
+          this.setState({loggedIn : false, isuser: false});
     }
     
     logout = () => {
       localStorage.removeItem('token');
-      localStorage.removeItem('isuser')
-      console.log(this.props);
+      localStorage.removeItem('isuser');
+      toast.success("Successfully Logged Out")
     }
+
 
     render() {
         return (
+          <div>
                 <Navbar style={{height: '70px'}} bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="/">Parky</Navbar.Brand>
+                {(this.state.loggedIn) && !(this.state.isuser) &&
+                  <Navbar.Brand><Link to="/parkingspace/add" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
+                }
+                {(this.state.loggedIn) && (this.state.isuser) &&
+                  <Navbar.Brand><Link to="/searchspace" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
+                }
+                {!this.state.loggedIn &&
+                  <Navbar.Brand><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
+                }
+                
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
               
@@ -33,12 +51,12 @@ export default class NavigationBar extends Component {
                     <div className="ml-auto mr-5">
                       <Nav>
                         <NavDropdown title="Register" id="basic-nav-dropdown">
-                          <NavDropdown.Item href="/userregister">User</NavDropdown.Item>
-                          <NavDropdown.Item href="/ownerregister">Parking Space Owner</NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/userregister" style={{ textDecoration: 'none', color: 'black' }}>User</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/ownerregister" style={{ textDecoration: 'none', color: 'black' }}>Parking Space Owner</Link></NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Login" id="basic-nav-dropdown">
-                          <NavDropdown.Item href="/userlogin">User</NavDropdown.Item>
-                          <NavDropdown.Item href="/ownerlogin"> Owner</NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/userlogin" style={{ textDecoration: 'none', color: 'black' }}>User</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/ownerlogin" style={{ textDecoration: 'none',  color: 'black' }}>Owner</Link></NavDropdown.Item>
                         </NavDropdown>
                        
                       </Nav>
@@ -47,16 +65,17 @@ export default class NavigationBar extends Component {
                   <div className="ml-auto mr-5">
                     <Nav >
                         <NavDropdown className="mr-4" title="Manish" id="basic-nav-dropdown">
-                          <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                          <NavDropdown.Item href="/bookinghistory">Booking History</NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }}>Profile</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
                         </NavDropdown>
-                      <Nav.Link onClick={this.logout} href="/">Logout</Nav.Link>
+                      <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>Logout</Link></Nav.Link>
                     </Nav>
                   </div>
                 )}
-              
+                <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </Navbar.Collapse>
           </Navbar>
+          </div>
         )
     }   
 }
