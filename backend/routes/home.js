@@ -186,4 +186,12 @@ router.post("/parkingspace/add", async(req, res) => {
     
 })
 
+router.post("/profile", async(req, res) =>{
+  const email = req.body.email;
+  console.log(email);
+  const user = await User.findOne({email});
+  console.log(user);
+  return res.status(200).json({user})
+})
+
 module.exports = router;

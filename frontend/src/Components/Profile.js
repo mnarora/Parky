@@ -3,119 +3,88 @@ import NavigationBar from './Navigationbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Profilecss from '../CSS/Profile.module.css';
+import axios from 'axios';
+import { Table, Button } from 'reactstrap';
+import { Container } from 'react-bootstrap';
+
 
 export default class Profile extends Component {
+
+    state = {
+        email : '',
+        name : '',
+        contact_no : ''
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem('useremail')) {
+            this.setState({email:localStorage.getItem('useremail')});
+            //console.log(localStorage.getItem('useremail'))
+        }
+        else{
+            console.log("No user")
+        }
+    }
+
+    profilehandler =  (e) => {
+        console.log(this.state.email);
+        axios.post('http://localhost:3001/profile', this.state)
+        .then(res => {
+            console.log(res.data.user)
+            this.setState({
+                name : res.data.user.name,
+                contact_no : res.data.user.contact
+            })
+        })
+    }
+  
+
+
     render() {
         return (
             <div>
-                <NavigationBar />
+                <NavigationBar profilehandler= {this.profilehandler}/>
 
                 <div>
-                <h1 style={{textAlign: 'center'}} className="mt-5 mr-5">Profile</h1>
-                    <div className="mt-5 row">
-                        <div className="col-sm-4">
-                        </div>
-                        <div className="col-sm-2">
-                        <h4>First Name</h4>
-                        <p class="text-muted">Manish</p>
-                        </div>
-                        <div className="col-sm-6">
-                        <h4>Last Name</h4>
-                        <p class="text-muted">Arora</p>
-                        </div>
-                       
+                <h1 style={{textAlign: 'center'}} className="mt-5 mr-5">My Profile</h1>
+                <Container style={{marginTop: '50px'}}>
+                    <Table hover>
+                
+                        <tbody>
+                            <tr>
+                                <th scope="row"></th>
+                                <td><strong>Name</strong></td>
+                                <td>{this.state.name}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td><strong>Email</strong></td>
+                                <td>{this.state.email}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td><strong>Mobile Number</strong></td>
+                                <td>{this.state.contact_no}</td>
+                            </tr>
+                            <tr>
+
+                                <th scope="row"></th>
+                                <td><strong></strong></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </Table>
+                    <div style={{display: 'inline-flex', marginLeft: '20px'}}>
+                        <Button style={{marginLeft: '400px'}} color="primary">Edit Profile</Button>
+                        <Button style={{marginLeft: '50px'}} color="primary" onSubmit= {this.onSubmit}>Delete Account</Button>
                     </div>
+                    
+                </Container>
+                
                 </div>
 
-                {/* <div className="page-content page-container mt-5" id="page-content">
-        <div className="padding">
-            <div className="row container d-flex justify-content-center">
-                <div className="col-xl-8 col-md-12">
-                    <div className="card user-card-full" style={{borderRadius: '5px 0 0 5px'}}>
-                        <div className="row m-l-0 m-r-0">
-                            <div className="col-sm-4 bg-c-lite-green user-profile" style={{borderRadius: '5px 0 0 5px', padding : '20px 0'}}>
-                                <div className="card-block text-center text-white mt-5">
-                                    <div className="m-b-25"> <img src="//img.icons8.com/fluent/96/000000/test-account.png" className={Profilecss.imgradius} alt="User-Profile-Image" /> </div>
-                                    <h6 className="f-w-600">Manish</h6>
-                                    <p>COEP</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                                </div>
-                            </div>
-                            <div className="col-sm-8">
-                                <div className="card-block">
-                            
-                                    <h6 style={{fontSize: 'xx-large', fontWeight: 'bold'}}>Profile</h6>
-                                    
-
-                                    <div className="row mt-5">
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Email</p>
-                                            <h6 className="text-muted f-w-400">mnarora2000@gmail.com</h6>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Phone</p>
-                                            <h6 className="text-muted f-w-400">+91 7249335682</h6>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Gender</p>
-                                            <h6 className="text-muted f-w-400">Male</h6>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Degree</p>
-                                            <h6 className="text-muted f-w-400">B.tech</h6>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Branch</p>
-                                            <h6 className="text-muted f-w-400">Computer</h6>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Year of Graduation</p>
-                                            <h6 className="text-muted f-w-400">2022</h6>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Current-Location</p>
-                                            <h6 className="text-muted f-w-400">Pune</h6>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Current Position</p>
-                                            <h6 className="text-muted f-w-400">Summer Analyst at Goldman Sachs</h6>
-                                        </div>
-                                    </div>
-                               
-                                    
-                                    <div className="row">
-                                        
-                                        <form method ="GET">
-                                        <div className="row">
-                                            <div className="col-sm-6">
-                                                <a href = "/editprofile"> <button type="button" className="btn btn-dark">Edit Profile</button></a>
-                                            </div>
-                                            <div className="col-sm-6" >
-                                                <a href = "/deleteaccount"><button type="button" className="btn btn-danger">Delete Account</button></a>
-                                            </div>
-                                            
-                                        </div>
-                                    </form>
-                                    </div>
-                                  
-
-                                   
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>*/}
-</div> 
+            </div> 
         )
     }
 }

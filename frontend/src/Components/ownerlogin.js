@@ -23,6 +23,7 @@ export default class Ownerlogin extends Component {
 
                     window.localStorage.setItem('token', res.data.token);
                     window.localStorage.setItem('isuser', res.data.user.isuser);
+                    window.localStorage.setItem('useremail', res.data.user.email);
                     if (res.data.user.isuser) {
                         this.props.history.push({
                             pathname: "/bookaslot",

@@ -6,6 +6,8 @@ import '../CSS/NavigationBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Profile from './Profile';
 
 export default class NavigationBar extends Component {
 
@@ -27,8 +29,7 @@ export default class NavigationBar extends Component {
       localStorage.removeItem('isuser');
       toast.success("Successfully Logged Out")
     }
-
-
+   
     render() {
         return (
           <div>
@@ -64,8 +65,8 @@ export default class NavigationBar extends Component {
                 ):(
                   <div className="ml-auto mr-5">
                     <Nav >
-                        <NavDropdown className="mr-4" title="Manish" id="basic-nav-dropdown">
-                          <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }}>Profile</Link></NavDropdown.Item>
+                        <NavDropdown className="mr-4" title={localStorage.getItem('useremail')} id="basic-nav-dropdown">
+                          <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
                         </NavDropdown>
                       <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>Logout</Link></Nav.Link>

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
-export default class UserRegister extends Component {
+export default class Login extends Component {
     state = {
         email : '',
         password : ''
@@ -23,6 +23,7 @@ export default class UserRegister extends Component {
 
                     window.localStorage.setItem('token', res.data.token);
                     window.localStorage.setItem('isuser', res.data.user.isuser);
+                    window.localStorage.setItem('useremail', res.data.user.email);
                     if (res.data.user.isuser) {
                         this.props.history.push({
                             pathname: "/searchspace",
@@ -42,8 +43,7 @@ export default class UserRegister extends Component {
             })
       }
 
-
-
+      
       
     render() {
 
@@ -51,7 +51,7 @@ export default class UserRegister extends Component {
 
         return (
             <div>
-                <NavigationBar/>
+                <NavigationBar />
                 
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
