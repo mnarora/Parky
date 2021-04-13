@@ -6,14 +6,17 @@ const BookingSpaceSchema = new Schema({
     address: {
         type: String
     },
-    arrivaltime : {
+    arrival_time : {
         type: String
     },
-    departuretime : {
+    departure_time : {
         type: String
     },
     date : {
         type: Date
+    },
+    email:{
+        type: String
     }
 },   { strict: false });
 

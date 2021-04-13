@@ -7,6 +7,7 @@ const Razorpay = require('razorpay')
 const shortid = require('shortid')
 const nodemailer = require('nodemailer');
 const ParkingSpace = require('../models/Parkingspace.models');
+const BookingSpace = require('../models/Bookingspace.models');
 require('dotenv').config();
 
 const router = express.Router()
@@ -219,5 +220,20 @@ router.delete("/deleteaccount/:email", async(req, res) => {
   await User.findOneAndDelete({email})
   .then(res.status(200).json({status: 'ACCOUNT_DELETED',}))
   .catch(err => res.status(400).json({err}))
+})
+
+router.post("/bookspace", async(req, res) => {
+  const BookedSpace = new BookingSpace(req.body)
+    BookedSpace.save()
+        .then(space => {
+            console.log("Saves sucessfully")
+            return res.status(200).json({
+                msg : "Space Booked"
+              });
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(200).json({error : err})
+        })
 })
 module.exports = router;

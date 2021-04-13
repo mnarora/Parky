@@ -23,7 +23,7 @@ export default class BookingHistory extends Component {
                             Rs 120
                             </div>
                             <div className="col-sm-2 mt-4">
-                            12/04/2021
+                            12/04/2021Parking Space details saved successfully
                             </div>
                             <div className="col-sm-2 mt-4">
                                 5pm to 8pm

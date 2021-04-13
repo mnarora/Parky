@@ -15,6 +15,7 @@ import History from './Components/BookingHistory';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import BookingHistory from './Components/BookingHistory';
 import EditProfile from './Components/EditProfile';
+import BookSpace from './Components/BookSpace';
 
 class ProtectedRoute extends Component {
   render() {
@@ -57,6 +58,7 @@ class App extends Component {
           <ProtectedRoute path="/profile" exact component={Profile} />
           <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
           <Route path="/editprofile/:email" exact component={EditProfile}  />
+          <Route path="/bookspace" exact component={BookSpace}/>
         </Switch>
       </BrowserRouter>
       </div>
