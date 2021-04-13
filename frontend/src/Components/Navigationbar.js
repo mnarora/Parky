@@ -30,6 +30,8 @@ export default class NavigationBar extends Component {
       toast.success("Successfully Logged Out")
     }
    
+   
+
     render() {
         return (
           <div>

@@ -24,6 +24,7 @@ export default class Login extends Component {
                     window.localStorage.setItem('token', res.data.token);
                     window.localStorage.setItem('isuser', res.data.user.isuser);
                     window.localStorage.setItem('useremail', res.data.user.email);
+                    window.localStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.isuser) {
                         this.props.history.push({
                             pathname: "/searchspace",

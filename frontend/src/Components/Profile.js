@@ -6,44 +6,64 @@ import Profilecss from '../CSS/Profile.module.css';
 import axios from 'axios';
 import { Table, Button } from 'reactstrap';
 import { Container } from 'react-bootstrap';
-
+import EditProfile from './EditProfile';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Profile extends Component {
-
+    
     state = {
         email : '',
         name : '',
-        contact_no : ''
+        contact_no : '',
+        editprofile : 0
     }
-
+    
     componentDidMount() {
         if (localStorage.getItem('useremail')) {
             this.setState({email:localStorage.getItem('useremail')});
-            //console.log(localStorage.getItem('useremail'))
+            console.log(localStorage.getItem('useremail'))
+            
+            axios.post('http://localhost:3001/profile/' + localStorage.getItem('useremail'), this.state)
+            .then(res => {
+                console.log(res.data.user)
+                this.setState({
+                    name : res.data.user.name,
+                    contact_no : res.data.user.contact
+                })
+            })
         }
         else{
             console.log("No user")
         }
     }
 
-    profilehandler =  (e) => {
-        console.log(this.state.email);
-        axios.post('http://localhost:3001/profile', this.state)
+  
+    editProfileHandler = (e) => {
+        console.log(this.props)
+        const loggedinuser = this.state;
+        this.setState({editprofile : 1})
+        this.props.history.push(`/editprofile/${this.state.email}`)
+       
+    }
+
+    deleteAccountHandler = () => {
+        console.log('deleteing')
+        axios.delete('http://localhost:3001/deleteaccount/' + localStorage.getItem('useremail'))
         .then(res => {
-            console.log(res.data.user)
-            this.setState({
-                name : res.data.user.name,
-                contact_no : res.data.user.contact
-            })
+            window.localStorage.setItem('useremail', '')
+            this.props.history.push('/')
+            toast.success("Account deleted")
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
-  
-
-
+   
     render() {
         return (
             <div>
-                <NavigationBar profilehandler= {this.profilehandler}/>
+                <NavigationBar/>
 
                 <div>
                 <h1 style={{textAlign: 'center'}} className="mt-5 mr-5">My Profile</h1>
@@ -76,12 +96,14 @@ export default class Profile extends Component {
 
                     </Table>
                     <div style={{display: 'inline-flex', marginLeft: '20px'}}>
-                        <Button style={{marginLeft: '400px'}} color="primary">Edit Profile</Button>
-                        <Button style={{marginLeft: '50px'}} color="primary" onSubmit= {this.onSubmit}>Delete Account</Button>
+                        <Button style={{marginLeft: '400px'}} color="primary" onClick={this.editProfileHandler}>Edit Profile</Button>
+                        <Button style={{marginLeft: '50px'}} color="primary" onClick= {this.deleteAccountHandler}>Delete Account</Button>
                     </div>
                     
                 </Container>
                 
+                    
+            
                 </div>
 
             </div> 

@@ -38,7 +38,8 @@ export default class AddParkingSpace extends Component {
         })
     }
 
-    
+
+   
 
     handleImageChange  = (e) => {
         e.preventDefault()

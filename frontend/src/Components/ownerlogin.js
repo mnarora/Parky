@@ -20,18 +20,23 @@ export default class Ownerlogin extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg);
                 else {
-
+                    console.log(res.data.user)
                     window.localStorage.setItem('token', res.data.token);
                     window.localStorage.setItem('isuser', res.data.user.isuser);
                     window.localStorage.setItem('useremail', res.data.user.email);
+                    window.localStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.isuser) {
                         this.props.history.push({
                             pathname: "/bookaslot",
                             state: {loggedin : true}
                         });
                     }
-                    else
+                   
+                    else{
+                        console.log(localStorage.getItem('userid'))
                         this.props.history.push("/ParkingSpace/Add");
+                    }
+                        
                     toast.success("Successfully Logged In")
                 }
                 

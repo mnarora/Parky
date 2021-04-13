@@ -10,6 +10,7 @@ const ParkingSpace = require('../models/Parkingspace.models');
 require('dotenv').config();
 
 const router = express.Router()
+var useremail 
 
 const razorpay = new Razorpay({
 	key_id: 'rzp_test_4z2vw67s30xv3b',
@@ -78,7 +79,7 @@ router.post("/login",async (req, res) => {
         const token = jwt.sign({ id: user._id }, "sl_myJwtSecret", { expiresIn: 3600 });
         if (!token) throw Error('Couldnt sign the token');
         
-    
+        useremail = user.email;
         return res.status(200).json({
           token,
           user: {
@@ -186,12 +187,37 @@ router.post("/parkingspace/add", async(req, res) => {
     
 })
 
-router.post("/profile", async(req, res) =>{
-  const email = req.body.email;
-  console.log(email);
+router.post("/profile/:email", async(req, res) =>{
+  const email = req.params.email;
+  
   const user = await User.findOne({email});
-  console.log(user);
+ 
   return res.status(200).json({user})
 })
 
+router.get("/editprofile/:email", async(req, res) => {
+  const email = req.params.email;
+ 
+  const user = await User.findOne({email})
+  
+  return res.status(200).json({user})
+})
+
+router.post("/editprofile/:email", async(req, res) => {
+  const email = req.params.email;
+  const updated_user = await User.findOne({email})
+  
+  updated_user.email = req.body.email
+  updated_user.contact = req.body.contact_no
+  updated_user.name = req.body.name
+  updated_user.save()
+  return res.status(200).json({updated_user})
+})
+
+router.delete("/deleteaccount/:email", async(req, res) => {
+  const email = req.params.email;
+  await User.findOneAndDelete({email})
+  .then(res.status(200).json({status: 'ACCOUNT_DELETED',}))
+  .catch(err => res.status(400).json({err}))
+})
 module.exports = router;
