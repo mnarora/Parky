@@ -188,6 +188,20 @@ router.post("/parkingspace/add", async(req, res) => {
     
 })
 
+router.get("/bookaslot", async(req, res) =>{
+  await ParkingSpace.find()
+  .then(spaces => {
+    res.status(200).json(spaces);
+  }
+  ).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  );
+});
+
 router.post("/profile/:email", async(req, res) =>{
   const email = req.params.email;
   
@@ -246,4 +260,7 @@ router.get("/bookinghistory/:email", async(req, res) =>{
     return res.status(200).json({spaces})
   })
 })
+
+
+
 module.exports = router;

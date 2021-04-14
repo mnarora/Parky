@@ -1,129 +1,135 @@
-import {GoogleAPIWrapper} from 'google-maps-react';
-import React, { Component } from 'react';
-import css from '../CSS/GoogleMap.module.css'
-import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng,
-  } from 'react-places-autocomplete';
-  import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+/*global google*/
+import axios from 'axios';
+import css from '../CSS/GoogleMap.module.css';
+import React, { useEffect } from 'react';
+import NavigationBar from './Navigationbar';
 
-export class MapContainer extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { address: '' ,
-        showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-      mapCenter: {
-          lat: 18.5204,
-          lng: 73.8567
-      }
-      }
-    };
+      let map;
+      let service;
+      let places;
 
-    handleChange = address => {
-        this.setState({ address });
+      const loadScript = (url, callback) => {
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+      
+        if (script.readyState) {
+          script.onreadystatechange = function() {
+            if (script.readyState === "loaded" || script.readyState === "complete") {
+              script.onreadystatechange = null;
+              callback();
+            }
+          };
+        } else {
+          script.onload = () => callback();
+        }
+      
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    
       };
-     
-      handleSelect = address => {
-        geocodeByAddress(address)
-          .then(results => getLatLng(results[0]))
-          .then(latLng => {
-              console.log('Success', latLng);
-              this.setState({ address });
-              this.setState({ mapCenter: latLng });
-          })
-          .catch(error => console.error('Error', error));
-      };
-   
-    onMarkerClick = (props, marker, e) =>
-      this.setState({
-        selectedPlace: props,
-        activeMarker: marker,
-        showingInfoWindow: true
-      });
-   
-    onMapClicked = (props) => {
-      if (this.state.showingInfoWindow) {
-        this.setState({
-          showingInfoWindow: false,
-          activeMarker: null
-        })
-      }
-    };
-   
-    render() {
-      return (
-          <div id="googleMap">
 
-<PlacesAutocomplete
-        value={this.state.address}
-        onChange={this.handleChange}
-        onSelect={this.handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className={css.search}>
-            <input
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
-              })}
-            />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#ffffff', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-            <ToastContainer position={toast.POSITION.TOP_CENTER}/>
-          </div>
-        )}
-      </PlacesAutocomplete>
-        <Map google={this.props.google}
-            onClick={this.onMapClicked}
-            initialCenter={{
-                lat: this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng
-            }}
-            center={{
-                lat: this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng
-            }}
-        >
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'}
-                  position={{
-                    lat: this.state.mapCenter.lat,
-                    lng: this.state.mapCenter.lng
-                  }}
-            />
-   
+      function initMap(props) {
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+        });
+        const request = {
+          query: props,
+          fields: ["name", "geometry"],
+        };
+       
+        service = new google.maps.places.PlacesService(map);
+        service.findPlaceFromQuery(request, (results, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
+            for (let i = 0; i < results.length; i++) {
+              createMarker(results[i]);
+            }
+            map.setCenter(results[0].geometry.location);
+            console.log(results[0]);
+          }
+         
+        });
+        axios.get('http://localhost:3001/bookaslot')
+        .then(res => {
           
-        </Map>
-        </div>
-      )
-    }
-  }
+          for (let j = 0; j < res.data.length; j++){
+            
+            places = new google.maps.places.PlacesService(map);
+            const param = {
+              query : res.data[j].address,
+              fields: ["name", "geometry"],
+            };
+            places.findPlaceFromQuery(param, (results, status) => {
+              if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
+                for (let k = 0; k < results.length; k++) {
+                  customMarker(results[k], res.data[j]);
+                }
+              }
+            });
+          }
+        });
+       }
 
-  export default GoogleApiWrapper({
-    apiKey: ('AIzaSyBPThzljDTi_ZRsR-Xg3R05x2xP9OAieaE')
-  })(MapContainer)
+
+
+      function createMarker(place) {
+        if (!place.geometry || !place.geometry.location) return;
+        const marker = new google.maps.Marker({
+          map,
+          position: place.geometry.location,
+        });
+        addInfoWindow(marker, place.name);
+      }
+
+      function addInfoWindow(marker, content) {
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open(map, marker);
+        });
+      }
+
+      function customMarker(place, details) {
+        const icons = {
+           parking: {
+           icon: 'parking_lot.png',
+            },
+        };
+        console.log(details);
+        const content = "Address: " + details.address + "Surface type: " + details.surfacetype + "Accepted Vehicles: " + details.accepted_vehicles + " Additional Info: " + details.info ;
+        const marker = new google.maps.Marker({
+            position: place.geometry.location,
+            icon: { 
+              size: new google.maps.Size(80, 80),
+              scaledSize: new google.maps.Size(80, 80),
+              url: icons["parking"].icon
+            },
+            map: map,
+          });
+          addInfoWindow(marker, content);
+      }
+    
+ 
+   function GoogleMap(props){
+    const query = props.location.state.areaname;
+    console.log(query);
+    useEffect(() => {
+      loadScript(
+        `https://maps.googleapis.com/maps/api/js?key=AIzaSyBPThzljDTi_ZRsR-Xg3R05x2xP9OAieaE&libraries=places`,
+        () => initMap(query)
+      );
+    }, []);
+        return (
+          <div style={{height : '100%', width : '100%'}}>
+            <NavigationBar/>
+            <div style={{height : '500px', width : '1000px'}} id="map">
+            </div>
+
+          </div>
+     )
+    }
+
+    export default GoogleMap;
+
