@@ -15,6 +15,9 @@ const BookingSpaceSchema = new Schema({
     date : {
         type: Date
     },
+    price : {
+        type : String
+    },
     email:{
         type: String
     }

@@ -11,7 +11,6 @@ import GoogleMap from './Components/GoogleMap'
 import AddParkingSpace from './Components/AddParkingSpace';
 import GetDirections from './Components/GetDirections';
 import Profile from './Components/Profile';
-import History from './Components/BookingHistory';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import BookingHistory from './Components/BookingHistory';
 import EditProfile from './Components/EditProfile';

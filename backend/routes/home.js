@@ -223,6 +223,7 @@ router.delete("/deleteaccount/:email", async(req, res) => {
 })
 
 router.post("/bookspace", async(req, res) => {
+  console.log(req.body)
   const BookedSpace = new BookingSpace(req.body)
     BookedSpace.save()
         .then(space => {
@@ -235,5 +236,14 @@ router.post("/bookspace", async(req, res) => {
             console.log(err)
             return res.status(200).json({error : err})
         })
+})
+
+router.get("/bookinghistory/:email", async(req, res) =>{
+  const email = req.params.email
+  await BookingSpace.find({email})
+  .then(spaces => {
+    console.log(spaces)
+    return res.status(200).json({spaces})
+  })
 })
 module.exports = router;

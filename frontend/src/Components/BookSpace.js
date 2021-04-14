@@ -15,13 +15,14 @@ export default class BookSpace extends Component{
         arrival_time: '',
         departure_time: '',
         date: '',
+        price: '',
         email: ''
     }
 
     bookSpaceHandler = (e) => {
         
         e.preventDefault()
-        this.setState({email: localStorage.getItem('useremail')})
+        console.log(this.state.email)
         axios.post('http://localhost:3001/bookspace', this.state)
         .then(res => {
             if (res.data.error)
@@ -52,7 +53,10 @@ export default class BookSpace extends Component{
                                 id="exampleAddress"
                                 placeholder="Address"
                                 required
-                                onChange={(e) => this.setState({address : e.target.value})}
+                                onChange={(e) => this.setState({
+                                    address : e.target.value,
+                                    email : localStorage.getItem('useremail')
+                                })}
                             />
                         </FormGroup>
 
@@ -65,6 +69,18 @@ export default class BookSpace extends Component{
                                 required
                                 placeholder="date placeholder"
                                 onChange={(e) => this.setState({date : e.target.value})}
+                            />
+                        </FormGroup>
+
+                        <FormGroup row>
+                            <Label for="examplePrice">Price</Label>
+                            <Input
+                                type="text"
+                                name="price"
+                                id="examplePrice"
+                                required
+                                placeholder="Cost of space"
+                                onChange={(e) => this.setState({price : e.target.value})}
                             />
                         </FormGroup>
 

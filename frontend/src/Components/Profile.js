@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import Profilecss from '../CSS/Profile.module.css';
+//import Profilecss from '../CSS/Profile.module.css';
 import axios from 'axios';
 import { Table, Button } from 'reactstrap';
 import { Container } from 'react-bootstrap';
-import EditProfile from './EditProfile';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,6 +31,8 @@ export default class Profile extends Component {
                     contact_no : res.data.user.contact
                 })
             })
+
+           
         }
         else{
             console.log("No user")
