@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import '../CSS/BookSpace.css'
+import Bookspacecss from '../CSS/BookSpace.module.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,7 +42,7 @@ export default class BookSpace extends Component{
             <div>
                 <NavigationBar/>
 
-                <Container className= "container">
+                <Container className= {Bookspacecss.container}>
                     <h1 style={{ textAlign: 'center', marginTop: "30px" }}>Book the ParkingSpace</h1>
                     <Form style={{ width: '50%', alignItems:"center" ,marginLeft:"150px", marginTop: "100px"}} > 
                         <FormGroup row>
@@ -108,7 +108,7 @@ export default class BookSpace extends Component{
                             />
                         </FormGroup>
                     </Form>
-                    <Button style={{ marginTop: "50px", width: "200px"}}  onClick ={this.bookSpaceHandler} className='buttonn'>Save</Button>
+                    <Button style={{ marginTop: "50px", width: "200px"}}  onClick ={this.bookSpaceHandler} className={Bookspacecss.buttonn}>Save</Button>
                 </Container>
             </div>
         )

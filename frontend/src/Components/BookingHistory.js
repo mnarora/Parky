@@ -22,6 +22,8 @@ export default class BookingHistory extends Component {
                 this.setState({
                    booked_spaces: res.data.spaces
                 })
+
+                console.log(this.state.booked_spaces[0].address);
                 
             })
 
@@ -40,29 +42,28 @@ export default class BookingHistory extends Component {
                     <center>
                     <h1 className="mt-5">Booking Details</h1>
                     </center>
-                    <div className="history" >
-                    {this.state.booked_spaces.map(space => {
-                        // 
-                        //     <div className ="row mt-5" style={{backgroundColor: "mediumturquoise", height: "11vh"}}>
-                        //         <div className="col-sm-3 mt-4 ml-5">
-                        //         {space.address}
-                        //         </div>
-                        //         <div className="col-sm-1"></div>
-                        //         <div className="col-sm-2 mt-4">
-                        //         {space.price}
-                        //         </div>
-                        //         <div className="col-sm-2 mt-4">
-                        //         {space.date.split('T')[0]}
-                        //         </div>
-                        //         <div className="col-sm-2 mt-4">
-                        //             {space.arrival_time}-{space.departure_time}
-                        //         </div>
-                        //     </div>
+                    <div className="history container" >
+                    {this.state.booked_spaces.map(space => (
                         
-                        // </div>
+                            <div className ="row mt-5" style={{backgroundColor: "mediumturquoise", height: "11vh"}}>
+                                <div className="col-sm-3 mt-4 ml-5">
+                                {space.address}
+                                </div>
+                                <div className="col-sm-1"></div>
+                                <div className="col-sm-2 mt-4">
+                                {space.price}
+                                </div>
+                                <div className="col-sm-2 mt-4">
+                                {space.date.split('T')[0]}
+                                </div>
+                                <div className="col-sm-2 mt-4">
+                                    {space.arrival_time}-{space.departure_time}
+                                </div>
+                            </div>
+                            
+                        
                        
-                        <p key={space.address}>{space.address}</p>
-                    })}
+                    ))}
                    </div>
                     
                 </div>

@@ -71,7 +71,7 @@ export default class NavigationBar extends Component {
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
                         </NavDropdown>
-                      <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>Logout</Link></Nav.Link>
+                      <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Logout</Link></Nav.Link>
                     </Nav>
                   </div>
                 )}
