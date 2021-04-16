@@ -24,7 +24,7 @@ class ProtectedRoute extends Component {
       <Route 
         {...props} 
         render={props => (
-          localStorage.getItem('isuser') ?
+          sessionStorage.getItem('isuser') ?
             <Component {...props} /> :
             <Redirect to='/' />
         )} 

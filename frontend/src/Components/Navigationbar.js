@@ -17,16 +17,16 @@ export default class NavigationBar extends Component {
     }
 
     componentWillMount() {
-        if (localStorage.getItem('token')) {
-            this.setState({loggedIn : true, isuser: Boolean(localStorage.getItem('isuser'))});
+        if (sessionStorage.token) {
+            this.setState({loggedIn : true, isuser: Boolean(sessionStorage.token)});
         }
         else 
           this.setState({loggedIn : false, isuser: false});
     }
     
     logout = () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('isuser');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('isuser');
       toast.success("Successfully Logged Out")
     }
    
@@ -67,7 +67,7 @@ export default class NavigationBar extends Component {
                 ):(
                   <div className="ml-auto mr-5">
                     <Nav >
-                        <NavDropdown className="mr-4" title={localStorage.getItem('useremail')} id="basic-nav-dropdown">
+                        <NavDropdown className="mr-4" title={sessionStorage.useremail} id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
                         </NavDropdown>

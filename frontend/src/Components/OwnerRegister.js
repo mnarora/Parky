@@ -6,6 +6,7 @@ import NavigationBar from './Navigationbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 export default class UserRegister extends Component {
     state = {
@@ -56,35 +57,32 @@ export default class UserRegister extends Component {
 
 
         return (
-            <div>
+            <div className={userregister.background}>
                 <NavigationBar/>
                 
                 <div align="center">
                 <form className={userregister.regform} onSubmit={this.onSubmit}>
-                <h1>Owner Registration</h1>
+                <h1 style={{fontFamily: "Muli-SemiBold"}}>Owner Registration</h1>
                     <div className="form-group mt-5">
-                        <label className="form-label" for="name">Name</label>
-                        <input className="form-control" type="text" onChange={(e) => this.setState({name : e.target.value})} placeholder="name" required />
+                        <input className={userregister.formcontrol} type="text" onChange={(e) => this.setState({name : e.target.value})} placeholder="Name" required />
                     </div>
                     <div className="form-group ">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required/>
+                        <input type="email" className={userregister.formcontrol} onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required/>
                     </div>
                     <div className="form-group">
-                        <label>Contact No</label>
-                        <input type="number" className="form-control" onChange={(e) => this.setState({contact : e.target.value})} placeholder="9999999999" required />
+                        <input type="number" className={userregister.formcontrol} onChange={(e) => this.setState({contact : e.target.value})} placeholder="Contact No" required />
+                    </div>
+                    <div className="form-group "> 
+                        <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required />
                     </div>
                     <div className="form-group ">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required />
-                    </div>
-                    <div className="form-group ">
-                        <label className="form-label" >Confirm Password</label>
-                        <input className="form-control" type="password" onChange={this.checkform} id="confirm_password" placeholder="Confirm Password" required/>
+                        <input className={userregister.formcontrol} type="password" onChange={this.checkform} id="confirm_password" placeholder="Confirm Password" required/>
                         <span id="msg"></span>
                     </div>
                     
-                    <button className={userregister.buttonn} type="submit" id="submit">Register</button>
+                    
+                    <button className={userregister.buttonnx} type="submit" id="submit">Register</button>
+                    <p className="text-muted mt-4" style={{textAlign: "right"}}>Already have an Account? <Link to="/ownerlogin" style={{color: 'gray'}}>Sign In</Link></p>
                 </form>
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>

@@ -1,16 +1,18 @@
-body {
-    background-color: honeydew;
+.background {
+    background-color: #accffe;
+    height: 100vh;
 }
 
 .regform {
     margin-top: 4%;
     margin-left: auto;
     display: inline-block;
-    padding: 2% 5%;
+    padding: 4% 5%;
     background-color: white;
     text-align: left;
     width: 100%;
     max-width: 500px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -18,11 +20,25 @@ label {
     font-weight: bold;
 }
 
-.buttonn {
+.buttonnx {
     width: 100%;
     background-color: black;
-    padding: 10px 10px;
+    padding: 7px 7px;
     font-size: larger;
     color: white;
+    margin-top: 30px;
+    font-family: "Muli-SemiBold";
+}
 
+.formcontrol {
+    border: none;
+    border-bottom: 1px solid #b9b8b8;
+    display: block;
+    width: 100%;
+    height: 38px;
+    background: none;
+    padding: 7px 0px 0px;
+    color: #666;
+    font-family: "Muli-SemiBold";
+    font-size: 20px;
 }

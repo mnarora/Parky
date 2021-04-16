@@ -19,11 +19,11 @@ export default class Profile extends Component {
     }
     
     componentDidMount() {
-        if (localStorage.getItem('useremail')) {
-            this.setState({email:localStorage.getItem('useremail')});
-            console.log(localStorage.getItem('useremail'))
+        if (sessionStorage.useremail) {
+            this.setState({email:sessionStorage.useremail});
+            console.log(sessionStorage.useremail)
             
-            axios.post('http://localhost:3001/profile/' + localStorage.getItem('useremail'), this.state)
+            axios.post('http://localhost:3001/profile/' + sessionStorage.useremail, this.state)
             .then(res => {
                 console.log(res.data.user)
                 this.setState({
@@ -50,9 +50,9 @@ export default class Profile extends Component {
 
     deleteAccountHandler = () => {
         console.log('deleteing')
-        axios.delete('http://localhost:3001/deleteaccount/' + localStorage.getItem('useremail'))
+        axios.delete('http://localhost:3001/deleteaccount/' + sessionStorage.useremail)
         .then(res => {
-            window.localStorage.setItem('useremail', '')
+            sessionStorage.clear();
             this.props.history.push('/')
             toast.success("Account deleted")
         })

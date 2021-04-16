@@ -21,10 +21,10 @@ export default class Ownerlogin extends Component {
                     toast.error(res.data.msg);
                 else {
                     console.log(res.data.user)
-                    window.localStorage.setItem('token', res.data.token);
-                    window.localStorage.setItem('isuser', res.data.user.isuser);
-                    window.localStorage.setItem('useremail', res.data.user.email);
-                    window.localStorage.setItem('userid', res.data.user._id)
+                    window.sessionStorage.setItem('token', res.data.token);
+                    window.sessionStorage.setItem('isuser', res.data.user.isuser);
+                    window.sessionStorage.setItem('useremail', res.data.user.email);
+                    window.sessionStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.isuser) {
                         this.props.history.push({
                             pathname: "/bookaslot",
@@ -33,7 +33,7 @@ export default class Ownerlogin extends Component {
                     }
                    
                     else{
-                        console.log(localStorage.getItem('userid'))
+                        console.log(sessionStorage.getItem('userid'))
                         this.props.history.push("/ParkingSpace/Add");
                     }
                         
@@ -53,7 +53,7 @@ export default class Ownerlogin extends Component {
 
 
         return (
-            <div>
+            <div className={login.background}>
                 <NavigationBar/>
                 
                 <div align="center" className="mt-5">
@@ -63,13 +63,11 @@ export default class Ownerlogin extends Component {
                     <h1>Owner Login</h1>
                 </center>
                     <div className="form-group mt-5">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <input type="email" className={login.formcontrol} onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
                     </div>
                  
                     <div className="form-group ">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required/>
+                        <input type="password" className={login.formcontrol} id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required/>
                     </div>
                     
                     <button type="submit" id="submit" className={"btn btn-primary "+login.buttonn}>Login</button>

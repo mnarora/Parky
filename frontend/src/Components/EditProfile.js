@@ -34,7 +34,7 @@ export default class EditProfile extends Component{
         axios.post('http://localhost:3001/editprofile/' + this.props.match.params.email, this.state)
         .then(res => {
                 console.log(res.data.updated_user)
-                window.localStorage.setItem('useremail', res.data.updated_user.email);
+                window.sessionStorage.setItem('useremail', res.data.updated_user.email);
                 this.props.history.push('/profile')
                 toast.success("Successfully Updated")
             

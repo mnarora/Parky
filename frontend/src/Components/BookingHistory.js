@@ -12,11 +12,11 @@ export default class BookingHistory extends Component {
     }
    
     componentDidMount() {
-        if (localStorage.getItem('useremail')) {
-            this.setState({email:localStorage.getItem('useremail')});
+        if (sessionStorage.useremail) {
+            this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/bookinghistory/' + localStorage.getItem('useremail'))
+            axios.get('http://localhost:3001/bookinghistory/' + sessionStorage.useremail)
             .then(res => {
                
                 this.setState({

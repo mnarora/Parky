@@ -55,7 +55,7 @@ export default class BookSpace extends Component{
                                 required
                                 onChange={(e) => this.setState({
                                     address : e.target.value,
-                                    email : localStorage.getItem('useremail')
+                                    email : sessionStorage.getItem('useremail')
                                 })}
                             />
                         </FormGroup>

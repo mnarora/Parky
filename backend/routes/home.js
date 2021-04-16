@@ -52,7 +52,7 @@ router.post('/userregistration', async (req, res) => {
                                         token,
                                         user: {
                                             id: user.id,
-                                            name: user.uname,
+                                            name: user.name,
                                             email: user.email
                                         }    
                                     });
