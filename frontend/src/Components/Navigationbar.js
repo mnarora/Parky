@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
 
-
 export default class NavigationBar extends Component {
 
     state = {
@@ -15,17 +14,16 @@ export default class NavigationBar extends Component {
         isuser: Boolean,
     }
 
-    componentDidMount() {
-        if (sessionStorage.token) {
-            this.setState({loggedIn : true, isuser: Boolean(sessionStorage.token)});
+    componentWillMount() {
+        if (sessionStorage.useremail) {
+            this.setState({loggedIn : true, isuser: Boolean(sessionStorage.isuser)});
         }
         else 
           this.setState({loggedIn : false, isuser: false});
     }
     
     logout = () => {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('isuser');
+      sessionStorage.clear();
       toast.success("Successfully Logged Out")
     }
    
@@ -67,7 +65,7 @@ export default class NavigationBar extends Component {
                 ):(
                   <div className="ml-auto mr-5">
                     <Nav >
-                        <NavDropdown className="mr-4" title={sessionStorage.useremail} id="basic-nav-dropdown">
+                        <NavDropdown className="mr-4" title={sessionStorage.name} id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>BookingHistory</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/myspaces" style={{ textDecoration: 'none', color: 'black'}}>MySpaces</Link></NavDropdown.Item>

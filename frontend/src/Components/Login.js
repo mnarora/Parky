@@ -20,8 +20,8 @@ export default class Login extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg);
                 else {
-                    localStorage.setItem('isUser', true);
-                    window.sessionStorage.setItem('token', res.data.token);
+
+                    window.sessionStorage.setItem('name', res.data.user.name);
                     window.sessionStorage.setItem('isuser', res.data.user.isuser);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
                     window.sessionStorage.setItem('userid', res.data.user._id)

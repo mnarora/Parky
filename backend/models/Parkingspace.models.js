@@ -5,11 +5,9 @@ const Schema = mongoose.Schema;
 const ParkingSpaceSchema = new Schema({
     email:{
         type: String,
-        
     },
     price: {
         type: String,
-        
     },
     address: {
         type: String

@@ -116,7 +116,7 @@ import NavigationBar from './Navigationbar';
     console.log(query);
     useEffect(() => {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=AIzaSyBPThzljDTi_ZRsR-Xg3R05x2xP9OAieaE&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places`,
         () => initMap(query)
       );
     }, []);
