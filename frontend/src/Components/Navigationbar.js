@@ -6,8 +6,7 @@ import '../CSS/NavigationBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Profile from './Profile';
+
 
 export default class NavigationBar extends Component {
 
@@ -16,7 +15,7 @@ export default class NavigationBar extends Component {
         isuser: Boolean,
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (sessionStorage.token) {
             this.setState({loggedIn : true, isuser: Boolean(sessionStorage.token)});
         }
@@ -35,6 +34,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
           <div>
+               {console.log(localStorage.getItem('isUser'))}
                 <Navbar style={{height: '70px'}} bg="dark" variant="dark" expand="lg">
                 {(this.state.loggedIn) && !(this.state.isuser) &&
                   <Navbar.Brand><Link to="/parkingspace/add" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
@@ -69,7 +69,9 @@ export default class NavigationBar extends Component {
                     <Nav >
                         <NavDropdown className="mr-4" title={sessionStorage.useremail} id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
-                          <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>BookingHistory</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/myspaces" style={{ textDecoration: 'none', color: 'black'}}>MySpaces</Link></NavDropdown.Item>
+                
                         </NavDropdown>
                       <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Logout</Link></Nav.Link>
                     </Nav>

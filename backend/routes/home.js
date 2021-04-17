@@ -172,7 +172,7 @@ router.post("/resetpassword", async(req, res) => {
 })
 
 router.post("/parkingspace/add", async(req, res) => {
-    //console.log(req.body)
+    console.log(req.body)
     const newSpace = new ParkingSpace(req.body)
     newSpace.save()
         .then(space => {
@@ -256,9 +256,27 @@ router.get("/bookinghistory/:email", async(req, res) =>{
   const email = req.params.email
   await BookingSpace.find({email})
   .then(spaces => {
-    console.log(spaces)
+   
     return res.status(200).json({spaces})
   })
+})
+
+router.get("/myspaces/:email", async(req, res) =>{
+  const email = req.params.email
+  await ParkingSpace.find({email})
+  .then(myspaces => {
+   
+    return res.status(200).json({myspaces})
+  })
+})
+
+router.delete("/deleteparkingspace/:id", async(req, res) => {
+ 
+  const id = req.params.id;
+  console.log(id)
+  await ParkingSpace.findByIdAndDelete(id)
+  .then(res.status(200).json({status: 'Parking Space_DELETED',}))
+  .catch(err => res.status(400).json({err}))
 })
 
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
-import { Button, Form, FormGroup, Label, Input, Col ,FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col  } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 

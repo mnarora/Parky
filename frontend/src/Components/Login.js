@@ -20,7 +20,7 @@ export default class Login extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg);
                 else {
-
+                    localStorage.setItem('isUser', true);
                     window.sessionStorage.setItem('token', res.data.token);
                     window.sessionStorage.setItem('isuser', res.data.user.isuser);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
@@ -57,7 +57,7 @@ export default class Login extends Component {
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" height="150px"/>
+                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="description of image" height="150px"/>
                 <h1>User Login</h1>
                 </center>
                     <div className="form-group mt-4">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import '../CSS/AddParkingSpace.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,13 +11,13 @@ export default class AddParkingSpace extends Component {
     /* eslint-disable */ 
     state = {
         email: '',
-        password: '',
+        price: '',
         address: '',
         info: '',
         surfacetype: '',
         spacenumber: 0,
         accepted_vehicles: ['bicycle'],
-        imagePreviewUrl: ''
+       
     }
 
     /* eslint-enable */
@@ -41,29 +41,11 @@ export default class AddParkingSpace extends Component {
 
    
 
-    handleImageChange  = (e) => {
-        e.preventDefault()
-        let reader = new FileReader();
-        let image = e.target.files[0];
-    
-        reader.onloadend = () => {
-            this.setState({
-            imagePreviewUrl: reader.result
-            });
-        }
-    
-        reader.readAsDataURL(image)
-    }
+   
 
     render() {
 
-        let {imagePreviewUrl} = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} />);
-        } else {
-            $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
-        }
+       
 
         return (
             <div  >
@@ -93,14 +75,14 @@ export default class AddParkingSpace extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="examplePassword" hidden>Password</Label>
+                            <Label for="examplePrice" hidden>Password</Label>
                             <Input 
-                                type="password" 
+                                type="text" 
                                 name="password" 
-                                id="examplePassword" 
-                                placeholder="Password" 
+                                id="examplePrice" 
+                                placeholder="Cost of Space" 
                                 required
-                                onChange={(e) => this.setState({password : e.target.value})}
+                                onChange={(e) => this.setState({price : e.target.value})}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -275,15 +257,7 @@ export default class AddParkingSpace extends Component {
                         
                         </FormGroup>
 
-                        <input 
-                            className="fileInput" 
-                            type="file" 
-                            placeholder = 'Choose image of the parking space'
-                            onChange={(e)=>this.handleImageChange(e)} 
-                        />
-                        <div className="imgPreview">
-                            {$imagePreview}
-                        </div>
+                      
                         <div style={{display: 'inline-flex', marginLeft: '20px'}}>
                             <Button>Cancel</Button>
                             <Button style={{marginLeft: '40px'}} onSubmit= {this.onSubmit}>Submit</Button>
