@@ -5,6 +5,7 @@ import '../CSS/AddParkingSpace.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from 'react-bootstrap';
 
 
 export default class AddParkingSpace extends Component {
@@ -50,9 +51,9 @@ export default class AddParkingSpace extends Component {
         return (
             <div  >
                 <NavigationBar />
-
+                
                 <div >
-                    <div style={{backgroundColor : "blueviolet", height: "50vh"}}>
+                    <div style={{backgroundColor : "rgba(49, 2, 59, 0.856)", height: "50vh"}}>
                         <br /><br />
                         <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
                         <center className="mt-5">
@@ -60,8 +61,9 @@ export default class AddParkingSpace extends Component {
                         </center>
 
                     </div>
+                    <Container style={{backgroundColor:"rgba(226, 171, 243, 0.658)", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
                     <h1 style={{ textAlign: 'center' }}>Add Parking Space</h1>
-                    <Form style={{ width: '50%', marginLeft: '450px' }} onSubmit= {this.onSubmit}> 
+                    <Form style={{ width: '50%', alignItems:"center" ,marginLeft: "270px", marginTop: "40px"}} onSubmit= {this.onSubmit}> 
                         <FormGroup>
                             <Label for="exampleEmail" hidden>Email</Label>
                             <Input 
@@ -258,14 +260,15 @@ export default class AddParkingSpace extends Component {
                         </FormGroup>
 
                       
-                        <div style={{display: 'inline-flex', marginLeft: '20px'}}>
+                        <div style={{display: 'inline-flex', marginLeft: '20px' , marginBottom: "50px"}}>
                             <Button>Cancel</Button>
                             <Button style={{marginLeft: '40px'}} onSubmit= {this.onSubmit}>Submit</Button>
                         </div>
                     
                     </Form>
-
+                    </Container>
                 </div>
+                
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )
