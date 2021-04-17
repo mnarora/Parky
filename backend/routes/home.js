@@ -280,6 +280,24 @@ router.delete("/deleteparkingspace/:id", async(req, res) => {
   .catch(err => res.status(400).json({err}))
 })
 
+router.get("/editparkingspace/:id", async(req, res) => {
+  const id = req.params.id;
+  await ParkingSpace.findById(id)
+  .then(space => {
+    console.log(space);
+    return res.status(200).json({space})
+  })
+  .catch(err => res.status(400).json({err})) 
+  
+})
+
+router.post("/editparkingspace/:id", async(req, res) => {
+  const id = req.params.id;
+  await ParkingSpace.findByIdAndUpdate(id, req.body)
+  .then(res.status(200).json({status: 'Successfully Updated',}))
+  .catch(err => res.status(400).json({err}))
+  
+})
 
 
 module.exports = router;
