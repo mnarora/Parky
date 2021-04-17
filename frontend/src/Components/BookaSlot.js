@@ -62,13 +62,14 @@ import Footer from './Footer';
     
       useEffect(() => {
         loadScript(
-          `https://maps.googleapis.com/maps/api/js?key=AIzaSyBPThzljDTi_ZRsR-Xg3R05x2xP9OAieaE&libraries=places`,
+          `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places`,
           () => handleScriptLoad(setQuery, autoCompleteRef)
         );
       }, []);
     
         return (
             <div>
+              {console.log(process.env)}
                 <NavigationBar />
                 <div className={css.search}>
                     <br></br><br></br>
@@ -131,5 +132,3 @@ import Footer from './Footer';
         }
 
 export default BookaSlot;
-
-

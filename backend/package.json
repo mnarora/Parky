@@ -22,5 +22,6 @@
     "nodemailer": "^6.5.0",
     "razorpay": "^2.0.6",
     "shortid": "^2.2.16"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
