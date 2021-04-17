@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Container, Button } from 'react-bootstrap';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 
 export default class UserRegister extends Component{
@@ -36,16 +37,17 @@ export default class UserRegister extends Component{
     }
 
     deleteParkingSpaceHandler = (id) => {
-        console.log('deleteing')
-        console.log(id)
-        axios.delete('http://localhost:3001/deleteparkingspace/'+ id)
-        .then(res => {
-            this.props.history.push('/myspaces')
-            toast.success("Parking Space deleted")
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        if (window.confirm('Do you want to delete?')) {
+            axios.delete('http://localhost:3001/deleteparkingspace/'+ id)
+            .then(res => {
+                this.props.history.push('/myspaces')
+                toast.success("Parking Space deleted")
+                this.componentDidMount()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     render(){
@@ -71,6 +73,9 @@ export default class UserRegister extends Component{
                     </main>
                    
                 ))}
+                {(this.state.myspaces.length === 0) && 
+                    <h3 className="mt-5" style={{textAlign: 'center', color: 'red'}}>Currently, You don't have any Parking Spaces<br /><Link to="/parkingspace/add" style={{color: 'red'}}>Click here to Add</Link></h3>    
+                }
                    
                 </Container>
                 
