@@ -33,3 +33,11 @@ body, html {
     padding: 10px 10px;
     border-radius: 12px;
 }
+
+img {
+    opacity: 1.0;
+}
+
+img:hover {
+    opacity: 0.8;
+}
