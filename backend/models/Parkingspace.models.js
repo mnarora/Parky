@@ -5,11 +5,9 @@ const Schema = mongoose.Schema;
 const ParkingSpaceSchema = new Schema({
     email:{
         type: String,
-        unique: false
     },
     password: {
         type: String,
-        unique: false
     },
     address: {
         type: String

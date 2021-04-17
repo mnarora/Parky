@@ -6,8 +6,6 @@ import '../CSS/NavigationBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Profile from './Profile';
 
 export default class NavigationBar extends Component {
 
@@ -17,16 +15,15 @@ export default class NavigationBar extends Component {
     }
 
     componentWillMount() {
-        if (sessionStorage.token) {
-            this.setState({loggedIn : true, isuser: Boolean(sessionStorage.token)});
+        if (sessionStorage.useremail) {
+            this.setState({loggedIn : true, isuser: Boolean(sessionStorage.isuser)});
         }
         else 
           this.setState({loggedIn : false, isuser: false});
     }
     
     logout = () => {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('isuser');
+      sessionStorage.clear();
       toast.success("Successfully Logged Out")
     }
    
@@ -67,7 +64,7 @@ export default class NavigationBar extends Component {
                 ):(
                   <div className="ml-auto mr-5">
                     <Nav >
-                        <NavDropdown className="mr-4" title={sessionStorage.useremail} id="basic-nav-dropdown">
+                        <NavDropdown className="mr-4" title={sessionStorage.name} id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>Booking History</Link></NavDropdown.Item>
                         </NavDropdown>

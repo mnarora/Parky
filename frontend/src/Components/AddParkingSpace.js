@@ -29,7 +29,7 @@ export default class AddParkingSpace extends Component {
             if (res.data.error)
                 toast.error(res.data.error)
             else {
-                this.props.history.push('/')
+                this.props.history.push('/parkingspace/add')
                 toast.success(res.data.msg)
             }
         })

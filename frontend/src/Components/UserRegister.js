@@ -55,7 +55,7 @@ export default class UserRegister extends Component {
     handleEmail = () => {
         var x = document.getElementById('email').value;
         console.log(x);
-        if (x.indexOf("@") <= -1 && (x != '')) {
+        if (x.indexOf("@") <= -1 && (x !== '')) {
             document.getElementById('emailmsg').style.color = 'red';
             document.getElementById('emailmsg').innerHTML = 'invalid email';
             document.getElementById('submit').disabled = true;
@@ -69,7 +69,7 @@ export default class UserRegister extends Component {
     handleContact = () => {
         var x = document.getElementById('contact').value;
         console.log(x);
-        if ((x.length != 10) && (x != '')) {
+        if ((x.length !== 10) && (x !== '')) {
             document.getElementById('contactmsg').style.color = 'red';
             document.getElementById('contactmsg').innerHTML = 'Contact No should be of 10 digits';
             document.getElementById('submit').disabled = true;

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'react-bootstrap';
-
+import Payment from './Payment';
 
 export default class BookSpace extends Component{
 
@@ -108,6 +108,7 @@ export default class BookSpace extends Component{
                             />
                         </FormGroup>
                     </Form>
+                    <Payment />
                     <Button style={{ marginTop: "50px", width: "200px"}}  onClick ={this.bookSpaceHandler} className={Bookspacecss.buttonn}>Save</Button>
                 </Container>
             </div>

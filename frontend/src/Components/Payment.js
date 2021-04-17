@@ -18,7 +18,7 @@ function loadScript(src) {
 // const __DEV__ = document.domain === 'localhost'
 
 function Payment() {
-	const [name, setName] = useState('Mehul')
+	const [name, setName] = useState('Manish')
 
 	async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -42,9 +42,7 @@ function Payment() {
 			name: 'Donation',
 			description: 'Thank you for nothing. Please give us some money',
 			handler: function (response) {
-				alert(response.razorpay_payment_id)
-				alert(response.razorpay_order_id)
-				alert(response.razorpay_signature)
+				console.log(response);
 			},
 			prefill: {
 				name,
@@ -58,7 +56,7 @@ function Payment() {
 
 	return (
 		<div className="Payment">
-			<header className="Payment-header">
+			<button className="Payment-header">
 				<a
 					className="Payment-link"
 					onClick={displayRazorpay}
@@ -67,8 +65,7 @@ function Payment() {
 				>
 					Donate $5
 				</a>
-                
-			</header>
+            </button>
 		</div>
 	)
 }
