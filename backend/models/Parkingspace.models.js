@@ -6,7 +6,7 @@ const ParkingSpaceSchema = new Schema({
     email:{
         type: String,
     },
-    password: {
+    price: {
         type: String,
     },
     address: {

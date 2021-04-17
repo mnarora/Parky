@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Bookspacecss from '../CSS/BookSpace.module.css'
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'react-bootstrap';
 import Payment from './Payment';
