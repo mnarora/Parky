@@ -1,0 +1,39 @@
+.about{
+    align-items: center;
+    text-align: center;
+  
+    margin: 20px 70px;
+    box-shadow: 0 8px 16px 0 #67b5f5;
+    color: rgb(2, 3, 15);
+}
+main{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin-bottom: 30px;
+    font-size: large;
+}
+main section{
+    margin-top: 100px;
+    background: rgba(143, 183, 188, 0.959);
+    padding: 30px 50px;
+   
+}
+.mainPage{
+   
+    background-color: whitesmoke;
+}
+
+
+.buttonn {
+    width: 20%;
+    background-color: black;
+    padding: 10px 10px;
+    font-size: larger;
+    color: white;
+    margin-left: 30px;
+}
+
+.Container {
+    margin-top: 50px;
+}

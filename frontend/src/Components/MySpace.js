@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
 
-export default class UserRegister extends Component{
+export default class MySpace extends Component{
     state = {
         myspaces : [],
         imagePreviewUrl: ''
@@ -49,7 +49,12 @@ export default class UserRegister extends Component{
             })
         }
     }
-
+    editParkingSpaceHandler = (id) => {
+        console.log(id)
+       
+        this.props.history.push(`/editparkingspace/${id}`)
+       
+    }
     render(){
         return(
             
@@ -67,7 +72,7 @@ export default class UserRegister extends Component{
                             <p>{"Number of Parking Spaces: " +  space.spacenumber}</p>
                             <p>{"Cost of Space: " + space.price}</p>
                             
-                            <Button className = {mySpace.buttonn}>Edit</Button>
+                            <Button className = {mySpace.buttonn} onClick= {() => this.editParkingSpaceHandler(space._id)}>Edit</Button>
                             <Button className = {mySpace.buttonn} onClick= {() => this.deleteParkingSpaceHandler(space._id)}>Delete</Button>
                         </section>
                     </main>
