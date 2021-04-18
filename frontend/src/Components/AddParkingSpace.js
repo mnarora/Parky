@@ -1,7 +1,7 @@
 import React, { useState , useRef, useEffect} from 'react';
 import NavigationBar from './Navigationbar';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import '../CSS/AddParkingSpace.css'
+import addparking from '../CSS/AddParkingSpace.css';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,7 +47,7 @@ let autoComplete;
       autoComplete.addListener("place_changed", () =>
         handlePlaceSelect(updateQuery)
       );
-     alert("////////")
+     
     }
     
     async function handlePlaceSelect(updateQuery) {
@@ -182,7 +182,7 @@ export default function AddParkingSpace (props){
                     </center>
 
                 </div>
-                <Container style={{backgroundColor:"rgba(226, 171, 243, 0.658)", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
+                <Container style={{backgroundColor:"rgba(49, 2, 59, 0.21)", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
                 <h1 style={{ textAlign: 'center' }}>Add Parking Space</h1>
                 <Form style={{ width: '50%', alignItems:"center" ,marginLeft: "270px", marginTop: "40px"}} onSubmit= {onSubmit}> 
                     <FormGroup>
@@ -385,9 +385,9 @@ export default function AddParkingSpace (props){
                     </FormGroup>
 
                     
-                    <div style={{display: 'inline-flex', marginLeft: '20px' , marginBottom: "50px"}}>
-                        <Button>Cancel</Button>
-                        <Button style={{marginLeft: '40px'}} onSubmit= {onSubmit}>Submit</Button>
+                    <div >
+                        <Button className={addparking.buttonn}>Cancel</Button>
+                        <Button className={addparking.buttonn} onSubmit= {onSubmit}>Submit</Button>
                     </div>
                 
                 </Form>

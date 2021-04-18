@@ -74,7 +74,7 @@ export default class NavigationBar extends Component {
                             <NavDropdown.Item><Link to="/myspaces" style={{ textDecoration: 'none', color: 'black'}}>MySpaces</Link></NavDropdown.Item>
                 
                         }
-                      
+                         <NavDropdown.Item><Link to="/ParkingSpace/Add" style={{ textDecoration: 'none', color: 'black'}}>Add Parking Space</Link></NavDropdown.Item>
                         </NavDropdown>
                       <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Logout</Link></Nav.Link>
                     </Nav>
