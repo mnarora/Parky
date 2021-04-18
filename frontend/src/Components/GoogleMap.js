@@ -1,8 +1,9 @@
 /*global google*/
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from './Navigationbar';
 import Payment from './Payment';
+import css from '../CSS/GoogleMap.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {Card, Button} from 'react-bootstrap';
