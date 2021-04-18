@@ -114,8 +114,10 @@ import { Link } from 'react-router-dom';
         };
         const content = '<p>Address: '+details.address+'</p>' +
         '<p>Accepted Vehicles: '+details.accepted_vehicles+'</p>' +
-        '<p>Space Number: '+details.spacenumber+'</p>' +
+        '<p>Number of spaces: '+details.spacenumber+'</p>' +
+        '<p>Price per hour: '+details.price+'</p>' +
         '<p>Surface Type: '+details.surfacetype+'</p>' +
+        '<p>Additional Info: '+details.info+'</p>' +
             '<button onclick="myFunction() style="font-weight:50;">Book Space</button>';
         const marker = new google.maps.Marker({
             position: place.geometry.location,
@@ -138,13 +140,19 @@ import { Link } from 'react-router-dom';
           <Card.Body>
             <Card.Title>{card.address}</Card.Title>
             <Card.Text>
-              Surface Type: {card.surfacetype}
-            </Card.Text>
-            <Card.Text>
-              Space Number: {card.spacenumber}
+              Number of Spaces: {card.spacenumber}
             </Card.Text>
             <Card.Text>
               Accepted Vehicles: {card.accepted_vehicles}
+            </Card.Text>
+            <Card.Text>
+              Price per hour: {card.price}
+            </Card.Text>
+            <Card.Text>
+              Surface Type: {card.surfacetype}
+            </Card.Text>
+            <Card.Text>
+              Additional Info: {card.info}
             </Card.Text>
             <Link to='/payment'><Button variant="primary">Book Space</Button></Link>
           </Card.Body>
