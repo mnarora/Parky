@@ -23,7 +23,7 @@ export default class BookingHistory extends Component {
                    booked_spaces: res.data.spaces
                 })
 
-                console.log(this.state.booked_spaces[0].address);
+                //console.log(this.state.booked_spaces[0].address);
                 
             })
 
