@@ -68,11 +68,10 @@ export default class BookingHistory extends Component {
                         </div>
                     </div>
                     <hr style={{backgroundColor: "black"}}></hr>
-                    {this.state.booked_spaces.map(space => (
-                        
+                    {this.state.booked_spaces.reverse().map((space, index) => (
                             <div className ="row mt-3" style={{backgroundColor: "white", height: "11vh"}}>
                                 <div className="col-sm-2 mt-4">
-                            Order No
+                            {index+1}
                         </div>
                         <div className="col-sm-2 mt-4">
                         {space.address}

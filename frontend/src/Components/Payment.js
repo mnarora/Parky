@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
-import {  toast } from 'react-toastify';
+import {  toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -17,9 +18,40 @@ function loadScript(src) {
 		document.body.appendChild(script)
 	})
 }
+function savePaymentDetails(data) {
+	console.log(data)
+	let payment = {
+		transaction_id: '',
+		amount: '',
+		email: '',
+        booking_id: '',
+	}
+	payment.email = window.sessionStorage.getItem("useremail")
+	payment.amount = data.amount
+	payment.transaction_id = data.id
+	payment.booking_id = window.sessionStorage.getItem("booking_id")
+	axios.post("http://localhost:3001/savepaymentdetails", payment)
+	.then(
+		res => {
+			console.log("saved")
+		}
+	)
+	.catch(
+		err => {
+			console.log(err)
+		}
+	)
+}
 
 function Payment(props) {
 	const [name, setName] = useState('Manish')
+	const [state, setState] = useState({
+        email: '',
+        amount: '',
+        payment_id: '',
+        booking_id: '',
+       
+    })
 
 	async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -28,13 +60,13 @@ function Payment(props) {
 			alert('Razorpay SDK failed to load. Are you online?')
 			return
 		}
-
+		
 		const data = await fetch('http://localhost:3001/razorpay', { method: 'POST' }).then((t) =>
 			t.json()
+			
 		)
-
-		console.log(props);
-
+		savePaymentDetails(data)
+		
 		const options = {
 			key: 'rzp_test_4z2vw67s30xv3b',
 			currency: data.currency,
@@ -44,14 +76,16 @@ function Payment(props) {
 			description: '',
 			handler: function (response) {
 				console.log(response);
+				console.log(props.parkinginfo)
 				
 				axios.post('http://localhost:3001/bookspace', props.parkinginfo)
 				.then(res => {
-					if (res.data.error)
+					if (res.data.error) {
 						toast.error(res.data.error)
+					}
 					else {
-						props.history.push('/bookspace')
 						toast.success(res.data.msg)
+						props.history.push('/bookinghistory')
 					}
 				})
 				console.log(data);
@@ -68,7 +102,7 @@ function Payment(props) {
 			prefill: {
 				name: 'Manish Arora',
 				email: props.parkinginfo.email ,
-				phone_number: '9899999999'
+				phone_number: sessionStorage.contact
 			}
 		}
 		const paymentObject = new window.Razorpay(options)
@@ -85,6 +119,7 @@ function Payment(props) {
 			rel="noopener noreferrer">
 				Proceed to Pay
 			</button>
+			<ToastContainer position={toast.POSITION.TOP_CENTER}/>
 		</div>
 	)
 }
