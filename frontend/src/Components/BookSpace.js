@@ -29,6 +29,7 @@ export default class BookSpace extends Component{
                 toast.error(res.data.error)
             else {
                 this.props.history.push('/')
+                
                 toast.success(res.data.msg)
             }
         })
@@ -39,6 +40,9 @@ export default class BookSpace extends Component{
 
     
     componentDidMount() {
+        console.log(this.props)
+        window.sessionStorage.setItem('booking_id', this.props.location.state.parkingspace._id)
+        console.log(window.sessionStorage.getItem('booking_id'))
         this.setState(prevstate => ({
             ...prevstate,
             address: this.props.location.state.parkingspace.address,

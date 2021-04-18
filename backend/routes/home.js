@@ -8,6 +8,7 @@ const shortid = require('shortid')
 const nodemailer = require('nodemailer');
 const ParkingSpace = require('../models/Parkingspace.models');
 const BookingSpace = require('../models/Bookingspace.models');
+const PaymentModel = require('../models/Payment.models');
 require('dotenv').config();
 
 const router = express.Router()
@@ -300,5 +301,19 @@ router.post("/editparkingspace/:id", async(req, res) => {
   
 })
 
+router.post("/savepaymentdetails", async(req, res)=>{
+  const Payment = new PaymentModel(req.body)
+  Payment.save()
+        .then(payment => {
+            console.log("Saved sucessfully")
+            return res.status(200).json({
+                msg : "Payment Done"
+              });
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(200).json({error : err})
+        })
+})
 
 module.exports = router;
