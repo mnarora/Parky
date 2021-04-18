@@ -1,7 +1,6 @@
 /*global google*/
 import axios from 'axios';
-import css from '../CSS/GoogleMap.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import NavigationBar from './Navigationbar';
 import Payment from './Payment';
 import 'bootstrap/dist/css/bootstrap.min.css';

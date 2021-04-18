@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import '../CSS/AddParkingSpace.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from 'react-bootstrap';
 
 
 export default class AddParkingSpace extends Component {
     /* eslint-disable */ 
     state = {
         email: '',
-        password: '',
+        price: '',
         address: '',
         info: '',
         surfacetype: '',
         spacenumber: 0,
         accepted_vehicles: ['bicycle'],
-        imagePreviewUrl: ''
+       
     }
 
     /* eslint-enable */
@@ -41,36 +42,18 @@ export default class AddParkingSpace extends Component {
 
    
 
-    handleImageChange  = (e) => {
-        e.preventDefault()
-        let reader = new FileReader();
-        let image = e.target.files[0];
-    
-        reader.onloadend = () => {
-            this.setState({
-            imagePreviewUrl: reader.result
-            });
-        }
-    
-        reader.readAsDataURL(image)
-    }
+   
 
     render() {
 
-        let {imagePreviewUrl} = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} />);
-        } else {
-            $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
-        }
+       
 
         return (
             <div  >
                 <NavigationBar />
-
+                
                 <div >
-                    <div style={{backgroundColor : "blueviolet", height: "50vh"}}>
+                    <div style={{backgroundColor : "rgba(49, 2, 59, 0.856)", height: "50vh"}}>
                         <br /><br />
                         <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
                         <center className="mt-5">
@@ -78,8 +61,9 @@ export default class AddParkingSpace extends Component {
                         </center>
 
                     </div>
+                    <Container style={{backgroundColor:"rgba(226, 171, 243, 0.658)", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
                     <h1 style={{ textAlign: 'center' }}>Add Parking Space</h1>
-                    <Form style={{ width: '50%', marginLeft: '450px' }} onSubmit= {this.onSubmit}> 
+                    <Form style={{ width: '50%', alignItems:"center" ,marginLeft: "270px", marginTop: "40px"}} onSubmit= {this.onSubmit}> 
                         <FormGroup>
                             <Label for="exampleEmail" hidden>Email</Label>
                             <Input 
@@ -93,14 +77,14 @@ export default class AddParkingSpace extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="examplePassword" hidden>Password</Label>
+                            <Label for="examplePrice" hidden>Password</Label>
                             <Input 
-                                type="password" 
+                                type="text" 
                                 name="password" 
-                                id="examplePassword" 
-                                placeholder="Password" 
+                                id="examplePrice" 
+                                placeholder="Cost of Space" 
                                 required
-                                onChange={(e) => this.setState({password : e.target.value})}
+                                onChange={(e) => this.setState({price : e.target.value})}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -275,23 +259,16 @@ export default class AddParkingSpace extends Component {
                         
                         </FormGroup>
 
-                        <input 
-                            className="fileInput" 
-                            type="file" 
-                            placeholder = 'Choose image of the parking space'
-                            onChange={(e)=>this.handleImageChange(e)} 
-                        />
-                        <div className="imgPreview">
-                            {$imagePreview}
-                        </div>
-                        <div style={{display: 'inline-flex', marginLeft: '20px'}}>
+                      
+                        <div style={{display: 'inline-flex', marginLeft: '20px' , marginBottom: "50px"}}>
                             <Button>Cancel</Button>
                             <Button style={{marginLeft: '40px'}} onSubmit= {this.onSubmit}>Submit</Button>
                         </div>
                     
                     </Form>
-
+                    </Container>
                 </div>
+                
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )

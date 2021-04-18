@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import axios from 'axios';
 import { Table, Button } from 'reactstrap';
 import { Container } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default class Profile extends Component {
@@ -42,7 +42,7 @@ export default class Profile extends Component {
   
     editProfileHandler = (e) => {
         console.log(this.props)
-        const loggedinuser = this.state;
+       
         this.setState({editprofile : 1})
         this.props.history.push(`/editprofile/${this.state.email}`)
        

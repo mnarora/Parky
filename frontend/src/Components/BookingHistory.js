@@ -36,7 +36,7 @@ export default class BookingHistory extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor: "#accffe", height: "100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
+            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover",height: "100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
                 <NavigationBar />
                 <div >
                     <center>

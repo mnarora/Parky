@@ -33,6 +33,7 @@ export default class Ownerlogin extends Component {
                     }
                    
                     else{
+                        
                         console.log(sessionStorage.getItem('userid'))
                         this.props.history.push("/ParkingSpace/Add");
                     }
@@ -59,7 +60,7 @@ export default class Ownerlogin extends Component {
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" height="150px"/>
+                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="description" height="150px"/>
                     <h1>Owner Login</h1>
                 </center>
                     <div className="form-group mt-5">
