@@ -41,32 +41,32 @@ export default class Profile extends Component {
 
   
     editProfileHandler = (e) => {
-        console.log(this.props)
-       
+        const loggedinuser = this.state;
         this.setState({editprofile : 1})
         this.props.history.push(`/editprofile/${this.state.email}`)
        
     }
 
     deleteAccountHandler = () => {
-        console.log('deleteing')
-        axios.delete('http://localhost:3001/deleteaccount/' + sessionStorage.useremail)
-        .then(res => {
-            sessionStorage.clear();
-            this.props.history.push('/')
-            toast.success("Account deleted")
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        if (window.confirm("Are you sure you want to leave?")) {
+            axios.delete('http://localhost:3001/deleteaccount/' + sessionStorage.useremail)
+            .then(res => {
+                sessionStorage.clear();
+                this.props.history.push('/')
+                toast.success("Account deleted")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     }
    
     render() {
         return (
-            <div>
+            <div >
                 <NavigationBar/>
 
-                <div>
+                <div >
                 <h1 style={{textAlign: 'center'}} className="mt-5 mr-5">My Profile</h1>
                 <Container style={{marginTop: '50px'}}>
                     <Table hover>

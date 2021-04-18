@@ -13,6 +13,7 @@ import Footer from './Footer';
     let autoComplete;
 
     const loadScript = (url, callback) => {
+      console.log("Inside loadScript")
       let script = document.createElement("script");
       script.type = "text/javascript";
     
@@ -29,9 +30,11 @@ import Footer from './Footer';
     
       script.src = url;
       document.getElementsByTagName("head")[0].appendChild(script);
+      console.log("After loadScrpt")
     };
     
     function handleScriptLoad(updateQuery, autoCompleteRef) {
+      console.log("Inside handleScript")
       autoComplete = new window.google.maps.places.Autocomplete(
         autoCompleteRef.current,
         { fields: ["formatted_address", "geometry", "name"], componentRestrictions: { country: "in" } }
@@ -40,13 +43,16 @@ import Footer from './Footer';
       autoComplete.addListener("place_changed", () =>
         handlePlaceSelect(updateQuery)
       );
+      console.log("After handlescript")
     }
     
     async function handlePlaceSelect(updateQuery) {
+      console.log("inside handkePlaceSelect")
       const addressObject = autoComplete.getPlace();
       const query = addressObject.formatted_address;
       updateQuery(query);
       console.log(addressObject);
+      console.log("after handlePlaceSelect")
     }
     
     function BookaSlot(props) {

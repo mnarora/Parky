@@ -47,7 +47,10 @@ import { Link } from 'react-router-dom';
           fields: ["name", "geometry"],
         };
        
+        
+
         service = new google.maps.places.PlacesService(map);
+       
         service.findPlaceFromQuery(request, (results, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
             for (let i = 0; i < results.length; i++) {
@@ -58,10 +61,10 @@ import { Link } from 'react-router-dom';
           }
          
         });
-        axios.get('http://localhost:3001/bookaslot')
+        await axios.get('http://localhost:3001/bookaslot')
         .then(res => {
           for (let j = 0; j < res.data.length; j++){
-            
+            console.log(res);
             places = new google.maps.places.PlacesService(map);
             const param = {
               query : res.data[j].address,
@@ -132,34 +135,6 @@ import { Link } from 'react-router-dom';
           addInfoWindow(marker, content);
       }
 
-      
-      const renderCard = (card, index) => {
-        console.log(card);
-        return (
-          <Card style={{ width: '18rem' }} key={index} className={css.box}>
-          <Card.Body>
-            <Card.Title>{card.address}</Card.Title>
-            <Card.Text>
-              Number of Spaces: {card.spacenumber}
-            </Card.Text>
-            <Card.Text>
-              Accepted Vehicles: {card.accepted_vehicles}
-            </Card.Text>
-            <Card.Text>
-              Price per hour: {card.price}
-            </Card.Text>
-            <Card.Text>
-              Surface Type: {card.surfacetype}
-            </Card.Text>
-            <Card.Text>
-              Additional Info: {card.info}
-            </Card.Text>
-            <Link to='/payment'><Button variant="primary">Book Space</Button></Link>
-          </Card.Body>
-      </Card>
-        );
-        
-      };
 
     
       function useForceUpdate(){
@@ -167,10 +142,10 @@ import { Link } from 'react-router-dom';
         return () => setValue(value => value + 1); // update the state to force render
     }
   
-      
+
       
   function GoogleMap(props){
-    
+    console.log(window.performance.navigation.type);
     const query = props.location.state.areaname;
     const forceUpdateHandler = useForceUpdate();
      useEffect(() => {
@@ -187,10 +162,29 @@ import { Link } from 'react-router-dom';
             <NavigationBar/>
             <div className={css.map} id="map">
             </div>
-
-              
-            
-           <div className={css.grid}>{cardInfo.map(renderCard)}</div>  
+            <div className={css.grid}>{cardInfo.map((card, index) => (
+             <Card style={{ width: '18rem' }} key={index} className={css.box}>
+             <Card.Body>
+               <Card.Title>{card.address}</Card.Title>
+               <Card.Text>
+                 Surface Type: {card.surfacetype}
+               </Card.Text>
+               <Card.Text>
+                 Space Number: {card.spacenumber}
+               </Card.Text>
+               <Card.Text>
+                 Accepted Vehicles: {card.accepted_vehicles}
+               </Card.Text>
+               <Button variant="primary" 
+               onClick={() => {
+                 props.history.push({
+                   pathname: '/bookspace',
+                   state: {parkingspace: card}
+                 })
+               }}>Book Space</Button>
+             </Card.Body>
+         </Card>
+           ))}</div>  
            <br></br>
            <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
           </div>

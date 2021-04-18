@@ -23,12 +23,7 @@ const ParkingSpaceSchema = new Schema({
     },
     accepted_vehicles: {
         type: Array
-    },
-    image:{
-        
-        type: String
-    },
-
+    }
 },   { strict: false });
 
 module.exports = ParkingSpace = mongoose.model('parkingspace', ParkingSpaceSchema);

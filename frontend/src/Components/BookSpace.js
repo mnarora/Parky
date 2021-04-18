@@ -16,7 +16,8 @@ export default class BookSpace extends Component{
         departure_time: '',
         date: '',
         price: '',
-        email: ''
+        email: '',
+
     }
 
     bookSpaceHandler = (e) => {
@@ -36,80 +37,67 @@ export default class BookSpace extends Component{
             console.log(err)
         })
     }
+    
+
+    componentDidMount() {
+        this.setState(prevstate => ({
+            ...prevstate,
+            address: this.props.location.state.parkingspace.address,
+            price: this.props.location.state.parkingspace.price,
+            email: sessionStorage.useremail
+        }))
+    }
 
     render(){
         return(
-            <div>
+            <div className={Bookspacecss.background}>
                 <NavigationBar/>
 
                 <Container className= {Bookspacecss.container}>
-                    <h1 style={{ textAlign: 'center', marginTop: "30px" }}>Book the ParkingSpace</h1>
-                    <Form style={{ width: '50%', alignItems:"center" ,marginLeft:"150px", marginTop: "100px"}} > 
-                        <FormGroup row>
-                            <Label for="exampleAddress" >Address</Label>
-                            <Input
-                                type="textarea"
-                                name="address"
-                                id="exampleAddress"
-                                placeholder="Address"
-                                required
-                                onChange={(e) => this.setState({
-                                    address : e.target.value,
-                                    email : sessionStorage.getItem('useremail')
-                                })}
-                            />
-                        </FormGroup>
-
-                        <FormGroup row>
-                            <Label for="exampleDate">Date</Label>
-                            <Input
+                    <h1 className="ml-5 mt-5">Checkout</h1>
+                    <div className="mt-5" style={{fontSize: '25px', marginLeft:'30%'}}>
+                        <p>Address : {this.props.location.state.parkingspace.address}</p>
+                        <p>No of Spaces: {this.props.location.state.parkingspace.spacenumber}</p>
+                        <p>Surface Type: {this.props.location.state.parkingspace.surfacetype}</p>
+                        <p>Accepted Vehicles: {this.props.location.state.parkingspace.accepted_vehicles}</p>
+                        <p>Price: {this.props.location.state.parkingspace.price}</p>
+                        <Form>
+                            <p>Select Date -</p>
+                        <Input
                                 type="date"
                                 name="date"
                                 id="exampleDate"
+                                style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="date placeholder"
                                 onChange={(e) => this.setState({date : e.target.value})}
                             />
-                        </FormGroup>
-
-                        <FormGroup row>
-                            <Label for="examplePrice">Price</Label>
-                            <Input
-                                type="text"
-                                name="price"
-                                id="examplePrice"
-                                required
-                                placeholder="Cost of space"
-                                onChange={(e) => this.setState({price : e.target.value})}
-                            />
-                        </FormGroup>
-
-                        <FormGroup row>
-                            <Label for="ArrivalTime">Arrival Time</Label>
-                            <Input
+                            <p className="mt-3">Select Arrival Time -</p>
+                        <Input
                                 type="time"
                                 name="time"
                                 id="ArrivalTime"
+                                style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="Arrival timw"
                                 onChange={(e) => this.setState({arrival_time : e.target.value})}
                             />
-                        </FormGroup>
-
-                        <FormGroup row>
-                            <Label for="DepartureTime">Departure Time</Label>
+                            <p className="mt-3">Select Departure Time -</p>
                             <Input
                                 type="time"
+                                className="mb-5"
                                 name="time"
                                 id="DepartureTime"
+                                style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="Departure time"
                                 onChange={(e) => this.setState({departure_time : e.target.value})}
                             />
-                        </FormGroup>
-                    </Form>
-                    <Payment />
-                    <Button style={{ marginTop: "50px", width: "200px"}}  onClick ={this.bookSpaceHandler} className={Bookspacecss.buttonn}>Save</Button>
+                        </Form>
+                        {console.log(this.state)}
+                        
+                    </div>
+                    {this.state.date && this.state.arrival_time && this.state.departure_time && <Payment parkinginfo={this.state}/>}
                 </Container>
             </div>
         )

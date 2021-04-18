@@ -20,7 +20,6 @@ export default class Ownerlogin extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg);
                 else {
-                    console.log(res.data.user)
                     window.sessionStorage.setItem('name', res.data.user.name);
                     window.sessionStorage.setItem('isuser', res.data.user.isuser);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
@@ -33,8 +32,6 @@ export default class Ownerlogin extends Component {
                     }
                    
                     else{
-                        
-                        console.log(sessionStorage.getItem('userid'))
                         this.props.history.push("/ParkingSpace/Add");
                     }
                         
@@ -44,7 +41,6 @@ export default class Ownerlogin extends Component {
             })
             .catch(err => {
                 alert(err);
-                console.log(err);
                 toast.error(err);
             })
       }
