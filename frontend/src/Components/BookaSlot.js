@@ -81,8 +81,8 @@ import Footer from './Footer';
                     <input type="text" ref={autoCompleteRef}
                     onChange={event => setQuery(event.target.value)}
                     value={query} placeholder="Enter Address"/>
-
-                    <button onClick={handleSubmit} className="mt-5" type="submit">Search Your Parking Space</button>
+                    <br></br>
+                    <button onClick={handleSubmit} className={css.buttonS} type="submit">Search Your Parking Space</button>
                     <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
 

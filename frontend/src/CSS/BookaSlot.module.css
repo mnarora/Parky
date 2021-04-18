@@ -29,7 +29,7 @@ input {
     outline: none;
 }
 
-button {
+.buttonS {
     height: auto;
     width: auto;
     background-color: rgb(113, 174, 243);
@@ -37,6 +37,7 @@ button {
     font-weight: 600;
     padding: 10px 10px;
     border-radius: 10px;
+    margin : 0 auto;
     border: 3px solid black;
 }
 

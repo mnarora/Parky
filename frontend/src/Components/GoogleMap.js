@@ -1,14 +1,23 @@
 /*global google*/
 import axios from 'axios';
 import css from '../CSS/GoogleMap.module.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from './Navigationbar';
+import Payment from './Payment';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import {Card, Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
       let map;
       let service;
       let places;
+      let cardInfo = [];
+      let dcord;
+      let scord;
 
+      
       const loadScript = (url, callback) => {
         let script = document.createElement("script");
         script.type = "text/javascript";
@@ -29,7 +38,7 @@ import NavigationBar from './Navigationbar';
     
       };
 
-      function initMap(props) {
+      async function initMap(props) {
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 15,
         });
@@ -45,13 +54,12 @@ import NavigationBar from './Navigationbar';
               createMarker(results[i]);
             }
             map.setCenter(results[0].geometry.location);
-            console.log(results[0]);
+            dcord = results[0].geometry.location;
           }
          
         });
         axios.get('http://localhost:3001/bookaslot')
         .then(res => {
-          
           for (let j = 0; j < res.data.length; j++){
             
             places = new google.maps.places.PlacesService(map);
@@ -62,7 +70,13 @@ import NavigationBar from './Navigationbar';
             places.findPlaceFromQuery(param, (results, status) => {
               if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
                 for (let k = 0; k < results.length; k++) {
+                  
                   customMarker(results[k], res.data[j]);
+                  scord = results[k].geometry.location;
+                  if((google.maps.geometry.spherical.computeDistanceBetween(dcord, scord)) < 5000){
+                    cardInfo.push(res.data[j]);
+                  }
+                  
                 }
               }
             });
@@ -91,14 +105,18 @@ import NavigationBar from './Navigationbar';
         });
       }
 
+
       function customMarker(place, details) {
         const icons = {
            parking: {
            icon: 'parking_lot.png',
             },
         };
-        console.log(details);
-        const content = "Address: " + details.address + "Surface type: " + details.surfacetype + "Accepted Vehicles: " + details.accepted_vehicles + " Additional Info: " + details.info ;
+        const content = '<p>Address: '+details.address+'</p>' +
+        '<p>Accepted Vehicles: '+details.accepted_vehicles+'</p>' +
+        '<p>Space Number: '+details.spacenumber+'</p>' +
+        '<p>Surface Type: '+details.surfacetype+'</p>' +
+            '<button onclick="myFunction() style="font-weight:50;">Book Space</button>';
         const marker = new google.maps.Marker({
             position: place.geometry.location,
             icon: { 
@@ -108,25 +126,65 @@ import NavigationBar from './Navigationbar';
             },
             map: map,
           });
+         
           addInfoWindow(marker, content);
       }
+
+      
+      const renderCard = (card, index) => {
+        console.log(card);
+        return (
+          <Card style={{ width: '18rem' }} key={index} className={css.box}>
+          <Card.Body>
+            <Card.Title>{card.address}</Card.Title>
+            <Card.Text>
+              Surface Type: {card.surfacetype}
+            </Card.Text>
+            <Card.Text>
+              Space Number: {card.spacenumber}
+            </Card.Text>
+            <Card.Text>
+              Accepted Vehicles: {card.accepted_vehicles}
+            </Card.Text>
+            <Link to='/payment'><Button variant="primary">Book Space</Button></Link>
+          </Card.Body>
+      </Card>
+        );
+        
+      };
+
     
- 
-   function GoogleMap(props){
+      function useForceUpdate(){
+        const [value, setValue] = useState(0); // integer state
+        return () => setValue(value => value + 1); // update the state to force render
+    }
+  
+      
+      
+  function GoogleMap(props){
+    
     const query = props.location.state.areaname;
-    console.log(query);
-    useEffect(() => {
+    const forceUpdateHandler = useForceUpdate();
+     useEffect(() => {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places,geometry`,
         () => initMap(query)
       );
     }, []);
+    
         return (
+          
           <div style={{height : '100%', width : '100%'}}>
+            
             <NavigationBar/>
-            <div style={{height : '500px', width : '1000px'}} id="map">
+            <div className={css.map} id="map">
             </div>
 
+              
+            
+           <div className={css.grid}>{cardInfo.map(renderCard)}</div>  
+           <br></br>
+           <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
           </div>
      )
     }

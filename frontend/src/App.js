@@ -16,6 +16,7 @@ import BookingHistory from './Components/BookingHistory';
 import EditProfile from './Components/EditProfile';
 import BookSpace from './Components/BookSpace';
 
+
 class ProtectedRoute extends Component {
   render() {
     const { component: Component, ...props } = this.props
