@@ -45,11 +45,13 @@ function Payment(props) {
 			description: '',
 			handler: function (response) {
 				console.log(response);
+				console.log(props.parkinginfo)
 				
 				axios.post('http://localhost:3001/bookspace', props.parkinginfo)
 				.then(res => {
-					if (res.data.error)
+					if (res.data.error) {
 						toast.error(res.data.error)
+					}
 					else {
 						toast.success(res.data.msg)
 						props.history.push('/bookinghistory')

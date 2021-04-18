@@ -17,6 +17,7 @@ import EditProfile from './Components/EditProfile';
 import BookSpace from './Components/BookSpace';
 import MySpaces from './Components/MySpace';
 import EditParkingSpace from './Components/EditParkingSpace'
+import NotFoundPage from './Components/NotFoundPage';
 
 
 class ProtectedRoute extends Component {
@@ -27,7 +28,7 @@ class ProtectedRoute extends Component {
       <Route 
         {...props} 
         render={props => (
-          sessionStorage.getItem('isuser') ?
+          sessionStorage.getItem('useremail') ?
             <Component {...props} /> :
             <Redirect to='/' />
         )} 
@@ -45,12 +46,11 @@ class LoggedInRoute extends Component {
         {...props} 
         render={props => (
           sessionStorage.getItem('useremail') ? (
-            sessionStorage.getItem('isuser') ?
+            sessionStorage.getItem('isuser') == 'true' ?
             (<Redirect to='/searchspace' />):
             (<Redirect to='/parkingspace/add' />)
           ):
           (<Component {...props} />)
-          
         )} 
       />
     )
@@ -70,19 +70,29 @@ class App extends Component {
           <LoggedInRoute path="/ownerlogin" exact component={Ownerlogin}/>
           <LoggedInRoute path="/ownerregister" exact component={OwnerRegister} />
           <LoggedInRoute path="/userregister" exact component={UserRegister} />
-          <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
-          <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
-          <Route path="/payment" exact component={Payment} />
-          <LoggedInRoute path="/resetpassword" exact component={ResetPassword} />
-          <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
-          <Route path="/getdirections" exact component={GetDirections} />
-          <ProtectedRoute path="/ParkingSpace/Add" exact component={AddParkingSpace} />
           <ProtectedRoute path="/profile" exact component={Profile} />
-          <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
-          <Route path="/editprofile/:email" exact component={EditProfile}  />
-          <Route path="/bookspace" exact component={BookSpace}/>
-          <Route path="/myspaces" exact component={MySpaces}/>
-          <Route path="/editparkingspace/:id" exact component={EditParkingSpace}/>
+          <ProtectedRoute path="/editprofile/:email" exact component={EditProfile}  />
+          <Route path="/resetpassword" exact component={ResetPassword} />
+          {sessionStorage.isuser == "true"?
+          (
+          <div>
+            <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
+            <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
+            <ProtectedRoute path="/bookspace" exact component={BookSpace}/>
+            <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
+          </div>
+          )
+          :
+          (
+          <div>
+            <ProtectedRoute path="/parkingSpace/add" exact component={AddParkingSpace} />
+            <ProtectedRoute path="/myspaces" exact component={MySpaces}/>
+            <ProtectedRoute path="/editparkingspace/:id" exact component={EditParkingSpace}/>
+          </div>
+          )
+          }
+          
+
         </Switch>
       </BrowserRouter>
       </div>
