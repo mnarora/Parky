@@ -120,8 +120,7 @@ import {Card, Button} from 'react-bootstrap';
         '<p>Number of spaces: '+details.spacenumber+'</p>' +
         '<p>Price per hour: '+details.price+'</p>' +
         '<p>Surface Type: '+details.surfacetype+'</p>' +
-        '<p>Additional Info: '+details.info+'</p>' +
-            '<button onclick="myFunction() style="font-weight:50;">Book Space</button>';
+        '<p>Additional Info: '+details.info+'</p>';
         const marker = new google.maps.Marker({
             position: place.geometry.location,
             icon: { 
@@ -170,11 +169,18 @@ import {Card, Button} from 'react-bootstrap';
                  Surface Type: {card.surfacetype}
                </Card.Text>
                <Card.Text>
-                 Space Number: {card.spacenumber}
+                Number of Spaces: {card.spacenumber}
                </Card.Text>
                <Card.Text>
                  Accepted Vehicles: {card.accepted_vehicles}
                </Card.Text>
+               <Card.Text>
+                 Price: {card.price}
+               </Card.Text>
+               <Card.Text>
+                 Additional Info: {card.info}
+               </Card.Text>
+
                <Button variant="primary" 
                onClick={() => {
                  props.history.push({
