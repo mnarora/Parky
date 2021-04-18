@@ -73,24 +73,15 @@ class App extends Component {
           <ProtectedRoute path="/profile" exact component={Profile} />
           <ProtectedRoute path="/editprofile/:email" exact component={EditProfile}  />
           <Route path="/resetpassword" exact component={ResetPassword} />
-          {sessionStorage.isuser == "true"?
-          (
-          <div>
+          <ProtectedRoute path="/bookspace" exact component={BookSpace}/>
+          <ProtectedRoute path="/parkingSpace/add" exact component={AddParkingSpace} />
             <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
             <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
-            <ProtectedRoute path="/bookspace" exact component={BookSpace}/>
+            
             <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
-          </div>
-          )
-          :
-          (
-          <div>
-            <ProtectedRoute path="/parkingSpace/add" exact component={AddParkingSpace} />
             <ProtectedRoute path="/myspaces" exact component={MySpaces}/>
             <ProtectedRoute path="/editparkingspace/:id" exact component={EditParkingSpace}/>
-          </div>
-          )
-          }
+          <Route path="*" component={NotFoundPage} />
           
 
         </Switch>
