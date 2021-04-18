@@ -23,7 +23,7 @@ export default class MySpace extends Component{
             
             axios.get('http://localhost:3001/myspaces/' + sessionStorage.useremail)
             .then(res => {
-               
+
                 this.setState({
                   myspaces : res.data.myspaces
                 })
