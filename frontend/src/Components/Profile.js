@@ -63,10 +63,10 @@ export default class Profile extends Component {
    
     render() {
         return (
-            <div>
+            <div >
                 <NavigationBar/>
 
-                <div>
+                <div >
                 <h1 style={{textAlign: 'center'}} className="mt-5 mr-5">My Profile</h1>
                 <Container style={{marginTop: '50px'}}>
                     <Table hover>
