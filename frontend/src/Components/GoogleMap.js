@@ -47,7 +47,10 @@ import {Card, Button} from 'react-bootstrap';
           fields: ["name", "geometry"],
         };
        
+        
+
         service = new google.maps.places.PlacesService(map);
+       
         service.findPlaceFromQuery(request, (results, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
             for (let i = 0; i < results.length; i++) {
@@ -58,10 +61,10 @@ import {Card, Button} from 'react-bootstrap';
           }
          
         });
-        axios.get('http://localhost:3001/bookaslot')
+        await axios.get('http://localhost:3001/bookaslot')
         .then(res => {
           for (let j = 0; j < res.data.length; j++){
-            
+            console.log(res);
             places = new google.maps.places.PlacesService(map);
             const param = {
               query : res.data[j].address,
@@ -114,9 +117,10 @@ import {Card, Button} from 'react-bootstrap';
         };
         const content = '<p>Address: '+details.address+'</p>' +
         '<p>Accepted Vehicles: '+details.accepted_vehicles+'</p>' +
-        '<p>Space Number: '+details.spacenumber+'</p>' +
+        '<p>Number of spaces: '+details.spacenumber+'</p>' +
+        '<p>Price per hour: '+details.price+'</p>' +
         '<p>Surface Type: '+details.surfacetype+'</p>' +
-            '<button onclick="myFunction() style="font-weight:50;">Book Space</button>';
+        '<p>Additional Info: '+details.info+'</p>';
         const marker = new google.maps.Marker({
             position: place.geometry.location,
             icon: { 
@@ -137,10 +141,10 @@ import {Card, Button} from 'react-bootstrap';
         return () => setValue(value => value + 1); // update the state to force render
     }
   
-      
+
       
   function GoogleMap(props){
-    
+    console.log(window.performance.navigation.type);
     const query = props.location.state.areaname;
     const forceUpdateHandler = useForceUpdate();
      useEffect(() => {
@@ -157,10 +161,7 @@ import {Card, Button} from 'react-bootstrap';
             <NavigationBar/>
             <div className={css.map} id="map">
             </div>
-
-              
-            
-           <div className={css.grid}>{cardInfo.map((card, index) => (
+            <div className={css.grid}>{cardInfo.map((card, index) => (
              <Card style={{ width: '18rem' }} key={index} className={css.box}>
              <Card.Body>
                <Card.Title>{card.address}</Card.Title>
@@ -168,11 +169,18 @@ import {Card, Button} from 'react-bootstrap';
                  Surface Type: {card.surfacetype}
                </Card.Text>
                <Card.Text>
-                 Space Number: {card.spacenumber}
+                Number of Spaces: {card.spacenumber}
                </Card.Text>
                <Card.Text>
                  Accepted Vehicles: {card.accepted_vehicles}
                </Card.Text>
+               <Card.Text>
+                 Price: {card.price}
+               </Card.Text>
+               <Card.Text>
+                 Additional Info: {card.info}
+               </Card.Text>
+
                <Button variant="primary" 
                onClick={() => {
                  props.history.push({

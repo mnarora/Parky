@@ -88,7 +88,17 @@ function Payment(props) {
 						toast.success(res.data.msg)
 						props.history.push('/bookinghistory')
 					}
-        		})
+				})
+				console.log(data);
+				//axios.post('http://localhost:3001/payment', props.parkinginfo)
+				//.then(res => {
+				//	if (res.data.error)
+				//		toast.error(res.data.error)
+				//	else {
+				//		props.history.push('/bookspace')
+				//		toast.success(res.data.msg)
+				//	}
+        		//})
 			},
 			prefill: {
 				name: 'Manish Arora',
