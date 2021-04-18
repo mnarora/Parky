@@ -47,7 +47,7 @@ let autoComplete;
       autoComplete.addListener("place_changed", () =>
         handlePlaceSelect(updateQuery)
       );
-     
+     //alert("////////")
     }
     
     async function handlePlaceSelect(updateQuery) {
@@ -60,18 +60,6 @@ let autoComplete;
     }
 
 export default function AddParkingSpace (props){
-    /* eslint-disable */ 
-    // state = {
-    //     email: '',
-    //     price: '',
-    //     address: '',
-    //     info: '',
-    //     surfacetype: '',
-    //     spacenumber: 0,
-    //     accepted_vehicles: ['bicycle'],
-       
-    // // }
-
     const [state, setState] = useState({
         email: '',
         price: '',
@@ -205,7 +193,7 @@ export default function AddParkingSpace (props){
                     <FormGroup>
                         <Label for="examplePrice" hidden>Password</Label>
                         <Input 
-                            type="text" 
+                            type="number" 
                             name="password" 
                             id="examplePrice" 
                             placeholder="Cost of Space" 
@@ -221,7 +209,6 @@ export default function AddParkingSpace (props){
                             id="exampleAddress"
                             placeholder="Address"
                             required
-                           ref={autoCompleteRef}
                             value={state.address}
                             onChange={(e) => setState(prevState =>( {...prevState, address:e.target.value}))}
                         />

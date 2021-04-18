@@ -1,5 +1,8 @@
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Bookspacecss from '../CSS/BookSpace.module.css';
+import axios from 'axios';
+import {  toast } from 'react-toastify';
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -15,9 +18,7 @@ function loadScript(src) {
 	})
 }
 
-// const __DEV__ = document.domain === 'localhost'
-
-function Payment() {
+function Payment(props) {
 	const [name, setName] = useState('Manish')
 
 	async function displayRazorpay() {
@@ -37,16 +38,26 @@ function Payment() {
 		const options = {
 			key: 'rzp_test_4z2vw67s30xv3b',
 			currency: data.currency,
-			amount: data.amount,
+			amount: props.parkinginfo.price*100,
 			order_id: data.amount.id,
-			name: 'Donation',
-			description: 'Thank you for nothing. Please give us some money',
+			name: 'Parky Booking',
+			description: '',
 			handler: function (response) {
 				console.log(response);
+				
+				axios.post('http://localhost:3001/bookspace', props.parkinginfo)
+				.then(res => {
+					if (res.data.error)
+						toast.error(res.data.error)
+					else {
+						props.history.push('/bookspace')
+						toast.success(res.data.msg)
+					}
+        		})
 			},
 			prefill: {
-				name,
-				email: 'sdfdsjfh2@ndsfdf.com',
+				name: 'Manish Arora',
+				email: props.parkinginfo.email ,
 				phone_number: '9899999999'
 			}
 		}
@@ -55,17 +66,15 @@ function Payment() {
 	}
 
 	return (
+		
 		<div className="Payment">
-			<button className="Payment-header">
-				<a
-					className="Payment-link"
-					onClick={displayRazorpay}
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Donate $5
-				</a>
-            </button>
+			{console.log(props.parkinginfo)}
+			<button className={Bookspacecss.buttonn} 
+			onClick={displayRazorpay}
+			target="_blank"
+			rel="noopener noreferrer">
+				Proceed to Pay
+			</button>
 		</div>
 	)
 }

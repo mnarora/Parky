@@ -130,28 +130,6 @@ import { Link } from 'react-router-dom';
           addInfoWindow(marker, content);
       }
 
-      
-      const renderCard = (card, index) => {
-        console.log(card);
-        return (
-          <Card style={{ width: '18rem' }} key={index} className={css.box}>
-          <Card.Body>
-            <Card.Title>{card.address}</Card.Title>
-            <Card.Text>
-              Surface Type: {card.surfacetype}
-            </Card.Text>
-            <Card.Text>
-              Space Number: {card.spacenumber}
-            </Card.Text>
-            <Card.Text>
-              Accepted Vehicles: {card.accepted_vehicles}
-            </Card.Text>
-            <Link to='/payment'><Button variant="primary">Book Space</Button></Link>
-          </Card.Body>
-      </Card>
-        );
-        
-      };
 
     
       function useForceUpdate(){
@@ -182,7 +160,29 @@ import { Link } from 'react-router-dom';
 
               
             
-           <div className={css.grid}>{cardInfo.map(renderCard)}</div>  
+           <div className={css.grid}>{cardInfo.map((card, index) => (
+             <Card style={{ width: '18rem' }} key={index} className={css.box}>
+             <Card.Body>
+               <Card.Title>{card.address}</Card.Title>
+               <Card.Text>
+                 Surface Type: {card.surfacetype}
+               </Card.Text>
+               <Card.Text>
+                 Space Number: {card.spacenumber}
+               </Card.Text>
+               <Card.Text>
+                 Accepted Vehicles: {card.accepted_vehicles}
+               </Card.Text>
+               <Button variant="primary" 
+               onClick={() => {
+                 props.history.push({
+                   pathname: '/bookspace',
+                   state: {parkingspace: card}
+                 })
+               }}>Book Space</Button>
+             </Card.Body>
+         </Card>
+           ))}</div>  
            <br></br>
            <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
           </div>
