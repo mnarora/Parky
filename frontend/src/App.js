@@ -36,6 +36,27 @@ class ProtectedRoute extends Component {
   }
 }
 
+class LoggedInRoute extends Component {
+  render() {
+    const { component: Component, ...props } = this.props
+
+    return (
+      <Route 
+        {...props} 
+        render={props => (
+          sessionStorage.getItem('useremail') ? (
+            sessionStorage.getItem('isuser') ?
+            (<Redirect to='/searchspace' />):
+            (<Redirect to='/parkingspace/add' />)
+          ):
+          (<Component {...props} />)
+          
+        )} 
+      />
+    )
+  }
+}
+
 
 class App extends Component { 
 
@@ -44,15 +65,15 @@ class App extends Component {
       <div className="App">
       <BrowserRouter >
         <Switch>
-          <Route path="/" exact component={Homepage} />
-          <Route path="/userlogin" exact component={Login} />
-          <Route path="/ownerlogin" exact component={Ownerlogin}/>
-          <Route path="/ownerregister" exact component={OwnerRegister} />
-          <Route path="/userregister" exact component={UserRegister} />
+          <LoggedInRoute path="/" exact component={Homepage} />
+          <LoggedInRoute path="/userlogin" exact component={Login} />
+          <LoggedInRoute path="/ownerlogin" exact component={Ownerlogin}/>
+          <LoggedInRoute path="/ownerregister" exact component={OwnerRegister} />
+          <LoggedInRoute path="/userregister" exact component={UserRegister} />
           <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
           <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
           <Route path="/payment" exact component={Payment} />
-          <Route path="/resetpassword" exact component={ResetPassword} />
+          <LoggedInRoute path="/resetpassword" exact component={ResetPassword} />
           <ProtectedRoute path="/bookaslot" exact component={BookaSlot} />
           <Route path="/getdirections" exact component={GetDirections} />
           <ProtectedRoute path="/ParkingSpace/Add" exact component={AddParkingSpace} />

@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
-import {  toast } from 'react-toastify';
+import {  toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -50,15 +51,15 @@ function Payment(props) {
 					if (res.data.error)
 						toast.error(res.data.error)
 					else {
-						props.history.push('/bookspace')
 						toast.success(res.data.msg)
+						props.history.push('/bookinghistory')
 					}
         		})
 			},
 			prefill: {
 				name: 'Manish Arora',
 				email: props.parkinginfo.email ,
-				phone_number: '9899999999'
+				phone_number: sessionStorage.contact
 			}
 		}
 		const paymentObject = new window.Razorpay(options)
@@ -75,6 +76,7 @@ function Payment(props) {
 			rel="noopener noreferrer">
 				Proceed to Pay
 			</button>
+			<ToastContainer position={toast.POSITION.TOP_CENTER}/>
 		</div>
 	)
 }

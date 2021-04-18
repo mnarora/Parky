@@ -7,7 +7,6 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'react-bootstrap';
 import Payment from './Payment';
-
 export default class BookSpace extends Component{
 
     state = {
@@ -37,8 +36,8 @@ export default class BookSpace extends Component{
             console.log(err)
         })
     }
-    
 
+    
     componentDidMount() {
         this.setState(prevstate => ({
             ...prevstate,
@@ -67,6 +66,7 @@ export default class BookSpace extends Component{
                                 type="date"
                                 name="date"
                                 id="exampleDate"
+                                className="datepicker"
                                 style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="date placeholder"
@@ -97,7 +97,7 @@ export default class BookSpace extends Component{
                         {console.log(this.state)}
                         
                     </div>
-                    {this.state.date && this.state.arrival_time && this.state.departure_time && <Payment parkinginfo={this.state}/>}
+                    {this.state.date && this.state.arrival_time && this.state.departure_time && <Payment parkinginfo={this.state} {...this.props}/>}
                 </Container>
             </div>
         )

@@ -24,6 +24,7 @@ export default class Login extends Component {
                     window.sessionStorage.setItem('name', res.data.user.name);
                     window.sessionStorage.setItem('isuser', res.data.user.isuser);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
+                    window.sessionStorage.setItem('contact', res.data.user.contact);
                     window.sessionStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.isuser) {
                         this.props.history.push({
@@ -57,7 +58,7 @@ export default class Login extends Component {
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="description of image" height="150px"/>
+                <img src="pictures/login.jpg" alt="description of image" height="150px"/>
                 <h1>User Login</h1>
                 </center>
                     <div className="form-group mt-4">
