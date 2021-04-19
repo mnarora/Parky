@@ -41,7 +41,6 @@ export default class Profile extends Component {
 
   
     editProfileHandler = (e) => {
-        const loggedinuser = this.state;
         this.setState({editprofile : 1})
         this.props.history.push(`/editprofile/${this.state.email}`)
        

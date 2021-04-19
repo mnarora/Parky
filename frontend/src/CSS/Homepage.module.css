@@ -41,3 +41,10 @@ img {
 img:hover {
     opacity: 0.8;
 }
+
+.image {
+    @media only screen and (max-width: 600px){
+        display: none;
+    }
+    
+}

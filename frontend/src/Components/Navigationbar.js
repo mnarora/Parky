@@ -17,7 +17,7 @@ export default class NavigationBar extends Component {
     componentDidMount() {
         if (sessionStorage.useremail) {
           console.log(sessionStorage.isuser)
-            this.setState({loggedIn : true, isuser: (sessionStorage.isuser == 'true')});
+            this.setState({loggedIn : true, isuser: (sessionStorage.isuser === 'true')});
         }
         else 
           this.setState({loggedIn : false, isuser: false});

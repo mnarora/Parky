@@ -20,7 +20,13 @@ const BookingSpaceSchema = new Schema({
     },
     email:{
         type: String
-    }
+    },
+    no_of_booked_spaces: {
+        type : String
+    },
+    booked_space_id:{
+        type: String
+    },
 },   { strict: false });
 
 module.exports = BookingSpace = mongoose.model('bookingspace', BookingSpaceSchema);

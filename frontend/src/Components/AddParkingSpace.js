@@ -106,16 +106,16 @@ export default function AddParkingSpace (props){
             <NavigationBar />
             
             <div >
-                <div style={{backgroundColor : "rgba(49, 2, 59, 0.856)", height: "50vh"}}>
+                <div style={{backgroundColor : "darkblue", height: "50vh"}}>
                     <br /><br />
                     <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
                     <center className="mt-5">
-                    <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" />
+                    <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" alt="Image"/>
                     </center>
 
                 </div>
-                <Container style={{backgroundColor:"rgba(49, 2, 59, 0.21)", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
-                <h1 style={{ textAlign: 'center' }}>Add Parking Space</h1>
+                <Container style={{backgroundColor:"#039be5", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
+                <h1 style={{ textAlign: 'center' }}><b>Add Parking Space</b></h1>
                 <Form style={{ width: '50%', alignItems:"center" ,marginLeft: "270px", marginTop: "40px"}} onSubmit= {onSubmit}> 
 
                     <FormGroup>
@@ -136,7 +136,7 @@ export default function AddParkingSpace (props){
                             name="address"
                             id="exampleAddress"
                             placeholder="Address"
-                            style={{width:'100%'}}
+                            style={{width:'100%', color: 'black', backgroundColor: 'white', fontSize:'16px', paddingLeft:'-18px'}}
                             required
                             value={state.address}
                             ref={autoCompleteRef}
@@ -301,14 +301,23 @@ export default function AddParkingSpace (props){
 
                     
                     <div >
-                        <Button className={addparking.buttonn}>Cancel</Button>
-                        <Button className={addparking.buttonn} onSubmit= {onSubmit}>Submit</Button>
+                        <center>
+                        <div className="row" style={{justifyContent: 'center'}}>
+                            <div className="col-md-3">
+                                <Button className={addparking.buttonn} style={{backgroundColor: "black", width:'120px'}} onSubmit= {onSubmit}>Submit</Button>
+                            </div>
+                            <div>
+                            <Button className={addparking.buttonn} style={{backgroundColor: "black", width:'120px'}}>Cancel</Button>
+                            </div>
+                        </div>
+                        </center>
                     </div>
-                
+                    <br /><br />
                 </Form>
                 </Container>
             </div>
-            
+            <br /><br /><br />
+            <Footer />
             <ToastContainer position={toast.POSITION.TOP_CENTER}/>
         </div>
     );

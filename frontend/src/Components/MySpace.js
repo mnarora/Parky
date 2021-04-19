@@ -70,7 +70,7 @@ export default class MySpace extends Component{
                             <h3>{space.info}</h3>
                             <h5>{space.surfacetype}</h5>
                             <p>{"Number of Parking Spaces: " +  space.spacenumber}</p>
-                            <p>{"Cost of Space: " + space.price}</p>
+                            <p>{"Cost of Space: Rs " + space.price + " per hour"}</p>
                             
                             <Button className = {mySpace.buttonn} onClick= {() => this.editParkingSpaceHandler(space._id)}>Edit</Button>
                             <Button className = {mySpace.buttonn} onClick= {() => this.deleteParkingSpaceHandler(space._id)}>Delete</Button>

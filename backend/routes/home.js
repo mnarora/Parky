@@ -102,6 +102,8 @@ router.post("/login",async (req, res) => {
 });
 
 router.post('/razorpay', async (req, res) => {
+  console.log("//////")
+  console.log(req.body)
 	const payment_capture = 1
 	const amount = 1
 	const currency = 'INR'
@@ -253,6 +255,15 @@ router.post("/bookspace", async(req, res) => {
             console.log(err)
             return res.status(200).json({error : err})
         })
+  await ParkingSpace.findById(req.body.booked_space_id)
+  .then(bookedspace => {
+      console.log(bookedspace)
+      bookedspace.spacenumber = bookedspace.spacenumber - req.body.no_of_booked_spaces
+      bookedspace.save()
+      .then(space => {
+        console.log(space)
+      })
+  })
     const email = req.body.email;
     const user = await User.findOne({email});
     if (!user)

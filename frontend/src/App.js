@@ -5,11 +5,9 @@ import Ownerlogin from './Components/ownerlogin';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
 import BookaSlot from './Components/BookaSlot';
-import Payment from './Components/Payment';
 import ResetPassword from './Components/ResetPassword';
 import GoogleMap from './Components/GoogleMap'
 import AddParkingSpace from './Components/AddParkingSpace';
-import GetDirections from './Components/GetDirections';
 import Profile from './Components/Profile';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import BookingHistory from './Components/BookingHistory';
@@ -46,7 +44,7 @@ class LoggedInRoute extends Component {
         {...props} 
         render={props => (
           sessionStorage.getItem('useremail') ? (
-            sessionStorage.getItem('isuser') == 'true' ?
+            sessionStorage.getItem('isuser') === 'true' ?
             (<Redirect to='/searchspace' />):
             (<Redirect to='/parkingspace/add' />)
           ):
