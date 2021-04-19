@@ -15,13 +15,15 @@ import Footer from './Footer';
 export default class BookSpace extends Component{
 
     state = {
+
         address : '',
         arrival_time: '',
         departure_time: '',
         date: '',
         price: '',
         email: '',
-
+        no_of_booked_spaces: '',
+        booked_space_id: ''
     }
     yesterday = moment().subtract(1, 'day');
     disablePastDt = current => {
@@ -56,7 +58,8 @@ export default class BookSpace extends Component{
             ...prevstate,
             address: this.props.location.state.parkingspace.address,
             price: this.props.location.state.parkingspace.price,
-            email: sessionStorage.useremail
+            email: sessionStorage.useremail,
+            booked_space_id : this.props.location.state.parkingspace._id
         }))
     }
 
@@ -111,12 +114,20 @@ export default class BookSpace extends Component{
                              className="mb-5"
                              style={{width:'50%', marginLeft: '10%'}}
                              required
+                             onChange={(e) => {
+                                 if(e.target.value <= this.props.location.state.parkingspace.spacenumber){
+                                    this.setState({no_of_booked_spaces : e.target.value})
+                                 }
+                                 else{
+                                    alert("You selected more spaces. Available spaces are: " + this.props.location.state.parkingspace.spacenumber )
+                                 }
+                                }}
                             />
                         </Form>
                         {console.log(this.state)}
                         
                     </div>
-                    {this.state.date && this.state.arrival_time && this.state.departure_time && <Payment parkinginfo={this.state} {...this.props}/>}
+                    {this.state.date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
                 </Container>
                 <br/><br/><br/><br/>
                 <Footer />

@@ -4,7 +4,6 @@ import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
 import {  toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -52,12 +51,15 @@ function Payment(props) {
 			alert('Razorpay SDK failed to load. Are you online?')
 			return
 		}
-		
-		const data = await fetch('http://localhost:3001/razorpay', { method: 'POST' }).then((t) =>
+		console.log(props.parkinginfo)
+		const data = await fetch('http://localhost:3001/razorpay', 
+							{ method: 'POST', 
+						}).then((t) =>
 			t.json()
 			
 		)
-		data.amount = props.parkinginfo.price
+		
+		data.amount = parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces)
 		savePaymentDetails(data)
 		
 		const options = {
@@ -84,7 +86,7 @@ function Payment(props) {
 				console.log(data);
 			},
 			prefill: {
-				name: 'Manish Arora',
+				name: sessionStorage.name,
 				email: props.parkinginfo.email ,
 				phone_number: sessionStorage.contact
 			}
