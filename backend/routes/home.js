@@ -255,6 +255,15 @@ router.post("/bookspace", async(req, res) => {
             console.log(err)
             return res.status(200).json({error : err})
         })
+  await ParkingSpace.findById(req.body.booked_space_id)
+  .then(bookedspace => {
+      console.log(bookedspace)
+      bookedspace.spacenumber = bookedspace.spacenumber - req.body.no_of_booked_spaces
+      bookedspace.save()
+      .then(space => {
+        console.log(space)
+      })
+  })
 })
 
 router.get("/bookinghistory/:email", async(req, res) =>{
