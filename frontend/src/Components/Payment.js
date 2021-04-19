@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
 import {  toast, ToastContainer } from 'react-toastify';
@@ -44,14 +44,6 @@ function savePaymentDetails(data) {
 }
 
 function Payment(props) {
-	const [name, setName] = useState('Manish')
-	const [state, setState] = useState({
-        email: '',
-        amount: '',
-        payment_id: '',
-        booking_id: '',
-       
-    })
 
 	async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')

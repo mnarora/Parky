@@ -1,13 +1,11 @@
 /*global google*/
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useHistory, userHistory } from 'react-router-dom'
 import NavigationBar from './Navigationbar';
-import Payment from './Payment';
 import css from '../CSS/GoogleMap.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Container} from 'react-bootstrap';
 
 
 
@@ -164,6 +162,7 @@ import {Card, Button} from 'react-bootstrap';
             <NavigationBar/>
             <div className={css.map} id="map">
             </div>
+            <Container>
             <div className={css.grid}>{cardInfo.map((card, index) => (
              <Card style={{ width: '18rem' }} key={index} className={css.box}>
              <Card.Body>
@@ -194,8 +193,9 @@ import {Card, Button} from 'react-bootstrap';
              </Card.Body>
          </Card>
            ))}</div>  
+           </Container>
            <br></br>
-           <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
+           <button onClick= {forceUpdateHandler} id="nearby" className={css.buttonStyle}>Show nearby places</button>          
           </div>
      )
     }
