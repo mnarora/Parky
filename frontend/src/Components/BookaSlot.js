@@ -64,6 +64,7 @@ import Footer from './Footer';
           pathname: "/bookaslot",
           state: {areaname: query}
         })
+        window.location.reload();
       }
     
       useEffect(() => {
