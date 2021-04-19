@@ -1,6 +1,7 @@
 /*global google*/
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory, userHistory } from 'react-router-dom'
 import NavigationBar from './Navigationbar';
 import Payment from './Payment';
 import css from '../CSS/GoogleMap.module.css';
@@ -19,6 +20,7 @@ import {Card, Button} from 'react-bootstrap';
 
       
       const loadScript = (url, callback) => {
+        
         let script = document.createElement("script");
         script.type = "text/javascript";
       
@@ -76,7 +78,7 @@ import {Card, Button} from 'react-bootstrap';
                   
                   customMarker(results[k], res.data[j]);
                   scord = results[k].geometry.location;
-                  if((google.maps.geometry.spherical.computeDistanceBetween(dcord, scord)) < 5000){
+                  if((google.maps.geometry.spherical.computeDistanceBetween(dcord, scord)) < 5000 && res.data[j].spacenumber > 0){
                     cardInfo.push(res.data[j]);
                   }
                   
@@ -140,19 +142,29 @@ import {Card, Button} from 'react-bootstrap';
         const [value, setValue] = useState(0); // integer state
         return () => setValue(value => value + 1); // update the state to force render
     }
-  
 
-      
+
   function GoogleMap(props){
-    console.log(window.performance.navigation.type);
+
     const query = props.location.state.areaname;
     const forceUpdateHandler = useForceUpdate();
      useEffect(() => {
+      window.addEventListener( "popstate", function ( event ) {
+        var historyTraversal = event.persisted || 
+                               ( typeof window.Performance != "undefined" && 
+                                    (window.PerformanceNavigation.type) === 2 );
+        if ( historyTraversal ) {
+          // Handle page restore.
+          window.location.reload();
+        }
+      });
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places,geometry`,
         () => initMap(query)
       );
+          
     }, []);
+    
     
         return (
           
