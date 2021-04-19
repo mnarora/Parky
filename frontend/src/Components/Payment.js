@@ -45,13 +45,13 @@ function savePaymentDetails(data) {
 
 function Payment(props) {
 	const [name, setName] = useState('Manish')
-	const [state, setState] = useState({
-        email: '',
-        amount: '',
-        payment_id: '',
-        booking_id: '',
+	// const [state, setState] = useState({
+    //     email: '',
+    //     amount: '',
+    //     payment_id: '',
+    //     booking_id: '',
        
-    })
+    // })
 
 	async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -60,8 +60,10 @@ function Payment(props) {
 			alert('Razorpay SDK failed to load. Are you online?')
 			return
 		}
-		
-		const data = await fetch('http://localhost:3001/razorpay', { method: 'POST' }).then((t) =>
+		console.log(props.parkinginfo)
+		const data = await fetch('http://localhost:3001/razorpay', 
+							{ method: 'POST', 
+						}).then((t) =>
 			t.json()
 			
 		)

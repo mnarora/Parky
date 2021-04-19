@@ -102,6 +102,8 @@ router.post("/login",async (req, res) => {
 });
 
 router.post('/razorpay', async (req, res) => {
+  console.log("//////")
+  console.log(req.body)
 	const payment_capture = 1
 	const amount = 1
 	const currency = 'INR'
