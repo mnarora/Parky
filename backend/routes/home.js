@@ -143,7 +143,7 @@ router.post('/sendmail', async (req, res) => {
         }
       });
       var mailOptions = {
-        from: 'pms.parking24by7@gmail.com',
+        from: process.env.PARKY_EMAIL_ID,
         to: req.body.email,
         subject: 'OTP to reset Password',
         text: `\nYou have requested to reset your password of Parking Management System. Your One Time Confidential Password to reset your password is ${otp}\n`
@@ -253,6 +253,33 @@ router.post("/bookspace", async(req, res) => {
             console.log(err)
             return res.status(200).json({error : err})
         })
+    const email = req.body.email;
+    const user = await User.findOne({email});
+    if (!user)
+      return res.status(200).json({msg: 'User Account Does not exist'});
+      
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.PARKY_EMAIL_ID,
+          pass: process.env.PARKY_EMAIL_PASS
+        }
+      });
+      var mailOptions = {
+        from: process.env.PARKY_EMAIL_ID,
+        to: req.body.email,
+        subject: 'Parky - Booking Confirmed',
+        html: `<html><body><br>Dear ${user.name},<p><br>Hurray!!! You have successfully booked Parking Space at ${req.body.address}.<br><br>Please read details of your Booking below.<br>Date - ${req.body.date}<br>Arrival Time - ${req.body.arrival_time}<br>Departure Time - ${req.body.departure_time}<br>Booking Price - ${req.body.price}<br>Payment Method - Prepaid<br><br>To avoid any inconvenience Please reach 10 min before ${req.body.arrival_time}<br><br>Thanks and Regards,<br>Parky</p></html></body>`
+      };
+      
+      await transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+            console.log("Email sent: " + info.response);
+          return res.status(200).json({OTP: otp})
+        }
+      });
 })
 
 router.get("/bookinghistory/:email", async(req, res) =>{

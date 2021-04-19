@@ -90,15 +90,6 @@ function Payment(props) {
 					}
 				})
 				console.log(data);
-				//axios.post('http://localhost:3001/payment', props.parkinginfo)
-				//.then(res => {
-				//	if (res.data.error)
-				//		toast.error(res.data.error)
-				//	else {
-				//		props.history.push('/bookspace')
-				//		toast.success(res.data.msg)
-				//	}
-        		//})
 			},
 			prefill: {
 				name: 'Manish Arora',
@@ -116,6 +107,7 @@ function Payment(props) {
 			{console.log(props.parkinginfo)}
 			<button className={Bookspacecss.buttonn} 
 			onClick={displayRazorpay}
+			type="submit"
 			target="_blank"
 			rel="noopener noreferrer">
 				Proceed to Pay
