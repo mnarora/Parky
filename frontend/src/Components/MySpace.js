@@ -42,7 +42,7 @@ export default class MySpace extends Component{
             .then(res => {
                 this.props.history.push('/myspaces')
                 toast.success("Parking Space deleted")
-                this.componentDidMount()
+                window.location.reload()
             })
             .catch(err => {
                 console.log(err)

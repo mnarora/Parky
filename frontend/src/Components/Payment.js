@@ -65,6 +65,7 @@ function Payment(props) {
 			t.json()
 			
 		)
+		data.amount = props.parkinginfo.price
 		savePaymentDetails(data)
 		
 		const options = {
