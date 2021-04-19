@@ -1,0 +1,43 @@
+Q1. COVID and COEP Mess 
+    In this COVID 19 Time , COEP Mess is continously checking its students for health and hygiene
+    COEP Mess is assigning each student a compartment for check up.
+    After check up, each student goes to a table.
+    There are N tables and N compartments arranged in linear fashion.
+    Assuming each student takes 2 minutes for arriving to N+1th table from Nth compartment
+    Assign each student a table such that the total time for arrival of last student is minimum
+
+Q2. Factorial Find
+    A zahlen function is a function which determines the number of zeroes in any number
+    For example, zahlen(10) is 1, zahlen(100) is 2.
+    Find zahlen(factorial(n)) where n < 1000000
+
+Q3. What will be the result of evaluating the prefix expression +-*32/841 ?
+    12
+    11
+    5 (Ans)
+    4
+
+Q4. Why are Red-Black Trees prefer over AVL Trees _____
+    Red Black trees are not strictly balanced.
+    Red black tree requires more rotations than AVL tree.
+    AVL tree needs more space to store the balance factor.(Ans)
+    Both b and c
+
+Q5. The concatenation of two _________ has time complexity of O(1).
+    Singly linked list
+    Doubly linked list
+    Circular doubly linked lists (Ans)
+    Array implementation of list
+
+
+Q6. Which of the following properties are obeyed by both preorder and postorder traversals?
+    Left subtrees are visited before right subtrees (Ans)
+    Right subtrees are visited before left subtrees
+    Root node is visited before left subtree
+    Root node is visited before right subtree
+
+Q7. Considering only push and pop operations, The minimum number of stacks required to implement a queue is __
+    1
+    3
+    2 (Ans)
+    5
