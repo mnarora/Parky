@@ -1,5 +1,5 @@
 .background {
-    background-image: url("https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-sky-blue-ink-style-background-image_260100.jpg");
+    background-image: "pictures/loginbg.jpg";
     background-size: cover;
     height: 100vh;
 }

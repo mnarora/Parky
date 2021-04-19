@@ -67,7 +67,7 @@ export default class BookSpace extends Component{
 
                 <Container className= {Bookspacecss.container}>
                     <h1 className="ml-5 mt-5">Checkout</h1>
-                    <div className="mt-5" style={{fontSize: '25px', marginLeft:'30%'}}>
+                    <div className="mt-5" style={{fontSize: '25px', marginLeft:'20%'}}>
                         <p><b>Address : </b>{this.props.location.state.parkingspace.address}</p>
                         <p><b>No of Spaces: </b>{this.props.location.state.parkingspace.spacenumber}</p>
                         <p><b>Surface Type: </b>{this.props.location.state.parkingspace.surfacetype}</p>
@@ -84,23 +84,13 @@ export default class BookSpace extends Component{
                         />
                         
                         </div>
-                        {/* <Input
-                                type="date"
-                                name="date"
-                                id="exampleDate"
-                                className="datepicker"
-                                mindate="20-04-2021"
-                                style={{width:'50%', marginLeft: '10%'}}
-                                required
-                                placeholder="date placeholder"
-                                onChange={(e) => this.setState({date : e.target.value})}
-                            /> */}
                             <p className="mt-3"><b>Select Arrival Time -</b></p>
                         <Input
                                 type="time"
                                 name="time"
                                 id="ArrivalTime"
                                 style={{width:'50%', marginLeft: '10%'}}
+                                min="11:05"
                                 required
                                 placeholder="Arrival timw"
                                 onChange={(e) => this.setState({arrival_time : e.target.value})}
