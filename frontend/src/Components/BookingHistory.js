@@ -36,7 +36,7 @@ export default class BookingHistory extends Component {
 
     render() {
         return (
-            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover",height: "100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
+            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover", backgroundRepeat:'repeat-y', height: "100%", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
                 <NavigationBar />
                 <div >
                     <center>
@@ -68,9 +68,8 @@ export default class BookingHistory extends Component {
                         </div>
                     </div>
                     <hr style={{backgroundColor: "black"}}></hr>
-                    {this.state.booked_spaces.map((space, index) => (
-                        
-                            <div className ="row mt-3" style={{backgroundColor: "white", height: "11vh"}}>
+                    {this.state.booked_spaces.reverse().map((space, index) => (
+                            <div className ="row mt-3" style={{backgroundColor: "white", padding: "10px"}}>
                                 <div className="col-sm-2 mt-4">
                             {index+1}
                         </div>
@@ -101,6 +100,9 @@ export default class BookingHistory extends Component {
                     ))}
                    </div>
                     
+                </div>
+                <div className="mt-5">
+                <Footer />
                 </div>
             </div>
         )

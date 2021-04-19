@@ -67,6 +67,7 @@ function Payment(props) {
 			t.json()
 			
 		)
+		data.amount = props.parkinginfo.price
 		savePaymentDetails(data)
 		
 		const options = {
@@ -78,16 +79,28 @@ function Payment(props) {
 			description: '',
 			handler: function (response) {
 				console.log(response);
+				console.log(props.parkinginfo)
 				
 				axios.post('http://localhost:3001/bookspace', props.parkinginfo)
 				.then(res => {
-					if (res.data.error)
+					if (res.data.error) {
 						toast.error(res.data.error)
+					}
 					else {
 						toast.success(res.data.msg)
 						props.history.push('/bookinghistory')
 					}
-        		})
+				})
+				console.log(data);
+				//axios.post('http://localhost:3001/payment', props.parkinginfo)
+				//.then(res => {
+				//	if (res.data.error)
+				//		toast.error(res.data.error)
+				//	else {
+				//		props.history.push('/bookspace')
+				//		toast.success(res.data.msg)
+				//	}
+        		//})
 			},
 			prefill: {
 				name: 'Manish Arora',
