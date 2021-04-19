@@ -149,15 +149,6 @@ import {Card, Button} from 'react-bootstrap';
     const query = props.location.state.areaname;
     const forceUpdateHandler = useForceUpdate();
      useEffect(() => {
-      window.addEventListener( "popstate", function ( event ) {
-        var historyTraversal = event.persisted || 
-                               ( typeof window.Performance != "undefined" && 
-                                    (window.PerformanceNavigation.type) === 2 );
-        if ( historyTraversal ) {
-          // Handle page restore.
-          window.location.reload();
-        }
-      });
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places,geometry`,
         () => initMap(query)
