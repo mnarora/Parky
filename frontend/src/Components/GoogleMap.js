@@ -162,7 +162,7 @@ import {Card, Button} from 'react-bootstrap';
             <div className={css.map} id="map">
             </div>
             <div className={css.grid}>{cardInfo.map((card, index) => (
-              
+            
              <Card style={{ width: '18rem' }} key={index} className={css.box}>
              <Card.Body>
                <Card.Title>{card.address}</Card.Title>
