@@ -19,7 +19,8 @@ export default class BookSpace extends Component{
         address : '',
         arrival_time: '',
         departure_time: '',
-        date: '',
+        arrival_date: '',
+        departure_date: '',
         price: '',
         email: '',
         no_of_booked_spaces: '',
@@ -75,19 +76,28 @@ export default class BookSpace extends Component{
                         <p><b>No of Spaces: </b>{this.props.location.state.parkingspace.spacenumber}</p>
                         <p><b>Surface Type: </b>{this.props.location.state.parkingspace.surfacetype}</p>
                         <p><b>Accepted Vehicles: </b>{this.props.location.state.parkingspace.accepted_vehicles}</p>
-                        <p><b>Price: </b>{this.props.location.state.parkingspace.price}</p>
+                        <p><b>Price per hour: </b>{this.props.location.state.parkingspace.price}</p>
                         <Form>
-                            <p><b>Select Date -</b></p>
+                        <p><b>Select Arrival Date -</b></p>
                         <div style={{width:'50%', marginLeft: '10%'}}>
-                        <DatePicker 
-                        timeFormat={false}
-                        isValidDate={this.disablePastDt}
-                        onChange={(e) => this.setState({date : e.format("YYYY-MM-DD")})}
-                        inputProps={{ placeholder: "Start Date" }}
-                        />
-                        
+                            <DatePicker 
+                            timeFormat={false}
+                            isValidDate={this.disablePastDt}
+                            onChange={(e) => this.setState({arrival_date : e.format("YYYY-MM-DD")})}
+                            inputProps={{ placeholder: "Arrival Date" }}
+                            />
+    
                         </div>
-                            <p className="mt-3"><b>Select Arrival Time -</b></p>
+                        <p><b>Select Departure Date -</b></p>
+                        <div style={{width:'50%', marginLeft: '10%'}}>
+                            <DatePicker 
+                            timeFormat={false}
+                            isValidDate={this.disablePastDt}
+                            onChange={(e) => this.setState({departure_date : e.format("YYYY-MM-DD")})}
+                            inputProps={{ placeholder: "Departure Date" }}
+                            />
+                        </div>
+                        <p className="mt-3"><b>Select Arrival Time -</b></p>
                         <Input
                                 type="time"
                                 name="time"
@@ -127,10 +137,10 @@ export default class BookSpace extends Component{
                         {console.log(this.state)}
                         
                     </div>
-                    {this.state.date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
+                    {this.state.arrival_date &&  this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
                 </Container>
                 <br/><br/><br/><br/>
-                <Footer />
+                
             </div>
         )
            

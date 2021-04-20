@@ -2,7 +2,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavigationBar from './Navigationbar';
-import Payment from './Payment';
 import css from '../CSS/GoogleMap.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -76,7 +75,7 @@ import {Card, Button} from 'react-bootstrap';
                   
                   customMarker(results[k], res.data[j]);
                   scord = results[k].geometry.location;
-                  if((google.maps.geometry.spherical.computeDistanceBetween(dcord, scord)) < 5000){
+                  if((google.maps.geometry.spherical.computeDistanceBetween(dcord, scord)) < 5000 && res.data[j].spacenumber > 0){
                     cardInfo.push(res.data[j]);
                   }
                   
@@ -162,7 +161,7 @@ import {Card, Button} from 'react-bootstrap';
             <div className={css.map} id="map">
             </div>
             <div className={css.grid}>{cardInfo.map((card, index) => (
-              
+            
              <Card style={{ width: '18rem' }} key={index} className={css.box}>
              <Card.Body>
                <Card.Title>{card.address}</Card.Title>
