@@ -26,6 +26,7 @@ export default class BookSpace extends Component{
         no_of_booked_spaces: '',
         booked_space_id: ''
     }
+    
     yesterday = moment().subtract(1, 'day');
     disablePastDt = current => {
         return current.isAfter(this.yesterday);
@@ -48,6 +49,10 @@ export default class BookSpace extends Component{
         .catch(err => {
             console.log(err)
         })
+    }
+
+    checkTime = () => {
+
     }
 
     
@@ -82,6 +87,7 @@ export default class BookSpace extends Component{
                         <div style={{width:'50%', marginLeft: '10%'}}>
                             <DatePicker 
                             timeFormat={false}
+                            id="arrival_date"
                             isValidDate={this.disablePastDt}
                             onChange={(e) => this.setState({arrival_date : e.format("YYYY-MM-DD")})}
                             inputProps={{ placeholder: "Arrival Date" }}
@@ -101,18 +107,17 @@ export default class BookSpace extends Component{
                         <Input
                                 type="time"
                                 name="time"
-                                id="ArrivalTime"
+                                id="arrival_time"
                                 style={{width:'50%', marginLeft: '10%'}}
                                 min="11:05"
                                 required
-                                placeholder="Arrival timw"
-                                onChange={(e) => this.setState({arrival_time : e.target.value})}
+                                onChange={(e) => {this.setState({arrival_time : e.target.value});this.checkTime();}}
                             />
                             <p className="mt-3"><b>Select Departure Time -</b></p>
                             <Input
                                 type="time"
                                 name="time"
-                                id="DepartureTime"
+                                id="departure_time"
                                 style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="Departure time"

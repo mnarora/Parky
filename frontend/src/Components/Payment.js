@@ -67,14 +67,14 @@ function Payment(props) {
 		
 		const minutesDifference = (date2-date1) / (1000 * 60)
 		console.log( "No of minutes: " + minutesDifference);
-		data.amount = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
+		props.parkinginfo.price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
 		console.log(data.amount)
 		savePaymentDetails(data)
 		
 		const options = {
 			key: 'rzp_test_4z2vw67s30xv3b',
 			currency: data.currency,
-			amount: data.amount*100,
+			amount: props.parkinginfo.price*100,
 			order_id: data.amount.id,
 			name: 'Parky Booking',
 			description: '',

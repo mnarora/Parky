@@ -67,7 +67,7 @@ export default class EditParkingSpace extends Component{
                                         type="text" 
                                         name="Name" 
                                         id="exampleName" 
-                                        
+                                        disabled="disabled"
                                         value={this.state.address}
                                         onChange={(e) => this.setState({address : e.target.value})}
                                     />
@@ -109,7 +109,7 @@ export default class EditParkingSpace extends Component{
                                         type="text" 
                                         name="number" 
                                         id="number" 
-                                        
+                                        min="1"
                                         value={this.state.spacenumber}
                                         onChange={(e) => this.setState({spacenumber : e.target.value})}
                                     />
@@ -123,7 +123,7 @@ export default class EditParkingSpace extends Component{
                                         type="text" 
                                         name="price" 
                                         id="price" 
-                                        
+                                        min="20"
                                         value={this.state.price}
                                         onChange={(e) => this.setState({price : e.target.value})}
                                     />

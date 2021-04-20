@@ -226,7 +226,12 @@ router.get("/editprofile/:email", async(req, res) => {
 router.post("/editprofile/:email", async(req, res) => {
   const email = req.params.email;
   const updated_user = await User.findOne({email})
-  
+  const email2 = req.body.email;
+  console.log(email2)
+  const existing_user = await User.findOne({email2})
+  console.log(existing_user)
+  if (existing_user)
+    return res.status(400).json({msg: "User with given email already exists"})
   updated_user.email = req.body.email
   updated_user.contact = req.body.contact_no
   updated_user.name = req.body.name
@@ -359,18 +364,45 @@ router.post("/savepaymentdetails", async(req, res)=>{
         })
 })
 
-router.delete("/cancelorder/:id", async(req, res) => {
+router.post("/cancelorder/:id", async(req, res) => {
   const id = req.params.id
   console.log(id)
-  await BookingSpace.findById(id)
-  .then(space => {
-    console.log(space);
-    
-  })
+  space = await BookingSpace.findById(id);
+  space.order_status = "Cancelled";
+  space.save();
+  console.log(space)
   // .catch(err => res.status(400).json({err})) 
-  await BookingSpace.findByIdAndDelete(id)
-  .then(res.status(200).json({status: 'Booking Canceled',}))
-  .catch(err => res.status(400).json({err}))
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.PARKY_EMAIL_ID,
+      pass: process.env.PARKY_EMAIL_PASS
+    }
+  });
+  var mailOptions = {
+    from: process.env.PARKY_EMAIL_ID,
+    to: space.email,
+    subject: 'Parky - Booking Confirmed',
+    html: `<html><body><br>Dear User,<p><br>Your parking order at ${space.address} was cancelled by you. The Refund Amount of Rs ${space.price - 20} will be provided to you in your Original Payment Method within 24 hrs.<br><br>Refund Details : <br><br>Order Price - Rs ${space.price}<br>Cancellation Charges - Rs 20<br>Refund Amount - Rs ${space.price - 20}<br><br>Thank You for using Parky.<br><br>Thanks and Regards,<br>Parky</p></html></body>`
+  };
+  
+  await transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+        console.log("Email sent: " + info.response);
+    }
+  });
+
+  return res.status(200).json({status: 'Booking Canceled'})
+})
+
+router.delete("/deleteorder/:id", async(req, res) => {
+  const id = req.params.id
+  var space = await BookingSpace.findByIdAndDelete(id);
+  space.save();
+  return res.status(200).json({status: 'Order Deleted'})
 })
 
 module.exports = router;

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import {handleContact, handleName, handleEmail, checkform} from '../FormValidation';
 
 export default class UserRegister extends Component {
     state = {
@@ -17,24 +18,6 @@ export default class UserRegister extends Component {
         isuser: true
     };
 
-
-    checkform = () => {
-        if (document.getElementById('password').value ===
-          document.getElementById('confirm_password').value) {
-            if (document.getElementById('password').value.length) {
-            document.getElementById('msg').style.color = 'green';
-            document.getElementById('msg').innerHTML = 'matching<br>';
-            }
-            else {
-            document.getElementById('msg').innerHTML = '';
-            }
-          document.getElementById('submit').disabled = false;
-        } else {
-          document.getElementById('msg').style.color = 'red';
-          document.getElementById('msg').innerHTML = 'not matching<br>';
-          document.getElementById('submit').disabled = true;
-        }
-      };
 
     onSubmit = (e) => {
           e.preventDefault()    
@@ -53,33 +36,7 @@ export default class UserRegister extends Component {
             })
     }
 
-    handleEmail = () => {
-        var x = document.getElementById('email').value;
-        console.log(x);
-        if (x.indexOf("@") <= -1 && (x !== '')) {
-            document.getElementById('emailmsg').style.color = 'red';
-            document.getElementById('emailmsg').innerHTML = 'invalid email';
-            document.getElementById('submit').disabled = true;
-        }
-        else {
-            document.getElementById('emailmsg').innerHTML = '';
-            document.getElementById('submit').disabled = false;
-        }
-    };
 
-    handleContact = () => {
-        var x = document.getElementById('contact').value;
-        console.log(x);
-        if ((x.length !== 10) && (x !== '')) {
-            document.getElementById('contactmsg').style.color = 'red';
-            document.getElementById('contactmsg').innerHTML = 'Contact No should be of 10 digits';
-            document.getElementById('submit').disabled = true;
-        }
-        else {
-            document.getElementById('contactmsg').innerHTML = '';
-            document.getElementById('submit').disabled = false;
-        }
-    };
 
     render() {
 
@@ -93,21 +50,22 @@ export default class UserRegister extends Component {
                 <form className={userregister.regform} onSubmit={this.onSubmit}>
                 <h1 style={{fontFamily: "Muli-SemiBold"}}>User Registration</h1>
                     <div className="form-group mt-5">
-                        <input className={userregister.formcontrol} type="text" onChange={(e) => this.setState({name : e.target.value})} placeholder="Name" required />
+                        <input className={userregister.formcontrol} type="text" onChange={(e) => {this.setState({name : e.target.value});handleName();}} id="name" placeholder="Name" required />
+                        <span id="namemsg"></span>
                     </div>
                     <div className="form-group ">
-                        <input type="email" className={userregister.formcontrol} onChange={(e) => this.setState({email : e.target.value})} onBlur={this.handleEmail} id="email" aria-describedby="emailHelp" placeholder="Email" required/>
+                        <input type="email" className={userregister.formcontrol} onChange={(e) => {this.setState({email : e.target.value});handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Email" required/>
                         <span id="emailmsg"></span>
                     </div>
                     <div className="form-group">
-                        <input type="number" className={userregister.formcontrol} onChange={(e) => this.setState({contact : e.target.value})} onBlur={this.handleContact} id="contact" placeholder="Contact No" required />
+                        <input type="number" className={userregister.formcontrol} onChange={(e) => {this.setState({contact : e.target.value});handleContact()}} id="contact" placeholder="Contact No" required />
                         <span id="contactmsg"></span>
                     </div>
                     <div className="form-group ">
-                        <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => this.setState({password : e.target.value})} onBlur={this.checkform} placeholder="Password" required />
+                        <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => {this.setState({password : e.target.value}); checkform();}} placeholder="Password" required />
                     </div>
                     <div className="form-group ">
-                        <input className={userregister.formcontrol} type="password" onChange={this.checkform} id="confirm_password" placeholder="Confirm Password" required/>
+                        <input className={userregister.formcontrol} type="password" onChange={()  => checkform()} id="confirm_password" placeholder="Confirm Password" required/>
                         <span id="msg"></span>
                     </div>
                     

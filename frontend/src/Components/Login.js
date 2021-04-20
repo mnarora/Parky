@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
+import {handleEmail} from '../FormValidation';
 
 export default class Login extends Component {
     state = {
@@ -63,7 +64,8 @@ export default class Login extends Component {
                 <h1>User Login</h1>
                 </center>
                     <div className="form-group mt-4">
-                        <input type="email" className={login.formcontrol} onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <input type="email" className={login.formcontrol} onChange={(e) => {this.setState({email : e.target.value}); handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <span id="emailmsg"></span>
                     </div>
                  
                     <div className="form-group ">

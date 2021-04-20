@@ -6,6 +6,7 @@ import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import {handleEmail} from '../FormValidation';
 
 export default class Ownerlogin extends Component {
     state = {
@@ -26,7 +27,7 @@ export default class Ownerlogin extends Component {
                     window.sessionStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.isuser) {
                         this.props.history.push({
-                            pathname: "/bookaslot",
+                            pathname: "/searchspace",
                             state: {loggedin : true}
                         });
                     }
@@ -60,7 +61,8 @@ export default class Ownerlogin extends Component {
                     <h1>Owner Login</h1>
                 </center>
                     <div className="form-group mt-5">
-                        <input type="email" className={login.formcontrol} onChange={(e) => this.setState({email : e.target.value})} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <input type="email" className={login.formcontrol} onChange={(e) => {this.setState({email : e.target.value}); handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Enter email" required />
+                        <span id="emailmsg"></span>
                     </div>
                  
                     <div className="form-group ">
