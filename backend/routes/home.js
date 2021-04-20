@@ -236,6 +236,11 @@ router.post("/editprofile/:email", async(req, res) => {
 
 router.delete("/deleteaccount/:email", async(req, res) => {
   const email = req.params.email;
+  await ParkingSpace.deleteMany({email})
+  .then(spaces => {
+    console.log("Spaces deleted")
+  })
+  .catch(err => {console.log(err)})
   await User.findOneAndDelete({email})
   .then(res.status(200).json({status: 'ACCOUNT_DELETED',}))
   .catch(err => res.status(400).json({err}))
@@ -354,5 +359,18 @@ router.post("/savepaymentdetails", async(req, res)=>{
         })
 })
 
+router.delete("/cancelorder/:id", async(req, res) => {
+  const id = req.params.id
+  console.log(id)
+  await BookingSpace.findById(id)
+  .then(space => {
+    console.log(space);
+    
+  })
+  // .catch(err => res.status(400).json({err})) 
+  await BookingSpace.findByIdAndDelete(id)
+  .then(res.status(200).json({status: 'Booking Canceled',}))
+  .catch(err => res.status(400).json({err}))
+})
 
 module.exports = router;
