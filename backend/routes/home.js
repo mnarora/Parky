@@ -15,8 +15,8 @@ const router = express.Router()
 var useremail 
 
 const razorpay = new Razorpay({
-	key_id: 'rzp_test_4z2vw67s30xv3b',
-	key_secret: 'xXsnlR6bo0TQd86ya5j7yjd7'
+	key_id: process.env.RAZORPAY_KEY_ID,
+	key_secret: process.env.RAZORPAY_KEY_SECRET
 })
 
 

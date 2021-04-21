@@ -41,7 +41,6 @@ export default class Login extends Component {
                 
             })
             .catch(err => {
-                alert(err);
                 console.log(err);
                 toast.error(err);
             })

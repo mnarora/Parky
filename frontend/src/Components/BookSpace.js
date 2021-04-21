@@ -28,14 +28,24 @@ export default class BookSpace extends Component{
     }
     
     yesterday = moment().subtract(1, 'day');
+    
     disablePastDt = current => {
+        console.log("Current\n\n")
+        console.log(this.yesterday)
         return current.isAfter(this.yesterday);
     };
+
+    disableDate = current => {
+        var a = new Date(this.state.arrival_date)
+        var b = moment().set({'year': a.getFullYear(), 'month': a.getMonth() ,'date': a.getDate() - 1})
+        console.log("manish")
+        console.log(b)
+        return current.isAfter(b)
+    }
 
     bookSpaceHandler = (e) => {
         
         e.preventDefault()
-        console.log(this.state.email)
         axios.post('http://localhost:3001/bookspace', this.state)
         .then(res => {
             if (res.data.error)
@@ -51,15 +61,38 @@ export default class BookSpace extends Component{
         })
     }
 
-    checkTime = () => {
+    checkArrivalTime = () => {
+        var arrival_date = new Date(this.state.arrival_date)
+        var today_date = new Date();
+        if (arrival_date.setHours(0,0,0,0) == today_date.setHours(0,0,0,0)) {
+            var currenttime = new Date().getHours() + ":" + new Date().getMinutes();
+            var arrivaltime = document.getElementById("arrival_time").value;
+            if (currenttime > arrivaltime) {
+                document.getElementById('arrival_timemsg').style.color = 'red';
+                document.getElementById('arrival_timemsg').innerHTML = 'Please Enter Valid Arrival Time';
+            }
+            else{
+                document.getElementById('arrival_timemsg').innerHTML = '';
+            }
+        }
+    }
 
+    checkDepartureTime =() => {
+        var arrival_date = new Date(this.state.arrival_date)
+        var departure_date = new Date(this.state.departure_date)
+        if (arrival_date.setHours(0,0,0,0) === departure_date.setHours(0,0,0,0)) {
+            if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value) {
+                document.getElementById('departure_timemsg').style.color = 'red';
+                document.getElementById('departure_timemsg').innerHTML = 'Please Enter Valid Departure Time';
+            }
+            else
+                document.getElementById('departure_timemsg').innerHTML = '';
+        }
     }
 
     
     componentDidMount() {
-        console.log(this.props)
         window.sessionStorage.setItem('booking_id', this.props.location.state.parkingspace._id)
-        console.log(window.sessionStorage.getItem('booking_id'))
         this.setState(prevstate => ({
             ...prevstate,
             address: this.props.location.state.parkingspace.address,
@@ -98,7 +131,7 @@ export default class BookSpace extends Component{
                         <div style={{width:'50%', marginLeft: '10%'}}>
                             <DatePicker 
                             timeFormat={false}
-                            isValidDate={this.disablePastDt}
+                            isValidDate={this.disableDate}
                             onChange={(e) => this.setState({departure_date : e.format("YYYY-MM-DD")})}
                             inputProps={{ placeholder: "Departure Date" }}
                             />
@@ -109,10 +142,10 @@ export default class BookSpace extends Component{
                                 name="time"
                                 id="arrival_time"
                                 style={{width:'50%', marginLeft: '10%'}}
-                                min="11:05"
                                 required
-                                onChange={(e) => {this.setState({arrival_time : e.target.value});this.checkTime();}}
+                                onChange={(e) => {this.setState({arrival_time : e.target.value});this.checkArrivalTime();}}
                             />
+                        <span style={{marginLeft: '10%'}} id="arrival_timemsg"></span>
                             <p className="mt-3"><b>Select Departure Time -</b></p>
                             <Input
                                 type="time"
@@ -121,8 +154,9 @@ export default class BookSpace extends Component{
                                 style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="Departure time"
-                                onChange={(e) => this.setState({departure_time : e.target.value})}
+                                onChange={(e) => {this.setState({departure_time : e.target.value});this.checkDepartureTime()}}
                             />
+                            <span style={{marginLeft: '10%'}} id="departure_timemsg"></span>
                             <p className="mt-3"><b>No of Spaces required -</b></p>
                             <Input 
                              type="number"
@@ -139,7 +173,6 @@ export default class BookSpace extends Component{
                                 }}
                             />
                         </Form>
-                        {console.log(this.state)}
                         
                     </div>
                     {this.state.arrival_date &&  this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}

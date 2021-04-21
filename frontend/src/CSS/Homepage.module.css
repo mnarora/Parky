@@ -42,9 +42,9 @@ img:hover {
     opacity: 0.8;
 }
 
-.image {
-    @media only screen and (max-width: 600px){
+
+@media screen and (max-width: 800px) {
+    .image {
         display: none;
     }
-    
 }

@@ -58,26 +58,69 @@ export default class MySpace extends Component{
     render(){
         return(
             
-            <div className={mySpace.mainPage}>
+            <div className={mySpace.background}>
                 <NavigationBar/>
+                <h1 style= {{textAlign : 'center', marginTop: '50px'}}><u>Parking Spaces</u></h1>
+                <div className={"mt-5 "} style={{marginLeft: "10%", marginRight: "10%"}} >
+                    <hr style={{backgroundColor: "black"}}></hr>
+                    <div className ="row mt-3">
+                        <div className="col-sm">
+                            Sr No
+                        </div>
+                        <div className="col-sm">
+                        Address
+                        </div>
+                        <div className="col-sm">
+                        Price per hour
+                        </div>
+                        <div className="col-sm">
+                        Number of Parking Space
+                        </div>
+                        <div className="col-sm">
+                            Surface Type
+                        </div>
+                        <div className="col-sm">
+                           Details
+                        </div>
+                        <div className="col-sm">
+                           Edit Space Info
+                        </div>
+                        <div className="col-sm">
+                           Delete Space
+                        </div>
+                    </div>
+                    <hr style={{backgroundColor: "black"}}></hr>
+                    {this.state.myspaces.reverse().map((space, index) => (
+                            <div className ="row mt-3" style={{backgroundColor: "white", padding: "10px"}}>
+                                <div className="col-sm">
+                                    {index+1}
+                                </div>
+                                <div className="col-sm">
+                                    {space.address}
+                                </div>
+                                <div className="col-sm">
+                                    {space.price} Rs
+                                </div>
+                                <div className="col-sm">
+                                    {space.spacenumber}
+                                </div>
+                                <div className="col-sm">
+                                    {space.surfacetype}
+                                </div>
+                                <div className="col-sm">
+                                <button type="button" className="btn btn-success">View Details</button>
+                                </div>
+                                <div className="col-sm">
+                                <button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button>
+                                </div>
+                                <div className="col-sm">
+                                <button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button>
+                                </div>
+                        </div>
+                    ))}
+                    
+                </div>
                 <Container>
-                    <h1 style= {{textAlign : 'center', marginTop: '50px'}}><u>Parking Spaces</u></h1>
-                {this.state.myspaces.map(space => (
-                        
-                    <main>
-                        <section className={mySpace.about}>
-                            <h1>{space.address}</h1>
-                            <h3>{space.info}</h3>
-                            <h5>{space.surfacetype}</h5>
-                            <p>{"Number of Parking Spaces: " +  space.spacenumber}</p>
-                            <p>{"Cost of Space: Rs " + space.price + " per hour"}</p>
-                            
-                            <Button className = {mySpace.buttonn} onClick= {() => this.editParkingSpaceHandler(space._id)}>Edit</Button>
-                            <Button className = {mySpace.buttonn} onClick= {() => this.deleteParkingSpaceHandler(space._id)}>Delete</Button>
-                        </section>
-                    </main>
-                   
-                ))}
                 {(this.state.myspaces.length === 0) && 
                     <h3 className="mt-5" style={{textAlign: 'center', color: 'red'}}>Currently, You don't have any Parking Spaces<br /><Link to="/parkingspace/add" style={{color: 'red'}}>Click here to Add</Link></h3>    
                 }

@@ -41,7 +41,6 @@ export default class Ownerlogin extends Component {
                 
             })
             .catch(err => {
-                alert(err);
                 toast.error(err);
             })
       }

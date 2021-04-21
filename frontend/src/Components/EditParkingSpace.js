@@ -91,14 +91,13 @@ export default class EditParkingSpace extends Component{
                             <FormGroup row>
                                 <Label for="Contact" sm={4}>Surface Type</Label>
                                 <Col>
-                                    <Input 
-                                        type="text" 
-                                        name="contact_no" 
-                                        id="Contact" 
-                                        
-                                        value={this.state.surfacetype}
-                                        onChange={(e) => this.setState({surfacetype : e.target.value})}
-                                    />
+                                    <select id="inputState" class="form-control" value={this.state.surfacetype} onChange={(e) => this.setState({surfacetype : e.target.value})}>
+                                        <option>Choose...</option>
+                                        <option>Covered</option>
+                                        <option>Partially Covered</option>
+                                        <option>Not Covered</option>
+                                        <option>Underground</option>
+                                    </select>
                                 </Col>
                             </FormGroup>
 
