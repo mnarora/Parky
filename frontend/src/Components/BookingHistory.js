@@ -47,14 +47,14 @@ export default class BookingHistory extends Component {
         .catch(err => console.log(err))
     }
 
-    deleteHandler = (spaceid) => {
+    getReciept = (spaceid) => {
         
-        if (window.confirm("Do you want to delete Order?")) {
-            axios.delete("http://localhost:3001/deleteorder/" +spaceid)
+        if (window.confirm("Your reciept will be mailed on " + sessionStorage.useremail)) {
+            axios.post("http://localhost:3001/getreciept/" + spaceid)
             .then(res => {
             window.location.reload(false)
                 console.log(res.data.status)
-                toast.success("Order Deleted")
+                toast.success(res.data.status)
             
             })
             .catch(err => console.log(err))
@@ -134,7 +134,7 @@ export default class BookingHistory extends Component {
                         </div>
                         <div className="col-sm">
                             {(this.orderStatus(space) === "Cancelled" || this.orderStatus(space) === "Completed") &&
-                                <Button color="primary" data-toggle="modal" onClick = {() => {this.deleteHandler(space._id)}} >Delete Order</Button>
+                                <Button color="primary" data-toggle="modal" onClick = {() => {this.getReciept(space._id)}} >Get Reciept</Button>
                             }
                             {this.orderStatus(space) === "Confirmed" &&
                                 <Button color="primary" data-toggle="modal" data-target="#exampleModal" >Cancel Order</Button>

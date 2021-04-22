@@ -17,7 +17,7 @@ export default class EditProfile extends Component{
         name : '',
         contact_no : ''
     }
-    componentWillMount() {
+    componentDidMount() {
         //console.log(this.props.params.email)
         axios.get("http://localhost:3001/editprofile/" + this.props.match.params.email)
         .then(res => {
@@ -77,7 +77,7 @@ export default class EditProfile extends Component{
                                 type="email" 
                                 name="email" 
                                 id="exampleEmail" 
-                                
+                                disabled="disabled"
                                 value={this.state.email}
                                 onChange={(e) => this.setState({email : e.target.value})}
                             />

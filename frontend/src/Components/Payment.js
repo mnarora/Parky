@@ -106,7 +106,7 @@ function Payment(props) {
 
 	return (
 		
-		<div className="Payment">
+		<div className="Payment" align="center">
 			{console.log(props.parkinginfo)}
 			<button className={Bookspacecss.buttonn} 
 			onClick={displayRazorpay}

@@ -55,70 +55,55 @@ export default class MySpace extends Component{
         this.props.history.push(`/editparkingspace/${id}`)
        
     }
+
+    viewUserDetails = (address) => {
+        axios.post("http://localhost:3001/bookingdetails/", {address: address})
+        .then(res => {
+            this.props.history.push({
+                pathname: '/user-booking-details',
+                state: res.data.bookingDetails
+            })
+            console.log(res.data.bookingDetails)
+        })
+    }
     render(){
         return(
             
             <div className={mySpace.background}>
-                <NavigationBar/>
-                <h1 style= {{textAlign : 'center', marginTop: '50px'}}><u>Parking Spaces</u></h1>
+                <NavigationBar />
+                <h1 style= {{textAlign : 'center', marginTop: '50px'}} ><u>Parking Spaces</u></h1>
                 <div className={"mt-5 "} style={{marginLeft: "10%", marginRight: "10%"}} >
-                    <hr style={{backgroundColor: "black"}}></hr>
-                    <div className ="row mt-3">
-                        <div className="col-sm">
-                            Sr No
-                        </div>
-                        <div className="col-sm">
-                        Address
-                        </div>
-                        <div className="col-sm">
-                        Price per hour
-                        </div>
-                        <div className="col-sm">
-                        Number of Parking Space
-                        </div>
-                        <div className="col-sm">
-                            Surface Type
-                        </div>
-                        <div className="col-sm">
-                           Details
-                        </div>
-                        <div className="col-sm">
-                           Edit Space Info
-                        </div>
-                        <div className="col-sm">
-                           Delete Space
-                        </div>
-                    </div>
-                    <hr style={{backgroundColor: "black"}}></hr>
-                    {this.state.myspaces.reverse().map((space, index) => (
-                            <div className ="row mt-3" style={{backgroundColor: "white", padding: "10px"}}>
-                                <div className="col-sm">
-                                    {index+1}
-                                </div>
-                                <div className="col-sm">
-                                    {space.address}
-                                </div>
-                                <div className="col-sm">
-                                    {space.price} Rs
-                                </div>
-                                <div className="col-sm">
-                                    {space.spacenumber}
-                                </div>
-                                <div className="col-sm">
-                                    {space.surfacetype}
-                                </div>
-                                <div className="col-sm">
-                                <button type="button" className="btn btn-success">View Details</button>
-                                </div>
-                                <div className="col-sm">
-                                <button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button>
-                                </div>
-                                <div className="col-sm">
-                                <button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button>
-                                </div>
-                        </div>
-                    ))}
-                    
+                <div className="table-responsive">
+                <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Price per Hour</th>
+                    <th scope="col">Number of Parking Space</th>
+                    <th scope="col">Surface Type</th>
+                    <th scope="col">User Details</th>
+                    <th scope="col">Edit Space Info</th>
+                    <th scope="col">Delete Space</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {this.state.myspaces.reverse().map((space, index) => (
+                    <tr>
+                        <th scope="row">{index+1}</th>
+                        <td>{space.address}</td>
+                        <td> {space.price} Rs</td>
+                        <td>{space.spacenumber}</td>
+                        <td>{space.surfacetype}</td>
+                        <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View space</button></td>
+                        <td><button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button></td>
+                        <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>
+                    </tr>
+                ))}
+                
+                </tbody>
+                </table>
+                </div>
                 </div>
                 <Container>
                 {(this.state.myspaces.length === 0) && 

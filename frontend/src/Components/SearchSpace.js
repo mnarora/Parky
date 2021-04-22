@@ -98,9 +98,9 @@ import Footer from './Footer';
                 <div className="mt-5">
                   <center>
                     <h1>How Parky Works?</h1>
-                    <img className="container" style={{width: "45%"}} src ="pictures/searchspace1.jpg" />
-                    <div className="container row mt-5">
-                      <div className="col-sm-4">
+                    <img className="container" style={{width: "45%", minWidth: "350px"}} src ="pictures/searchspace1.jpg" />
+                    <div className="container row">
+                      <div className="col-sm-4 mt-5">
                         <div className="card" style={{border: "2px solid black", borderRadius: "2px"}}>
                           <div className="card-body">
                             <img class="card-img-top" style={{width: "50%"}} src="pictures/searchspace2.png" alt="Card image cap" />
@@ -109,7 +109,7 @@ import Footer from './Footer';
                           </div>
                         </div>
                       </div>
-                      <div className="col-sm-4">
+                      <div className="col-sm-4  mt-5">
                         <div className="card" style={{border: "2px solid black"}}>
                             <div className="card-body">
                               <img class="card-img-top" style={{width: "50%"}} src="pictures/searchspace3.png" alt="Card image cap" />
@@ -118,7 +118,7 @@ import Footer from './Footer';
                             </div>
                         </div>
                       </div>
-                      <div className="col-sm-4">
+                      <div className="col-sm-4  mt-5">
                         <div className="card" style={{border: "2px solid black"}}>
                             <div className="card-body">
                               <img class="card-img-top" style={{width: "50%"}} src="pictures/searchspace4.jpeg" alt="Card image cap" />

@@ -11,6 +11,8 @@ import DatePicker from 'react-datetime';
 import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 import Footer from './Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 export default class BookSpace extends Component{
 
@@ -30,16 +32,12 @@ export default class BookSpace extends Component{
     yesterday = moment().subtract(1, 'day');
     
     disablePastDt = current => {
-        console.log("Current\n\n")
-        console.log(this.yesterday)
         return current.isAfter(this.yesterday);
     };
 
     disableDate = current => {
         var a = new Date(this.state.arrival_date)
         var b = moment().set({'year': a.getFullYear(), 'month': a.getMonth() ,'date': a.getDate() - 1})
-        console.log("manish")
-        console.log(b)
         return current.isAfter(b)
     }
 
@@ -107,7 +105,7 @@ export default class BookSpace extends Component{
             <div className={Bookspacecss.background}>
                 <NavigationBar/>
 
-                <Container className= {Bookspacecss.container}>
+                <Container className= {"container mb-5 " + Bookspacecss.container}>
                     <h1 className="ml-5 mt-5">Checkout</h1>
                     <div className="mt-5" style={{fontSize: '25px', marginLeft:'20%'}}>
                         <p><b>Address : </b>{this.props.location.state.parkingspace.address}</p>
@@ -176,6 +174,7 @@ export default class BookSpace extends Component{
                         
                     </div>
                     {this.state.arrival_date &&  this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
+                    <br/>
                 </Container>
                 <br/><br/><br/><br/>
                 

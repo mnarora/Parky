@@ -116,7 +116,7 @@ export default function AddParkingSpace (props){
                 </div>
                 <Container style={{backgroundColor:"#039be5", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
                 <h1 style={{ textAlign: 'center' }}><b>Add Parking Space</b></h1>
-                <Form style={{ width: '50%', alignItems:"center" ,marginLeft: "270px", marginTop: "40px"}} onSubmit= {onSubmit}> 
+                <Form style={{ width: '70%', alignItems:"center", marginTop: "40px", margin: "auto"}} onSubmit= {onSubmit}> 
 
                     <FormGroup>
                         <Label for="examplePrice" hidden>Password</Label>

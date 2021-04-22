@@ -21,7 +21,6 @@ export default class Profile extends Component {
     componentDidMount() {
         if (sessionStorage.useremail) {
             this.setState({email:sessionStorage.useremail});
-            console.log(sessionStorage.useremail)
             
             axios.post('http://localhost:3001/profile/' + sessionStorage.useremail, this.state)
             .then(res => {
@@ -31,7 +30,6 @@ export default class Profile extends Component {
                     contact_no : res.data.user.contact
                 })
             })
-
            
         }
         else{

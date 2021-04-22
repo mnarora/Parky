@@ -23,6 +23,7 @@
     background-color: black;
     padding: 10px 10px;
     font-size: larger;
+    cursor:'pointer';
 }
 
 .formcontrol {
