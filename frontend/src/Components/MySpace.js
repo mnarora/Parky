@@ -8,6 +8,7 @@ import { Container, Button } from 'react-bootstrap';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 
 
 export default class MySpace extends Component{
@@ -28,6 +29,15 @@ export default class MySpace extends Component{
                   myspaces : res.data.myspaces
                 })
             })
+
+            $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                  var value = $(this).val().toLowerCase();
+                  $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  });
+                });
+              });
 
            
         }
@@ -73,6 +83,7 @@ export default class MySpace extends Component{
                 <NavigationBar />
                 <h1 style= {{textAlign : 'center', marginTop: '50px'}} ><u>Parking Spaces</u></h1>
                 <div className={"mt-5 "} style={{marginLeft: "10%", marginRight: "10%"}} >
+                <input className="form-control col-sm-3 mb-4" style={{marginRight: "0"}} id="myInput" type="text" placeholder="Search.."></input>
                 <div className="table-responsive">
                 <table className="table">
                 <thead className="thead-dark">
@@ -87,7 +98,7 @@ export default class MySpace extends Component{
                     <th scope="col">Delete Space</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="myTable">
                 {this.state.myspaces.reverse().map((space, index) => (
                     <tr>
                         <th scope="row">{index+1}</th>

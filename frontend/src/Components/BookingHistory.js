@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Button } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import $ from'jquery';
 
 export default class BookingHistory extends Component {
 
@@ -29,6 +30,15 @@ export default class BookingHistory extends Component {
                 //console.log(this.state.booked_spaces[0].address);
                 
             })
+
+            $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                  var value = $(this).val().toLowerCase();
+                  $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  });
+                });
+              });
 
            
         }
@@ -73,74 +83,51 @@ export default class BookingHistory extends Component {
 
     render() {
         return (
-            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover", backgroundRepeat:'repeat-y', height: "100", minHeight:"100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
+            <div >
                 <NavigationBar />
                 <div >
                     <center>
                     <h1 className="mt-5">Booking Details</h1>
                     </center>
                     <div className="mt-6" style={{marginLeft: "10%", marginRight: "10%"}} >
-                    <hr style={{backgroundColor: "black"}}></hr>
-                    <div className ="row mt-3">
-                        <div className="col-sm">
-                            Order No
-                        </div>
-                        <div className="col-sm">
-                        Address
-                        </div>
-                        <div className="col-sm">
-                        Order Amount
-                        </div>
-                        <div className="col-sm">
-                        Booking Date and Time
-                        </div>
-                        <div className="col-sm">
-                           Order Status
-                        </div>
-                        <div className="col-sm">
-                           Directions
-                        </div>
-                        <div className="col-sm">
-                           Options
-                        </div>
-                    </div>
-                    <hr style={{backgroundColor: "black"}}></hr>
-                    {this.state.booked_spaces.reverse().map((space, index) => (
-                            <div className ="row mt-3" style={{backgroundColor: "white", padding: "10px"}}>
-                                <div className="col-sm">
-                            {index+1}
-                        </div>
-                        <div className="col-sm">
-                        {space.address}
-                        </div>
-                        <div className="col-sm">
-                        {this.orderStatus(space) === "Cancelled" && <div>{space.price} (Refund - {space.price - 20})</div>}
-                        {(this.orderStatus(space) === "Confirmed" || this.orderStatus(space) === "Completed") && space.price}
-                        </div>
-                        <div className="col-sm">
-                        {space.arrival_date.split('T')[0]} {space.arrival_time} - {space.departure_date.split('T')[0]} {space.departure_time}
-                        </div>
-                        <div className="col-sm">
-                            {this.orderStatus(space)}
-                        </div>
-                        <div className="col-sm">
-                        <form action="http://maps.google.com/maps" method="get" target="_blank">
-                            <div >
-                                <input type="hidden" name="daddr" value={space.address} />
-                                <button type="button" className="btn btn-primary" type="submit">Get Directions</button>
-                            </div>
-                        </form>
-                        
-                        </div>
-                        <div className="col-sm">
-                            {(this.orderStatus(space) === "Cancelled" || this.orderStatus(space) === "Completed") &&
+                    <input className="form-control col-sm-3 mb-4" style={{marginRight: "0"}} id="myInput" type="text" placeholder="Search.."></input>
+                        <div className="table-responsive mt-5">
+                <table className="table">
+                <thead className="thead-dark">
+                    <tr>
+                    <th scope="col">Order No</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Order Amount</th>
+                    <th scope="col">Booked Date and Time</th>
+                    <th scope="col">Order Status</th>
+                    <th scope="col">Directions</th>
+                    <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                {this.state.booked_spaces.reverse().map((space, index) => (
+                    <tr>
+                        <th scope="row">{index+1}</th>
+                        <td>{space.address}</td>
+                        <td> {this.orderStatus(space) === "Cancelled" && <div>{space.price} (Refund - {space.price - 20})</div>}
+                        {(this.orderStatus(space) === "Confirmed" || this.orderStatus(space) === "Completed") && space.price}</td>
+                        <td>{space.arrival_date.split('T')[0]} {space.arrival_time} - {space.departure_date.split('T')[0]} {space.departure_time}</td>
+                        <td> {this.orderStatus(space)}</td>
+                        <td>                        
+                            <form action="http://maps.google.com/maps" method="get" target="_blank">
+                                <div >
+                                    <input type="hidden" name="daddr" value={space.address} />
+                                    <button type="button" className="btn btn-primary" type="submit">Get Directions</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td>{(this.orderStatus(space) === "Cancelled" || this.orderStatus(space) === "Completed") &&
                                 <Button color="primary" data-toggle="modal" onClick = {() => {this.getReciept(space._id)}} >Get Reciept</Button>
                             }
                             {this.orderStatus(space) === "Confirmed" &&
                                 <Button color="primary" data-toggle="modal" data-target="#exampleModal" >Cancel Order</Button>
-                            }
-                        </div> 
-                        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            }</td>
+                                <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
@@ -161,12 +148,17 @@ export default class BookingHistory extends Component {
                         </div>
                         </div>
                     </div>
-                </div>   
+                </div> 
+                    </tr>
+                
+                ))}
+                
+                </tbody>
+                </table>
+                </div>
+                          
                         </div>
                         
-                        
-                    ))}
-                   </div>
                     
                 </div>
                 <div className="mt-5">

@@ -109,15 +109,15 @@ export default function AddParkingSpace (props){
                 <div style={{backgroundColor : "darkblue", height: "75%"}}>
                     <br /><br />
                     <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
-                    <center className="mt-5">
+                    <center className="mt-5 container">
                     <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" alt="Image"/>
-                    <br></br>
+                    <br/><br/><br/><br/><br/>
                     </center>
 
                 </div>
                 <Container style={{backgroundColor:"#039be5", marginTop: "100px ",paddingTop: "30px", boxShadow: "0 12px 16px 0 rgba(2, 1, 1, 0.623)"}}>
                 <h1 style={{ textAlign: 'center' }}><b>Add Parking Space</b></h1>
-                <Form style={{ width: '70%', alignItems:"center", marginTop: "40px", margin: "auto"}} onSubmit= {onSubmit}> 
+                <Form style={{ width: '70%', maxWidth: '600px', alignItems:"center", marginTop: "40px", margin: "auto"}} onSubmit= {onSubmit}> 
 
                     <FormGroup>
                         <Label for="examplePrice" hidden>Password</Label>
@@ -306,7 +306,7 @@ export default function AddParkingSpace (props){
                     <div >
                         <center>
                         <div className="row" style={{justifyContent: 'center'}}>
-                            <div className="col-md-3">
+                            <div className="col-sm-3">
                                 <Button className={addparking.buttonn} style={{backgroundColor: "black", width:'120px'}} onSubmit= {onSubmit}>Submit</Button>
                             </div>
                             <div>
