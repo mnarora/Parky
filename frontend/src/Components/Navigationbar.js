@@ -11,16 +11,16 @@ export default class NavigationBar extends Component {
 
     state = {
         loggedIn: Boolean,
-        isuser: Boolean,
+        usertype: String,
     }
 
     componentDidMount() {
         if (sessionStorage.useremail) {
-          console.log(sessionStorage.isuser)
-            this.setState({loggedIn : true, isuser: (sessionStorage.isuser === 'true')});
+          console.log(sessionStorage.userType)
+            this.setState({loggedIn : true, userType: (sessionStorage.userType === 'user')});
         }
         else 
-          this.setState({loggedIn : false, isuser: false});
+          this.setState({loggedIn : false, userType: 'owner'});
     }
     
     logout = () => {
@@ -54,10 +54,10 @@ export default class NavigationBar extends Component {
                         <NavDropdown title="Register" id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/userregister" style={{ textDecoration: 'none', color: 'black' }}>User</Link></NavDropdown.Item>
                           <NavDropdown.Item><Link to="/ownerregister" style={{ textDecoration: 'none', color: 'black' }}>Parking Space Owner</Link></NavDropdown.Item>
+                          <NavDropdown.Item><Link to="/adminregister" style={{ textDecoration: 'none', color: 'black' }}>Admin</Link></NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Login" id="basic-nav-dropdown">
-                          <NavDropdown.Item><Link to="/userlogin" style={{ textDecoration: 'none', color: 'black' }}>User</Link></NavDropdown.Item>
-                          <NavDropdown.Item><Link to="/ownerlogin" style={{ textDecoration: 'none',  color: 'black' }}>Owner</Link></NavDropdown.Item>
+                           <NavDropdown.Item><Link to="/adminlogin" style={{ textDecoration: 'none',  color: 'black' }}>Login</Link></NavDropdown.Item>
                         </NavDropdown>
                        
                       </Nav>
@@ -67,7 +67,7 @@ export default class NavigationBar extends Component {
                     <Nav >
                         <NavDropdown className="mr-4" title={sessionStorage.name} id="basic-nav-dropdown">
                           <NavDropdown.Item><Link to="/profile" style={{ textDecoration: 'none', color: 'black' }} onClick ={this.props.profilehandler}>Profile</Link></NavDropdown.Item>                      
-                           {Boolean(this.state.isuser) ?
+                           {Boolean(this.state.userType === "user") ?
                             (<NavDropdown.Item><Link to="/bookinghistory" style={{ textDecoration: 'none', color: 'black' }}>BookingHistory</Link></NavDropdown.Item>)
                             :
                             (<div>

@@ -15,9 +15,11 @@ const UserSchema = new Schema({
     password: {
         type: String
     },
-    isuser: {
-        type: Boolean
-    }
+    userType: {
+        type: String,
+        enum: ['user','owner','admin'],
+        default: 'user'
+    },
 },   { strict: false });
 
 module.exports = User = mongoose.model('user', UserSchema);

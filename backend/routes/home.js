@@ -87,7 +87,7 @@ router.post("/login",async (req, res) => {
           token,
           user: {
             id: user._id,
-            isuser: user.isuser,
+            userType: user.userType,
             email: user.email,
             name: user.name,
             contact: user.contact
@@ -449,5 +449,14 @@ router.post("/getreciept/:id", async(req, res) => {
 
   return res.status(200).json({status: 'Reciept Generated. Please Check Your MailBox'})
 })
+
+router.get("/showusers", async(req, res) =>{
+  await User.find()
+  .then(users => {
+   
+    return res.status(200).json({users})
+  })
+})
+
 
 module.exports = router;

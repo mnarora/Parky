@@ -15,7 +15,7 @@ export default class UserRegister extends Component {
         email : '',
         contact: '',
         password : '',
-        isuser : false
+        userType : 'owner'
     };
 
 
@@ -26,7 +26,7 @@ export default class UserRegister extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg)
                 else {
-                    localStorage.setItem('isUser', false);
+                    localStorage.setItem('userType', 'owner');
                     this.props.history.push('/ownerlogin')
                     toast.success("Successfully Registered, Login to Continue")
                 }

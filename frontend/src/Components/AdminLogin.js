@@ -6,10 +6,9 @@ import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
 import {handleEmail} from '../FormValidation';
 
-export default class Login extends Component {
+export default class Adminlogin extends Component {
     state = {
         email : '',
         password : ''
@@ -22,11 +21,9 @@ export default class Login extends Component {
                 if (res.data.msg)
                     toast.error(res.data.msg);
                 else {
-                    console.log(res.data.user)
                     window.sessionStorage.setItem('name', res.data.user.name);
                     window.sessionStorage.setItem('userType', res.data.user.userType);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
-                    window.sessionStorage.setItem('contact', res.data.user.contact);
                     window.sessionStorage.setItem('userid', res.data.user._id)
                     if (res.data.user.userType === 'user') {
                         this.props.history.push({
@@ -34,35 +31,38 @@ export default class Login extends Component {
                             state: {loggedin : true}
                         });
                     }
-                    else
-                        this.props.history.push("/");
+                    else if(res.data.user.userType === 'owner'){
+                        this.props.history.push("/ParkingSpace/Add");
+                    }
+
+                    else if(res.data.user.userType === 'admin'){
+                        this.props.history.push("/adminpage");
+                    }
+                        
                     toast.success("Successfully Logged In")
                 }
                 
             })
             .catch(err => {
-                console.log(err);
                 toast.error(err);
             })
       }
 
-      
-      
     render() {
 
 
 
         return (
             <div className={login.background}>
-                <NavigationBar />
+                <NavigationBar/>
                 
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="pictures/login.jpg" alt="description of image" height="150px"/>
-                <h1>User Login</h1>
+                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="description" height="150px"/>
+                    <h1>Login</h1>
                 </center>
-                    <div className="form-group mt-4">
+                    <div className="form-group mt-5">
                         <input type="email" className={login.formcontrol} onChange={(e) => {this.setState({email : e.target.value}); handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Enter email" required />
                         <span id="emailmsg"></span>
                     </div>
@@ -71,11 +71,11 @@ export default class Login extends Component {
                         <input type="password" className={login.formcontrol} id="password" onChange={(e) => this.setState({password : e.target.value})} placeholder="Password" required/>
                     </div>
                     
-                    <button type="submit" id="submit" className={"btn btn-primary " + login.buttonn}>Login</button>
-                    <Link to="/resetpassword" style={{ textDecoration: 'none', color: 'black' }}><p className="mt-2 text-muted" align="right">Forgot Password</p></Link>
+                    <button type="submit" id="submit" className={"btn btn-primary "+login.buttonn}>Login</button>
+                    <Link to="/resetpassword" style={{ textDecoration: 'none', color: 'black' }}><p className="mt-2 text-muted" align="right">Forgot Password</p></Link>                
                 </form>
-                
                 </div>
+                
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )

@@ -22,18 +22,21 @@ export default class Ownerlogin extends Component {
                     toast.error(res.data.msg);
                 else {
                     window.sessionStorage.setItem('name', res.data.user.name);
-                    window.sessionStorage.setItem('isuser', res.data.user.isuser);
+                    window.sessionStorage.setItem('userType', res.data.user.userType);
                     window.sessionStorage.setItem('useremail', res.data.user.email);
                     window.sessionStorage.setItem('userid', res.data.user._id)
-                    if (res.data.user.isuser) {
+                    if (res.data.user.userType === 'user') {
                         this.props.history.push({
                             pathname: "/searchspace",
                             state: {loggedin : true}
                         });
                     }
-                   
-                    else{
+                    else if(res.data.user.userType === 'owner'){
                         this.props.history.push("/ParkingSpace/Add");
+                    }
+
+                    else if(res.data.user.userType === 'admin'){
+                        this.props.history.push("/adminPage");
                     }
                         
                     toast.success("Successfully Logged In")
