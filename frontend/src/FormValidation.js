@@ -1,0 +1,83 @@
+const handleContact = () => {
+    var x = document.getElementById('contact').value;
+    if ((x.length !== 10) && (x !== '')) {
+        document.getElementById('contactmsg').style.color = 'red';
+        document.getElementById('contactmsg').innerHTML = 'Contact No should be of 10 digits';
+        document.getElementById('submit').disabled = true;
+    }
+    else {
+        document.getElementById('contactmsg').innerHTML = '';
+        document.getElementById('submit').disabled = false;
+    }
+};
+
+const handleName = () => {
+    var x = document.getElementById('name').value;
+    if (/[^a-z A-Z]/.test(x)) {
+        document.getElementById('namemsg').style.color = 'red';
+        document.getElementById('namemsg').innerHTML = 'Name should only contain letters';
+        document.getElementById('submit').disabled = true;
+    }
+    else {
+        document.getElementById('namemsg').innerHTML = '';
+        document.getElementById('submit').disabled = false;
+    }
+};
+
+const handleEmail = () => {
+    var x = document.getElementById('email').value;
+    console.log(x);
+    if (x.indexOf("@") <= -1 && (x !== '')) {
+        document.getElementById('emailmsg').style.color = 'red';
+        document.getElementById('emailmsg').innerHTML = 'invalid email';
+        document.getElementById('submit').disabled = true;
+    }
+    else {
+        document.getElementById('emailmsg').innerHTML = '';
+        document.getElementById('submit').disabled = false;
+    }
+};
+
+const checkPassword = () => {
+    if (document.getElementById('password').value ===
+      document.getElementById('confirm_password').value) {
+        if (document.getElementById('password').value.length) {
+        document.getElementById('msg').style.color = 'green';
+        document.getElementById('msg').innerHTML = 'matching<br>';
+        }
+        else {
+        document.getElementById('msg').innerHTML = '';
+        }
+      document.getElementById('submit').disabled = false;
+    } else {
+      document.getElementById('msg').style.color = 'red';
+      document.getElementById('msg').innerHTML = 'not matching<br>';
+      document.getElementById('submit').disabled = true;
+    }
+  };
+
+  const checkform = () => {
+    if (document.getElementById('password').value ===
+      document.getElementById('confirm_password').value) {
+        if (document.getElementById('password').value.length) {
+        document.getElementById('msg').style.color = 'green';
+        document.getElementById('msg').innerHTML = 'matching<br>';
+        }
+        else {
+        document.getElementById('msg').innerHTML = '';
+        }
+      document.getElementById('submit').disabled = false;
+    } else {
+      document.getElementById('msg').style.color = 'red';
+      document.getElementById('msg').innerHTML = 'not matching<br>';
+      document.getElementById('submit').disabled = true;
+    }
+  };
+
+export {
+    handleContact,
+    handleName,
+    handleEmail,
+    checkPassword,
+    checkform
+}

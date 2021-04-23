@@ -11,6 +11,8 @@ import DatePicker from 'react-datetime';
 import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 import Footer from './Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 export default class BookSpace extends Component{
 
@@ -19,21 +21,29 @@ export default class BookSpace extends Component{
         address : '',
         arrival_time: '',
         departure_time: '',
-        date: '',
+        arrival_date: '',
+        departure_date: '',
         price: '',
         email: '',
         no_of_booked_spaces: '',
         booked_space_id: ''
     }
+    
     yesterday = moment().subtract(1, 'day');
+    
     disablePastDt = current => {
         return current.isAfter(this.yesterday);
     };
 
+    disableDate = current => {
+        var a = new Date(this.state.arrival_date)
+        var b = moment().set({'year': a.getFullYear(), 'month': a.getMonth() ,'date': a.getDate() - 1})
+        return current.isAfter(b)
+    }
+
     bookSpaceHandler = (e) => {
         
         e.preventDefault()
-        console.log(this.state.email)
         axios.post('http://localhost:3001/bookspace', this.state)
         .then(res => {
             if (res.data.error)
@@ -49,11 +59,38 @@ export default class BookSpace extends Component{
         })
     }
 
+    checkArrivalTime = () => {
+        var arrival_date = new Date(this.state.arrival_date)
+        var today_date = new Date();
+        if (arrival_date.setHours(0,0,0,0) == today_date.setHours(0,0,0,0)) {
+            var currenttime = new Date().getHours() + ":" + new Date().getMinutes();
+            var arrivaltime = document.getElementById("arrival_time").value;
+            if (currenttime > arrivaltime) {
+                document.getElementById('arrival_timemsg').style.color = 'red';
+                document.getElementById('arrival_timemsg').innerHTML = 'Please Enter Valid Arrival Time';
+            }
+            else{
+                document.getElementById('arrival_timemsg').innerHTML = '';
+            }
+        }
+    }
+
+    checkDepartureTime =() => {
+        var arrival_date = new Date(this.state.arrival_date)
+        var departure_date = new Date(this.state.departure_date)
+        if (arrival_date.setHours(0,0,0,0) === departure_date.setHours(0,0,0,0)) {
+            if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value) {
+                document.getElementById('departure_timemsg').style.color = 'red';
+                document.getElementById('departure_timemsg').innerHTML = 'Please Enter Valid Departure Time';
+            }
+            else
+                document.getElementById('departure_timemsg').innerHTML = '';
+        }
+    }
+
     
     componentDidMount() {
-        console.log(this.props)
         window.sessionStorage.setItem('booking_id', this.props.location.state.parkingspace._id)
-        console.log(window.sessionStorage.getItem('booking_id'))
         this.setState(prevstate => ({
             ...prevstate,
             address: this.props.location.state.parkingspace.address,
@@ -68,46 +105,56 @@ export default class BookSpace extends Component{
             <div className={Bookspacecss.background}>
                 <NavigationBar/>
 
-                <Container className= {Bookspacecss.container}>
+                <Container className= {"container mb-5 " + Bookspacecss.container}>
                     <h1 className="ml-5 mt-5">Checkout</h1>
                     <div className="mt-5" style={{fontSize: '25px', marginLeft:'20%'}}>
                         <p><b>Address : </b>{this.props.location.state.parkingspace.address}</p>
                         <p><b>No of Spaces: </b>{this.props.location.state.parkingspace.spacenumber}</p>
                         <p><b>Surface Type: </b>{this.props.location.state.parkingspace.surfacetype}</p>
                         <p><b>Accepted Vehicles: </b>{this.props.location.state.parkingspace.accepted_vehicles}</p>
-                        <p><b>Price: </b>{this.props.location.state.parkingspace.price}</p>
+                        <p><b>Price per hour: </b>{this.props.location.state.parkingspace.price}</p>
                         <Form>
-                            <p><b>Select Date -</b></p>
+                        <p><b>Select Arrival Date -</b></p>
                         <div style={{width:'50%', marginLeft: '10%'}}>
-                        <DatePicker 
-                        timeFormat={false}
-                        isValidDate={this.disablePastDt}
-                        onChange={(e) => this.setState({date : e.format("YYYY-MM-DD")})}
-                        inputProps={{ placeholder: "Start Date" }}
-                        />
-                        
+                            <DatePicker 
+                            timeFormat={false}
+                            id="arrival_date"
+                            isValidDate={this.disablePastDt}
+                            onChange={(e) => this.setState({arrival_date : e.format("YYYY-MM-DD")})}
+                            inputProps={{ placeholder: "Arrival Date" }}
+                            />
+    
                         </div>
-                            <p className="mt-3"><b>Select Arrival Time -</b></p>
+                        <p><b>Select Departure Date -</b></p>
+                        <div style={{width:'50%', marginLeft: '10%'}}>
+                            <DatePicker 
+                            timeFormat={false}
+                            isValidDate={this.disableDate}
+                            onChange={(e) => this.setState({departure_date : e.format("YYYY-MM-DD")})}
+                            inputProps={{ placeholder: "Departure Date" }}
+                            />
+                        </div>
+                        <p className="mt-3"><b>Select Arrival Time -</b></p>
                         <Input
                                 type="time"
                                 name="time"
-                                id="ArrivalTime"
+                                id="arrival_time"
                                 style={{width:'50%', marginLeft: '10%'}}
-                                min="11:05"
                                 required
-                                placeholder="Arrival timw"
-                                onChange={(e) => this.setState({arrival_time : e.target.value})}
+                                onChange={(e) => {this.setState({arrival_time : e.target.value});this.checkArrivalTime();}}
                             />
+                        <span style={{marginLeft: '10%'}} id="arrival_timemsg"></span>
                             <p className="mt-3"><b>Select Departure Time -</b></p>
                             <Input
                                 type="time"
                                 name="time"
-                                id="DepartureTime"
+                                id="departure_time"
                                 style={{width:'50%', marginLeft: '10%'}}
                                 required
                                 placeholder="Departure time"
-                                onChange={(e) => this.setState({departure_time : e.target.value})}
+                                onChange={(e) => {this.setState({departure_time : e.target.value});this.checkDepartureTime()}}
                             />
+                            <span style={{marginLeft: '10%'}} id="departure_timemsg"></span>
                             <p className="mt-3"><b>No of Spaces required -</b></p>
                             <Input 
                              type="number"
@@ -124,13 +171,13 @@ export default class BookSpace extends Component{
                                 }}
                             />
                         </Form>
-                        {console.log(this.state)}
                         
                     </div>
-                    {this.state.date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
+                    {this.state.arrival_date &&  this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props}/>}
+                    <br/>
                 </Container>
                 <br/><br/><br/><br/>
-                <Footer />
+                
             </div>
         )
            

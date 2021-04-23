@@ -2,25 +2,31 @@
     background-color: #accffe;
     height: 100%;
     font-family: "Muli-SemiBold";
+    min-height: 100vh;
 }
 
 .container{
     
-    display: inline-block;
     background-color: white;
-    margin-top: 50px;
-    margin-left: 550px;
     border-radius: 20px;
     max-width: 700px;
+    margin: auto;
    
 }
 
 .buttonn {
-    width: 30%;
+    width: 200px;
     background-color: black;
     padding: 10px 10px;
     font-size: larger;
     color: white;
-    margin-bottom: 10px;
-    margin-left: 30%;
+}
+
+@media screen and (max-width: 800px) {
+    .background {
+        background-color: white;
+        height: 100%;
+        min-height: 100vh;
+        font-family: "Muli-SemiBold";
+    }
 }

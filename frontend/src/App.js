@@ -4,7 +4,7 @@ import Login from './Components/Login';
 import Ownerlogin from './Components/ownerlogin';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
-import BookaSlot from './Components/BookaSlot';
+import SearchSpace from './Components/SearchSpace';
 import ResetPassword from './Components/ResetPassword';
 import GoogleMap from './Components/GoogleMap'
 import AddParkingSpace from './Components/AddParkingSpace';
@@ -16,6 +16,7 @@ import BookSpace from './Components/BookSpace';
 import MySpaces from './Components/MySpace';
 import EditParkingSpace from './Components/EditParkingSpace'
 import NotFoundPage from './Components/NotFoundPage';
+import UserBookingDetails from './Components/UserBookingDetails';
 
 
 class ProtectedRoute extends Component {
@@ -74,12 +75,13 @@ class App extends Component {
           <ProtectedRoute path="/bookspace" exact component={BookSpace}/>
           <ProtectedRoute path="/parkingSpace/add" exact component={AddParkingSpace} />
             <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
-            <ProtectedRoute path="/searchspace" exact component={BookaSlot} />
+            <ProtectedRoute path="/searchspace" exact component={SearchSpace} />
             
             <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
             <ProtectedRoute path="/myspaces" exact component={MySpaces}/>
             <ProtectedRoute path="/editparkingspace/:id" exact component={EditParkingSpace}/>
-          <Route path="*" component={NotFoundPage} />
+            <ProtectedRoute path="/user-booking-details" exact component={UserBookingDetails}/>
+          {/* <Route path="*" component={NotFoundPage} /> */}
           
 
         </Switch>

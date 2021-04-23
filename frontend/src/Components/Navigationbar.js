@@ -33,7 +33,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
           <div>
-                <Navbar style={{height: '70px'}} bg="dark" variant="dark" expand="lg">
+                <Navbar style={{minHeight: '80px'}} bg="dark" variant="dark" expand="lg">
                 {(this.state.loggedIn) && !(this.state.isuser) &&
                   <Navbar.Brand><Link to="/parkingspace/add" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
                 }

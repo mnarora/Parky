@@ -23,11 +23,10 @@
     display: block;
     height: auto;
     width: auto;
-    background-color: rgb(163, 224, 240);
+    background-color: black;
     font-size: x-large;
     font-weight: 600;
     padding: 10px 10px;
-    border-radius: 10px;
-    margin: 0 auto;
-    border: 3px solid black;
+    color: white;
+    margin: auto;
 }

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {handleContact, handleName} from '../FormValidation';
 
 
 export default class EditProfile extends Component{
@@ -16,7 +17,7 @@ export default class EditProfile extends Component{
         name : '',
         contact_no : ''
     }
-    componentWillMount() {
+    componentDidMount() {
         //console.log(this.props.params.email)
         axios.get("http://localhost:3001/editprofile/" + this.props.match.params.email)
         .then(res => {
@@ -58,13 +59,16 @@ export default class EditProfile extends Component{
                             <Input 
                                 type="text" 
                                 name="Name" 
-                                id="exampleName" 
-                                
+                                id="name" 
+                                onBlur={handleName}
                                 value={this.state.name}
                                 onChange={(e) => this.setState({name : e.target.value})}
+                                
                             />
+                            <span id="namemsg"></span>
                         </Col>
                     </FormGroup>
+                    <span id="namemsg"></span>
 
                     <FormGroup row>
                         <Label for="exampleEmail" sm={2}>Email</Label>
@@ -73,7 +77,7 @@ export default class EditProfile extends Component{
                                 type="email" 
                                 name="email" 
                                 id="exampleEmail" 
-                                
+                                disabled="disabled"
                                 value={this.state.email}
                                 onChange={(e) => this.setState({email : e.target.value})}
                             />
@@ -84,17 +88,18 @@ export default class EditProfile extends Component{
                         <Label for="Contact" sm={2}>Contact Number</Label>
                         <Col>
                             <Input 
-                                type="text" 
+                                type="number" 
                                 name="contact_no" 
-                                id="Contact" 
-                                
+                                id="contact" 
+                                onBlur={handleContact}
                                 value={this.state.contact_no}
                                 onChange={(e) => this.setState({contact_no : e.target.value})}
                             />
                         </Col>
                     </FormGroup>
+                    <span id="contactmsg"></span>
                 </Form>
-                <Button style={{marginLeft: '450px', marginTop: "50px", width: "200px"}} color="primary" onClick ={this.onSubmit}>Update</Button>
+                <Button style={{marginLeft: '450px', marginTop: "50px", width: "200px"}} color="primary" id="submit" onClick ={this.onSubmit}>Update</Button>
             </Container>
             </div>
         )

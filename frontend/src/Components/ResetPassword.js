@@ -5,6 +5,7 @@ import axios from 'axios';
 import NavigationBar from './Navigationbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {handleEmail} from '../FormValidation';
 
 
 export default class ResetPassword extends Component {
@@ -67,13 +68,16 @@ export default class ResetPassword extends Component {
         return (
             
             <div>
-                <NavigationBar/>
-                <div class="mt-5" align="center">
-                    <form className={login.logform} onSubmit={this.onSubmit}>
+                <NavigationBar />
+
+                <div className={login.background} align="center">
+                    <form className={"mt-5 "+ login.logform} onSubmit={this.onSubmit}>
                         <h2>Reset Password</h2>
                         <p>Enter your user account's verified email address and we will send you a One Time Password to reset your Password.</p>
-                        <input type="email" onChange={(e) => this.setState({email: e.target.value})} className="form-control" placeholder="Email" required />
-                        <button style={{backgroundColor: 'black'}} onClick={this.generateOTP} class="btn btn-primary mt-4">Submit</button>
+                        <input type="email" onChange={(e) => {this.setState({email: e.target.value});handleEmail()}} id="email" className="form-control" placeholder="Email" required />
+                        <span id="emailmsg"></span>
+                        <br />
+                        <button style={{backgroundColor: 'black'}} onClick={this.generateOTP} id="submit" class="btn btn-primary mt-4">Submit</button>
                         <br />
                         <span id="otp"></span>
                         <p class="mt-3">Enter OTP sent on your email to reset your password</p>

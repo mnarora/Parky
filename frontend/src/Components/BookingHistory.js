@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from 'axios';
 import { Button } from 'reactstrap';
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class BookingHistory extends Component {
 
@@ -38,25 +38,49 @@ export default class BookingHistory extends Component {
     }
     cancelBookingHandler = (spaceid) =>{
         console.log(spaceid)
-        axios.delete("http://localhost:3001/cancelorder/" +spaceid)
+        axios.post("http://localhost:3001/cancelorder/" +spaceid)
         .then(res => {
            window.location.reload(false)
-            console.log(res.data.status)
+           toast.success("Booking Cancelled")
            
         })
         .catch(err => console.log(err))
     }
 
+    getReciept = (spaceid) => {
+        
+        if (window.confirm("Your reciept will be mailed on " + sessionStorage.useremail)) {
+            axios.post("http://localhost:3001/getreciept/" + spaceid)
+            .then(res => {
+            window.location.reload(false)
+                console.log(res.data.status)
+                toast.success(res.data.status)
+            
+            })
+            .catch(err => console.log(err))
+        }
+    }
+
+    orderStatus = (space) => {
+        if (space.order_status == "Cancelled")
+            return "Cancelled"
+        var startTime = new Date(space.arrival_date.split('T')[0] + ' ' + space.arrival_time)
+        if (startTime > new Date())
+            return "Confirmed"
+        else
+            return "Completed"
+    }
+
     render() {
         return (
-            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover", backgroundRepeat:'repeat-y', height: "100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
+            <div style={{backgroundImage: `url("https://www.carrentalscript.com/wp-content/uploads/powerful-online-car-and-taxi-booking-software.jpg")`, backgroundSize: "cover", backgroundRepeat:'repeat-y', height: "100", minHeight:"100vh", fontFamily: "Muli-SemiBold", fontSize: "20px"}}>
                 <NavigationBar />
                 <div >
                     <center>
                     <h1 className="mt-5">Booking Details</h1>
                     </center>
-                    <div className="container mt-6" >
-
+                    <div className="mt-6" style={{marginLeft: "10%", marginRight: "10%"}} >
+                    <hr style={{backgroundColor: "black"}}></hr>
                     <div className ="row mt-3">
                         <div className="col-sm">
                             Order No
@@ -65,13 +89,10 @@ export default class BookingHistory extends Component {
                         Address
                         </div>
                         <div className="col-sm">
-                        Price
+                        Order Amount
                         </div>
                         <div className="col-sm">
-                        Date
-                        </div>
-                        <div className="col-sm">
-                           Time
+                        Booking Date and Time
                         </div>
                         <div className="col-sm">
                            Order Status
@@ -80,7 +101,7 @@ export default class BookingHistory extends Component {
                            Directions
                         </div>
                         <div className="col-sm">
-                           Cancel Booking
+                           Options
                         </div>
                     </div>
                     <hr style={{backgroundColor: "black"}}></hr>
@@ -93,31 +114,57 @@ export default class BookingHistory extends Component {
                         {space.address}
                         </div>
                         <div className="col-sm">
-                        {space.price}
+                        {this.orderStatus(space) === "Cancelled" && <div>{space.price} (Refund - {space.price - 20})</div>}
+                        {(this.orderStatus(space) === "Confirmed" || this.orderStatus(space) === "Completed") && space.price}
                         </div>
                         <div className="col-sm">
-                        {space.date.split('T')[0]}
+                        {space.arrival_date.split('T')[0]} {space.arrival_time} - {space.departure_date.split('T')[0]} {space.departure_time}
                         </div>
                         <div className="col-sm">
-                        {space.arrival_time}-{space.departure_time}
-                        </div>
-                        <div className="col-sm">
-                           Completed
+                            {this.orderStatus(space)}
                         </div>
                         <div className="col-sm">
                         <form action="http://maps.google.com/maps" method="get" target="_blank">
                             <div >
                                 <input type="hidden" name="daddr" value={space.address} />
-                                <button type="button" class="btn btn-primary" type="submit">Get Directions</button>
+                                <button type="button" className="btn btn-primary" type="submit">Get Directions</button>
                             </div>
                         </form>
                         
                         </div>
                         <div className="col-sm">
-                            
-                           <Button color="primary" onClick = {() => {this.cancelBookingHandler(space._id)}}><FontAwesomeIcon icon= {faWindowClose}/> </Button>{' '}
-                        </div>    
+                            {(this.orderStatus(space) === "Cancelled" || this.orderStatus(space) === "Completed") &&
+                                <Button color="primary" data-toggle="modal" onClick = {() => {this.getReciept(space._id)}} >Get Reciept</Button>
+                            }
+                            {this.orderStatus(space) === "Confirmed" &&
+                                <Button color="primary" data-toggle="modal" data-target="#exampleModal" >Cancel Order</Button>
+                            }
+                        </div> 
+                        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Confirm Cancellation!!!</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div className="modal-body" style={{marginLeft: "20%"}}>
+                            Order Price: Rs {space.price}<br/>
+                            Cancellation Charges: Rs 20<br/>
+                            Refund Amount: {space.price - 20}<br/><br/>
+                            <p className="text-muted">Refund will be credited to your Original Payment Method within 24hrs</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" onClick = {() => {this.cancelBookingHandler(space._id)}} className="btn btn-primary">Confirm</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>   
+                        </div>
+                        
+                        
                     ))}
                    </div>
                     
@@ -125,6 +172,7 @@ export default class BookingHistory extends Component {
                 <div className="mt-5">
                 <Footer />
                 </div>
+                <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )
     }

@@ -5,7 +5,7 @@ import NavigationBar from './Navigationbar';
 import css from '../CSS/GoogleMap.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Col, Row, Container} from 'react-bootstrap';
 
 
 
@@ -160,9 +160,22 @@ import {Card, Button} from 'react-bootstrap';
             <NavigationBar/>
             <div className={css.map} id="map">
             </div>
-            <div className={css.grid}>{cardInfo.map((card, index) => (
+            {/* <div className="card-group"> */}
+            <Container>
+            <Row>
               
-             <Card style={{ width: '18rem' }} key={index} className={css.box}>
+              {cardInfo.map((card, index) => (
+              
+              
+              // <div className="card">
+              //   <div className="card-body">
+              //     <h5 className="card-title">Card title</h5>
+              //     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              //     <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+              //   </div>
+              // </div>
+              <Col sm="6">
+             <Card key={index} className="mt-3">
              <Card.Body>
                <Card.Title>{card.address}</Card.Title>
                <Card.Text>
@@ -190,7 +203,11 @@ import {Card, Button} from 'react-bootstrap';
                }}>Book Space</Button>
              </Card.Body>
          </Card>
-           ))}</div>  
+         </Col>
+           ))}
+           
+           </Row>
+           </Container>
            <br></br>
            <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
           </div>

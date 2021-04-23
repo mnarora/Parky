@@ -4,6 +4,7 @@ import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
 import {  toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -58,8 +59,16 @@ function Payment(props) {
 			t.json()
 			
 		)
+		const arrivall_time = props.parkinginfo.arrival_date + 'T' + props.parkinginfo.arrival_time
 		
-		data.amount = parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces)
+		const departuree_time = props.parkinginfo.departure_date + 'T' + props.parkinginfo.departure_time
+		const date1 = new Date(arrivall_time)
+		const date2 = new Date(departuree_time)
+		
+		const minutesDifference = (date2-date1) / (1000 * 60)
+		console.log( "No of minutes: " + minutesDifference);
+		props.parkinginfo.price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
+		console.log(data.amount)
 		savePaymentDetails(data)
 		
 		const options = {
@@ -97,7 +106,7 @@ function Payment(props) {
 
 	return (
 		
-		<div className="Payment">
+		<div className="Payment" align="center">
 			{console.log(props.parkinginfo)}
 			<button className={Bookspacecss.buttonn} 
 			onClick={displayRazorpay}

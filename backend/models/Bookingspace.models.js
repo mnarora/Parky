@@ -12,7 +12,10 @@ const BookingSpaceSchema = new Schema({
     departure_time : {
         type: String
     },
-    date : {
+    arrival_date : {
+        type: Date
+    },
+    departure_date: {
         type: Date
     },
     price : {
@@ -26,6 +29,10 @@ const BookingSpaceSchema = new Schema({
     },
     booked_space_id:{
         type: String
+    },
+    order_status: {
+        type: String,
+        default: 'Completed'
     },
 },   { strict: false });
 

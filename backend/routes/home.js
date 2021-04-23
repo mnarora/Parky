@@ -15,8 +15,8 @@ const router = express.Router()
 var useremail 
 
 const razorpay = new Razorpay({
-	key_id: 'rzp_test_4z2vw67s30xv3b',
-	key_secret: 'xXsnlR6bo0TQd86ya5j7yjd7'
+	key_id: process.env.RAZORPAY_KEY_ID,
+	key_secret: process.env.RAZORPAY_KEY_SECRET
 })
 
 
@@ -82,6 +82,7 @@ router.post("/login",async (req, res) => {
         if (!token) throw Error('Couldnt sign the token');
         
         useremail = user.email;
+        console.log(user)
         return res.status(200).json({
           token,
           user: {
@@ -177,7 +178,10 @@ router.post("/resetpassword", async(req, res) => {
 })
 
 router.post("/parkingspace/add", async(req, res) => {
-    console.log(req.body)
+    space = await ParkingSpace.findOne({address: req.body.address});
+    if (space) {
+      return res.status(200).json({error: "Space Already Registered"})
+    }
     const newSpace = new ParkingSpace(req.body)
     newSpace.save()
         .then(space => {
@@ -191,6 +195,24 @@ router.post("/parkingspace/add", async(req, res) => {
             return res.status(200).json({error : err})
         })
     
+})
+
+router.post("/bookingdetails", async (req, res) => {
+  var bookingDetails = {}
+  var arrBookingDetails = []
+  var bookedspace = await BookingSpace.find({address: req.body.address})
+  var i;
+  for(i = 0; i < bookedspace.length; i++) {
+    a = await User.findOne({email: bookedspace[i].email})
+    bookingDetails = {...bookingDetails, userdetails: a, spacedetails:bookedspace[i]}
+    // bookingDetails.userdetails = a
+    // bookingDetails.spacedetails = bookedspace[i]
+    arrBookingDetails[i] = bookingDetails
+  }
+  console.log(arrBookingDetails)
+  return res.status(200).json({bookingDetails: arrBookingDetails})
+  
+
 })
 
 router.get("/bookaslot", async(req, res) =>{
@@ -211,6 +233,7 @@ router.post("/profile/:email", async(req, res) =>{
   const email = req.params.email;
   
   const user = await User.findOne({email});
+  console.log(user)
  
   return res.status(200).json({user})
 })
@@ -226,7 +249,12 @@ router.get("/editprofile/:email", async(req, res) => {
 router.post("/editprofile/:email", async(req, res) => {
   const email = req.params.email;
   const updated_user = await User.findOne({email})
-  
+  const email2 = req.body.email;
+  console.log(email2)
+  const existing_user = await User.findOne({email2})
+  console.log(existing_user)
+  if (existing_user)
+    return res.status(400).json({msg: "User with given email already exists"})
   updated_user.email = req.body.email
   updated_user.contact = req.body.contact_no
   updated_user.name = req.body.name
@@ -285,7 +313,7 @@ router.post("/bookspace", async(req, res) => {
         from: process.env.PARKY_EMAIL_ID,
         to: req.body.email,
         subject: 'Parky - Booking Confirmed',
-        html: `<html><body><br>Dear ${user.name},<p><br>Hurray!!! You have successfully booked Parking Space at ${req.body.address}.<br><br>Please read details of your Booking below.<br>Date - ${req.body.date}<br>Arrival Time - ${req.body.arrival_time}<br>Departure Time - ${req.body.departure_time}<br>Booking Price - ${req.body.price}<br>Payment Method - Prepaid<br><br>To avoid any inconvenience Please reach 10 min before ${req.body.arrival_time}<br><br>Thanks and Regards,<br>Parky</p></html></body>`
+        html: `<html><body><br>Dear ${user.name},<p><br>Hurray!!! You have successfully booked Parking Space at ${req.body.address}.<br><br>Please read details of your Booking below.<br>Arrival Date and Time - ${req.body.arrival_date} ${req.body.arrival_time}<br>Departure Date and Time - ${req.body.departure_date} ${req.body.departure_time}<br>Departure Time - ${req.body.departure_time}<br>Booking Price - ${req.body.price}<br>Payment Method - Prepaid<br><br>To avoid any inconvenience Please reach 10 min before ${req.body.arrival_time}<br><br>Thanks and Regards,<br>Parky</p></html></body>`
       };
       
       await transporter.sendMail(mailOptions, function(error, info){
@@ -359,18 +387,67 @@ router.post("/savepaymentdetails", async(req, res)=>{
         })
 })
 
-router.delete("/cancelorder/:id", async(req, res) => {
+router.post("/cancelorder/:id", async(req, res) => {
   const id = req.params.id
   console.log(id)
-  await BookingSpace.findById(id)
-  .then(space => {
-    console.log(space);
-    
-  })
+  space = await BookingSpace.findById(id);
+  space.order_status = "Cancelled";
+  space.save();
+  console.log(space)
   // .catch(err => res.status(400).json({err})) 
-  await BookingSpace.findByIdAndDelete(id)
-  .then(res.status(200).json({status: 'Booking Canceled',}))
-  .catch(err => res.status(400).json({err}))
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.PARKY_EMAIL_ID,
+      pass: process.env.PARKY_EMAIL_PASS
+    }
+  });
+  var mailOptions = {
+    from: process.env.PARKY_EMAIL_ID,
+    to: space.email,
+    subject: 'Parky - Booking Confirmed',
+    html: `<html><body><br><p>Dear User,<p><br>Your parking order at ${space.address} was cancelled by you. The Refund Amount of Rs ${space.price - 20} will be provided to you in your Original Payment Method within 24 hrs.<br><br>Refund Details : <br><br>Order Price - Rs ${space.price}<br>Cancellation Charges - Rs 20<br>Refund Amount - Rs ${space.price - 20}<br><br>Thank You for using Parky.<br><br>Thanks and Regards,<br>Parky</p></html></body>`
+  };
+  
+  await transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+        console.log("Email sent: " + info.response);
+    }
+  });
+
+  return res.status(200).json({status: 'Booking Canceled'})
+})
+
+router.post("/getreciept/:id", async(req, res) => {
+  const id = req.params.id
+  var space = await BookingSpace.findById(id);
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.PARKY_EMAIL_ID,
+      pass: process.env.PARKY_EMAIL_PASS
+    }
+  });
+  var mailOptions = {
+    from: process.env.PARKY_EMAIL_ID,
+    to: space.email,
+    subject: 'Parky Reciept',
+    html: `<html><body><br><p>Dear User,<br><br>Following are Your Booking Details<br><br>Order Id - ${space._id}<br>Arrival Date and Time - ${space.arrival_date} ${space.arrival_time}<br>Departure Date and Time - ${space.departure_date} ${space.departure_time}<br>Booking Price - ${space.price}<br>Payment Method - Prepaid<br><br>Thank You for using Parky.<br><br>Thanks and Regards,<br>Parky</p></html></body>`
+  };
+  
+  await transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+        console.log("Email sent: " + info.response);
+    }
+  });
+
+  return res.status(200).json({status: 'Reciept Generated. Please Check Your MailBox'})
 })
 
 module.exports = router;
