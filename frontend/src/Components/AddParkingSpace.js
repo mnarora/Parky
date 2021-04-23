@@ -106,11 +106,12 @@ export default function AddParkingSpace (props){
             <NavigationBar />
             
             <div >
-                <div style={{backgroundColor : "darkblue", height: "50vh"}}>
+                <div style={{backgroundColor : "darkblue", height: "75%"}}>
                     <br /><br />
                     <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
                     <center className="mt-5">
                     <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" alt="Image"/>
+                    <br></br>
                     </center>
 
                 </div>
