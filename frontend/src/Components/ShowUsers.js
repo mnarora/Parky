@@ -37,13 +37,8 @@ class ShowUsers extends Component{
         }
     }
     deleteUserHandler = (email) => {
-<<<<<<< HEAD
-        if (window.confirm("Are you sure you want to leave?")) {
-            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteaccount/' + email)
-=======
         if (window.confirm("Are you sure you want to delete?")) {
             axios.delete('http://localhost:3001/deleteaccount/' + email)
->>>>>>> 87284ad06b848b17ef19eab6eed7c2ccc167dc6e
             .then(res => {
                 window.location.reload();
                 this.props.history.push('/showusers')
