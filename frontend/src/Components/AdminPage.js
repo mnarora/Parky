@@ -46,13 +46,13 @@ export default function AdminPage (){
                    </div>
                    <div className="row mt-5">
                         <div className="col-sm-5 mt-5">
-                            <img style={{height: "90%"}} className={homecss.image} src="pictures/home2.svg" alt="image"/>
+                            <img style={{height: "90%"}} className={homecss.image} src="pictures/verify.png" alt="image"/>
                         </div>
                         <div className="col-sm-2"></div>
                         <div className="col-sm-4 mt-5">
-                            <h2 style={{fontWeight: "bold"}}>Want to Park Your Vehicles?</h2>
-                            <p className="text-muted">Now You can Book Your Parking Space according to your convenient time and space with Parky. </p>
-                            <Link to="/userregister" style={{ textDecoration: 'none', color: 'black' }}><button className={homecss.btn}>Create Account</button></Link>
+                            <h2 style={{fontWeight: "bold"}}>Verify Spaces</h2>
+                            <p className="text-muted">You can verify the space details uploaded by the owner.</p>
+                            <Link to="/showspaces" style={{ textDecoration: 'none', color: 'black' }}><button className={homecss.btn}>Verify Space</button></Link>
                             
                         </div>
                    </div>

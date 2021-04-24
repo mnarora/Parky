@@ -37,7 +37,7 @@ class ShowUsers extends Component{
         }
     }
     deleteUserHandler = (email) => {
-        if (window.confirm("Are you sure you want to leave?")) {
+        if (window.confirm("Are you sure you want to delete?")) {
             axios.delete('http://localhost:3001/deleteaccount/' + email)
             .then(res => {
                 window.location.reload();

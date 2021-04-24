@@ -23,7 +23,10 @@ const ParkingSpaceSchema = new Schema({
     },
     accepted_vehicles: {
         type: Array
-    }
+    },
+    isVerified: {
+        type: Boolean
+    } 
 },   { strict: false });
 
 module.exports = ParkingSpace = mongoose.model('parkingspace', ParkingSpaceSchema);

@@ -458,5 +458,13 @@ router.get("/showusers", async(req, res) =>{
   })
 })
 
+router.get("/showspaces", async(req, res) =>{
+  await ParkingSpace.find()
+  .then(spaces => {
+   
+    return res.status(200).json({spaces})
+  })
+})
+
 
 module.exports = router;
