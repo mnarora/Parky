@@ -288,15 +288,24 @@ router.post("/bookspace", async(req, res) => {
             console.log(err)
             return res.status(200).json({error : err})
         })
-  await ParkingSpace.findById(req.body.booked_space_id)
-  .then(bookedspace => {
-      console.log(bookedspace)
-      bookedspace.spacenumber = bookedspace.spacenumber - req.body.no_of_booked_spaces
-      bookedspace.save()
-      .then(space => {
-        console.log(space)
-      })
-  })
+  const space = await ParkingSpace.findById(req.body.booked_space_id);
+  bookspace = {
+              arrival_date: req.body.arrival_date,
+              arrival_time: req.body.arrival_time,
+              departure_date: req.body.departure_date,
+              departure_time: req.body.departure_time,
+              no_of_booked_spaces: req.body.no_of_booked_spaces
+              }
+  space.booked_space.push(bookspace);
+  space.save();
+  // .then(bookedspace => {
+  //     console.log(bookedspace)
+  //     bookedspace.spacenumber = bookedspace.spacenumber - req.body.no_of_booked_spaces
+  //     bookedspace.save()
+  //     .then(space => {
+  //       console.log(space)
+  //     })
+  // })
     const email = req.body.email;
     const user = await User.findOne({email});
     if (!user)
@@ -458,5 +467,38 @@ router.get("/showusers", async(req, res) =>{
   })
 })
 
+router.post("/getSpace", async(req, res) => {
+  console.log(req.body)
+  const space = await ParkingSpace.findOne({address: req.body.address})
+  var i, arr_date_time, dep_date_time;
+  var availablespace = space.spacenumber;
+  console.log(availablespace)
+  var arrival_date_time = new Date(req.body.arrival_date + " " + req.body.arrival_time)
+  var departure_date_time = new Date(req.body.departure_date + " " + req.body.departure_time)
+  var today_date = new Date();
+  for(i = 0; i < space.booked_space.length; i++) {
+    arr_date_time = new Date(space.booked_space[i].arrival_date.split('T')[0] + " " + space.booked_space[i].arrival_time)
+    dep_date_time = new Date(space.booked_space[i].departure_date.split('T')[0] + " " + space.booked_space[i].departure_time)
+    if ((arrival_date_time >= arr_date_time && arrival_date_time < dep_date_time)) {
+      availablespace -= parseInt(space.booked_space[i].no_of_booked_spaces)
+      console.log("In 1st if")
+      console.log(availablespace)
+    }
+    else if (departure_date_time >= arr_date_time && departure_date_time <=dep_date_time) {
+      console.log("In 2nd if")
+      availablespace -= space.booked_space[i].no_of_booked_spaces
+    }
+    else if (arrival_date_time <= arr_date_time && departure_date_time >= dep_date_time) {
+      console.log("In 3nd if")
+      availablespace -= space.booked_space[i].no_of_booked_spaces
+    }
+      if (dep_date_time <= today_date)
+        space.booked_space.splice(i, 1)
+  }
+  space.save();
+  console.log(space)
+  console.log(availablespace)
+  return res.status(200).json({no_of_available_space: availablespace})
+})
 
 module.exports = router;

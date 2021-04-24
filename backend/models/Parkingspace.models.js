@@ -23,6 +23,9 @@ const ParkingSpaceSchema = new Schema({
     },
     accepted_vehicles: {
         type: Array
+    },
+    booked_space: {
+        type: Array
     }
 },   { strict: false });
 

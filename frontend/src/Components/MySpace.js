@@ -106,7 +106,7 @@ export default class MySpace extends Component{
                         <td> {space.price} Rs</td>
                         <td>{space.spacenumber}</td>
                         <td>{space.surfacetype}</td>
-                        <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View space</button></td>
+                        <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View User Details</button></td>
                         <td><button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button></td>
                         <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>
                     </tr>

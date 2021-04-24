@@ -80,6 +80,7 @@ export default function AddParkingSpace (props){
             else {
                 props.history.push('/parkingspace/add')
                 toast.success(res.data.msg)
+                window.location.reload();
             }
         })
         .catch(err => {
