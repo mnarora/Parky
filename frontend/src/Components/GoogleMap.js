@@ -63,6 +63,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
         await axios.get(process.env.REACT_APP_BACKEND  + '/bookaslot')
         .then(res => {
           for (let j = 0; j < res.data.length; j++){
+            if(res.data[j].isVerified == true){
             console.log(res);
             places = new google.maps.places.PlacesService(map);
             const param = {
@@ -83,6 +84,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
               }
             });
           }
+        }
         });
        }
 
@@ -143,7 +145,6 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
 
       
   function GoogleMap(props){
-    console.log(window.performance.navigation.type);
     const query = props.location.state.areaname;
     const forceUpdateHandler = useForceUpdate();
      useEffect(() => {
@@ -209,7 +210,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
            </Row>
            </Container>
            <br></br>
-           <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button>          
+           {cardInfo.length>0 ? null : <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button> }          
           </div>
      )
     }

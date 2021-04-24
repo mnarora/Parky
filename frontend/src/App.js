@@ -21,6 +21,8 @@ import UserBookingDetails from './Components/UserBookingDetails';
 import AdminRegister from './Components/AdminRegister';
 import AdminPage from './Components/AdminPage';
 import ShowUsers from './Components/ShowUsers';
+import ShowSpaces from './Components/ShowSpaces';
+import VerifySpace from './Components/VerifySpace';
 import AdminEditProfile from './Components/AdminEditProfile';
 
 class ProtectedRoute extends Component {
@@ -87,9 +89,11 @@ class App extends Component {
             <ProtectedRoute path="/bookinghistory" exact component={BookingHistory} />
             <ProtectedRoute path="/myspaces" exact component={MySpaces}/>
             <ProtectedRoute path="/editparkingspace/:id" exact component={EditParkingSpace}/>
+            <ProtectedRoute path="/verifyspace/:id" exact component={VerifySpace}/>
             <ProtectedRoute path="/user-booking-details" exact component={UserBookingDetails}/>
             <ProtectedRoute path="/showusers" exact component={ShowUsers}/>
             <ProtectedRoute path="/admineditprofile/:email" exact component={AdminEditProfile}  />
+            <ProtectedRoute path="/showspaces" exact component={ShowSpaces}/>
           {/* <Route path="*" component={NotFoundPage} /> */}
           
 

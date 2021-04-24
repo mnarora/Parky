@@ -467,6 +467,14 @@ router.get("/showusers", async(req, res) =>{
   })
 })
 
+router.get("/showspaces", async(req, res) =>{
+  await ParkingSpace.find()
+  .then(spaces => {
+   
+    return res.status(200).json({spaces})
+  })
+})
+
 router.post("/getSpace", async(req, res) => {
   console.log(req.body)
   const space = await ParkingSpace.findOne({address: req.body.address})

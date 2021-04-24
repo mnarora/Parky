@@ -65,6 +65,7 @@ export default function AddParkingSpace (props){
         surfacetype: '',
         spacenumber: 0,
         accepted_vehicles: [],
+        isVerified: false,
        
     })
 
@@ -127,7 +128,6 @@ export default function AddParkingSpace (props){
                             name="password" 
                             id="examplePrice" 
                             placeholder="Cost of Space" 
-                            min="20"
                             required
                             onChange={(event) => setState(prevState =>( {...prevState, price:event.target.value}))}
                         />
@@ -139,7 +139,7 @@ export default function AddParkingSpace (props){
                             name="address"
                             id="exampleAddress"
                             placeholder="Address"
-                            style={{width:'100%', color: 'black', backgroundColor: 'white', fontSize:'16px', paddingLeft:"12px"}}
+                            style={{width:'100%', color: 'black', backgroundColor: 'white', fontSize:'16px', paddingLeft:'-18px'}}
                             required
                             value={state.address}
                             ref={autoCompleteRef}
@@ -179,7 +179,6 @@ export default function AddParkingSpace (props){
                         type="number"
                         name="number"
                         id="exampleNumber"
-                        min="1"
                         placeholder="Number of Spaces"
                         required
                         onChange={(e) => setState(prevState =>( {...prevState, spacenumber:e.target.value}))}

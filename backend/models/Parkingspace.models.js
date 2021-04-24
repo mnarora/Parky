@@ -24,6 +24,9 @@ const ParkingSpaceSchema = new Schema({
     accepted_vehicles: {
         type: Array
     },
+    isVerified: {
+        type: Boolean
+    },
     booked_space: {
         type: Array
     }
