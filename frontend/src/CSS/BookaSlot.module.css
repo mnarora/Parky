@@ -12,7 +12,8 @@ body {
 
 input {
     display: block;
-    width: 50%;
+    width: 80%;
+    max-width: 700px;
     height: 50px;
     margin: 0 auto;
     border-width: 0px 0px 2px 0px;
@@ -41,5 +42,4 @@ input {
     margin : 0 auto;
     border: 3px solid black;
 }
-
 

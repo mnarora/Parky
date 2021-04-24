@@ -51,7 +51,7 @@ class LoggedInRoute extends Component {
         {...props} 
         render={props => (
           sessionStorage.getItem('useremail') ? (
-            sessionStorage.getItem('isuser') === 'true' ?
+            sessionStorage.getItem('userType') === 'user' ?
             (<Redirect to='/searchspace' />):
             (<Redirect to='/parkingspace/add' />)
           ):
@@ -77,7 +77,7 @@ class App extends Component {
           <LoggedInRoute path="/userregister" exact component={UserRegister} />
           <LoggedInRoute path="/adminregister" exact component={AdminRegister} />
           
-          <LoggedInRoute path="/adminlogin" exact component={AdminLogin} />
+          <LoggedInRoute path="/login" exact component={AdminLogin} />
           <ProtectedRoute path="/profile" exact component={Profile} />
           <ProtectedRoute path="/editprofile/:email" exact component={EditProfile}  />
           <Route path="/resetpassword" exact component={ResetPassword} />

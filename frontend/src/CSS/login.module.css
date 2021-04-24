@@ -38,3 +38,10 @@
     font-family: "Muli-SemiBold";
     font-size: 20px;
 }
+
+@media screen and (max-width: 800px) {
+    .background {
+        background: none;
+        background: white;
+    }
+}

@@ -11,13 +11,13 @@ export default class NavigationBar extends Component {
 
     state = {
         loggedIn: Boolean,
-        usertype: String,
+        userType: String,
     }
 
     componentDidMount() {
         if (sessionStorage.useremail) {
           console.log(sessionStorage.userType)
-            this.setState({loggedIn : true, userType: (sessionStorage.userType === 'user')});
+            this.setState({loggedIn : true, userType: sessionStorage.userType});
         }
         else 
           this.setState({loggedIn : false, userType: 'owner'});
@@ -34,10 +34,10 @@ export default class NavigationBar extends Component {
         return (
           <div>
                 <Navbar style={{minHeight: '80px'}} bg="dark" variant="dark" expand="lg">
-                {(this.state.loggedIn) && !(this.state.isuser) &&
+                {(this.state.loggedIn) && (this.state.userType == "owner") &&
                   <Navbar.Brand><Link to="/parkingspace/add" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
                 }
-                {(this.state.loggedIn) && (this.state.isuser) &&
+                {(this.state.loggedIn) && (this.state.userType == "user") &&
                   <Navbar.Brand><Link to="/searchspace" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
                 }
                 {!this.state.loggedIn &&
@@ -57,7 +57,7 @@ export default class NavigationBar extends Component {
                           <NavDropdown.Item><Link to="/adminregister" style={{ textDecoration: 'none', color: 'black' }}>Admin</Link></NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Login" id="basic-nav-dropdown">
-                           <NavDropdown.Item><Link to="/adminlogin" style={{ textDecoration: 'none',  color: 'black' }}>Login</Link></NavDropdown.Item>
+                           <NavDropdown.Item><Link to="/login" style={{ textDecoration: 'none',  color: 'black' }}>Login</Link></NavDropdown.Item>
                         </NavDropdown>
                        
                       </Nav>
@@ -74,7 +74,7 @@ export default class NavigationBar extends Component {
 
                               <NavDropdown.Item><Link to="/myspaces" style={{ textDecoration: 'none', color: 'black'}}>MySpaces</Link></NavDropdown.Item>
                             <NavDropdown.Item><Link to="/parkingSpace/add" style={{ textDecoration: 'none', color: 'black'}}>Add Parking Space</Link></NavDropdown.Item>
-                        
+                            <NavDropdown.Item><Link to="/searchspace" style={{ textDecoration: 'none', color: 'black'}}>Book Space</Link></NavDropdown.Item>
                             </div>
                             )
                           }

@@ -13,6 +13,7 @@ import 'react-datetime/css/react-datetime.css';
 import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import ResetPassword from './ResetPassword';
 
 export default class BookSpace extends Component{
 
@@ -88,6 +89,23 @@ export default class BookSpace extends Component{
         }
     }
 
+    handleSpace = (e) => {
+        e.preventDefault()
+        alert("Function called");
+        console.log(this.state)
+        axios.post('http://localhost:3001/getSpace', this.state)
+        .then(res => {
+            console.log(res.data)
+            console.log(res.data.no_of_available_space, this.state.no_of_booked_spaces)
+            if (res.data.no_of_available_space <= 0)
+                alert("Spot not Available for Specified Interval.\nPlease Change Your Date of Booking or Look for Nearyby Spaces")
+            else if (res.data.no_of_available_space < parseInt(this.state.no_of_booked_spaces))
+                alert("No of Available Space " + res.data.no_of_available_space + "\nTry to book " + res.data.no_of_available_space + " or less\n")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     
     componentDidMount() {
         window.sessionStorage.setItem('booking_id', this.props.location.state.parkingspace._id)
@@ -109,7 +127,7 @@ export default class BookSpace extends Component{
                     <h1 className="ml-5 mt-5">Checkout</h1>
                     <div className="mt-5" style={{fontSize: '25px', marginLeft:'20%'}}>
                         <p><b>Address : </b>{this.props.location.state.parkingspace.address}</p>
-                        <p><b>No of Spaces: </b>{this.props.location.state.parkingspace.spacenumber}</p>
+                        <p><b>Total No of Spaces: </b>{this.props.location.state.parkingspace.spacenumber}</p>
                         <p><b>Surface Type: </b>{this.props.location.state.parkingspace.surfacetype}</p>
                         <p><b>Accepted Vehicles: </b>{this.props.location.state.parkingspace.accepted_vehicles}</p>
                         <p><b>Price per hour: </b>{this.props.location.state.parkingspace.price}</p>
@@ -160,6 +178,7 @@ export default class BookSpace extends Component{
                              type="number"
                              className="mb-5"
                              style={{width:'50%', marginLeft: '10%'}}
+                             onBlur={this.handleSpace}
                              required
                              onChange={(e) => {
                                  if(e.target.value <= this.props.location.state.parkingspace.spacenumber){
