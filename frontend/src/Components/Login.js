@@ -17,7 +17,7 @@ export default class Login extends Component {
 
       onSubmit = async (e) => {
           e.preventDefault()    
-          await axios.post('http://localhost:3001/login', this.state)
+          await axios.post(process.env.REACT_APP_BACKEND  + '/login', this.state)
             .then(async res => {
                 if (res.data.msg)
                     toast.error(res.data.msg);

@@ -22,7 +22,7 @@ class ShowUsers extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/showusers/')
+            axios.get(process.env.REACT_APP_BACKEND  + '/showusers/')
             .then(res => {
 
                 this.setState({
@@ -38,7 +38,7 @@ class ShowUsers extends Component{
     }
     deleteUserHandler = (email) => {
         if (window.confirm("Are you sure you want to leave?")) {
-            axios.delete('http://localhost:3001/deleteaccount/' + email)
+            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteaccount/' + email)
             .then(res => {
                 window.location.reload();
                 this.props.history.push('/showusers')

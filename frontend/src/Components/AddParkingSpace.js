@@ -73,7 +73,7 @@ export default function AddParkingSpace (props){
         event.preventDefault();
         state.email = sessionStorage.useremail
         console.log(state)
-        axios.post('http://localhost:3001/parkingspace/add', state)
+        axios.post(process.env.REACT_APP_BACKEND  + '/parkingspace/add', state)
         .then(res => {
             if (res.data.error)
                 toast.error(res.data.error)

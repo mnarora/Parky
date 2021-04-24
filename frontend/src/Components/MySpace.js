@@ -22,7 +22,7 @@ export default class MySpace extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/myspaces/' + sessionStorage.useremail)
+            axios.get(process.env.REACT_APP_BACKEND  + '/myspaces/' + sessionStorage.useremail)
             .then(res => {
 
                 this.setState({
@@ -48,7 +48,7 @@ export default class MySpace extends Component{
 
     deleteParkingSpaceHandler = (id) => {
         if (window.confirm('Do you want to delete?')) {
-            axios.delete('http://localhost:3001/deleteparkingspace/'+ id)
+            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteparkingspace/'+ id)
             .then(res => {
                 this.props.history.push('/myspaces')
                 toast.success("Parking Space deleted")

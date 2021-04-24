@@ -53,7 +53,7 @@ function Payment(props) {
 			return
 		}
 		console.log(props.parkinginfo)
-		const data = await fetch('http://localhost:3001/razorpay', 
+		const data = await fetch(process.env.REACT_APP_BACKEND  + '/razorpay', 
 							{ method: 'POST', 
 						}).then((t) =>
 			t.json()
@@ -82,7 +82,7 @@ function Payment(props) {
 				console.log(response);
 				console.log(props.parkinginfo)
 				
-				axios.post('http://localhost:3001/bookspace', props.parkinginfo)
+				axios.post(process.env.REACT_APP_BACKEND  + '/bookspace', props.parkinginfo)
 				.then(res => {
 					if (res.data.error) {
 						toast.error(res.data.error)

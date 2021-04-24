@@ -25,7 +25,7 @@ export default class NavigationBar extends Component {
     
     logout = () => {
       sessionStorage.clear();
-      toast.success("Successfully Logged Out")
+      toast.success("Successfully Logged Out");
     }
    
    
@@ -80,7 +80,7 @@ export default class NavigationBar extends Component {
                           }
                          
                         </NavDropdown>
-                      <Nav.Link onClick={this.logout}><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Logout</Link></Nav.Link>
+                      <Nav.Link onClick={this.logout}><a href="/" style={{ textDecoration: 'none', color: 'white' }}>Logout</a></Nav.Link>
                     </Nav>
                   </div>
                 ]}

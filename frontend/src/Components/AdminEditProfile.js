@@ -32,7 +32,7 @@ export default class AdminEditProfile extends Component{
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state)
-        axios.post('http://localhost:3001/editprofile/' + this.props.match.params.email, this.state)
+        axios.post(process.env.REACT_APP_BACKEND  + '/editprofile/' + this.props.match.params.email, this.state)
         .then(res => {
                 console.log(res.data.updated_user)
                 window.sessionStorage.setItem('useremail', res.data.updated_user.email);

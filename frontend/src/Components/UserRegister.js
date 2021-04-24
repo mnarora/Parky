@@ -21,7 +21,7 @@ export default class UserRegister extends Component {
 
     onSubmit = (e) => {
           e.preventDefault()    
-          axios.post('http://localhost:3001/userregistration', this.state)
+          axios.post(process.env.REACT_APP_BACKEND  + '/userregistration', this.state)
             .then(res => {
                 if (res.data.msg)
                     toast.error(res.data.msg)
