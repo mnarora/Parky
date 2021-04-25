@@ -70,7 +70,7 @@ export default class UserRegister extends Component {
                     
                     
                     <button className={userregister.buttonnx} type="submit" id="submit">Register</button>
-                    <p className="text-muted mt-4" style={{textAlign: "right"}}>Already have an Account? <Link to="/ownerlogin" style={{color: 'gray'}}>Sign In</Link></p>
+                    <p className="text-muted mt-4" style={{textAlign: "right"}}>Already have an Account? <Link to="/login" style={{color: 'gray'}}>Sign In</Link></p>
                 </form>
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
