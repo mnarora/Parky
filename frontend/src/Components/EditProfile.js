@@ -8,6 +8,7 @@ import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {handleContact, handleName} from '../FormValidation';
+import Footer from './Footer';
 
 
 export default class EditProfile extends Component{
@@ -101,6 +102,9 @@ export default class EditProfile extends Component{
                 </Form>
                 <Button style={{marginLeft: '450px', marginTop: "50px", width: "200px"}} color="primary" id="submit" onClick ={this.onSubmit}>Update</Button>
             </Container>
+            <div style={{position: "fixed", bottom: '0', width: '100%'}}>
+                <Footer />
+            </div>
             </div>
         )
     }

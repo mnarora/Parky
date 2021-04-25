@@ -112,8 +112,7 @@ export default function AddParkingSpace (props){
                     <br /><br />
                     <h1 align="center" style={{color : "white", fontWeight: "900"}}>Earn by renting your Parking Spaces only on Parky</h1>
                     <center className="mt-5 container">
-                    <img style={{height : "auto", width: "100%", maxWidth: "700px"}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" alt="Image"/>
-                    <br/><br/><br/><br/><br/>
+                    <img style={{height : "auto", width: "100%", maxWidth: "700px", paddingBottom: '13vh'}}  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxW3DxJt3zOn-vdMUVVbeIKj39lyinCUS0pRiTwyOWxqvRM_73qfoNMoRjyJIFcCrykCk&usqp=CAU" alt="ParkingspaceImage"/>
                     </center>
 
                 </div>
@@ -139,7 +138,7 @@ export default function AddParkingSpace (props){
                             name="address"
                             id="exampleAddress"
                             placeholder="Address"
-                            style={{width:'100%', color: 'black', backgroundColor: 'white', fontSize:'16px', paddingLeft:'-18px'}}
+                            style={{width:'100%', color: 'black', backgroundColor: 'white', fontSize:'16px', paddingLeft:'12px', padding: '6px', border: 'white'}}
                             required
                             value={state.address}
                             ref={autoCompleteRef}
@@ -319,7 +318,6 @@ export default function AddParkingSpace (props){
                 </Form>
                 </Container>
             </div>
-            <br /><br /><br />
             <Footer />
             <ToastContainer position={toast.POSITION.TOP_CENTER}/>
         </div>

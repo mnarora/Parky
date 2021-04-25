@@ -26,6 +26,7 @@ export default class NavigationBar extends Component {
     logout = () => {
       sessionStorage.clear();
       toast.success("Successfully Logged Out");
+      window.location.reload();
     }
    
    
@@ -39,6 +40,9 @@ export default class NavigationBar extends Component {
                 }
                 {(this.state.loggedIn) && (this.state.userType == "user") &&
                   <Navbar.Brand><Link to="/searchspace" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
+                }
+                {(this.state.loggedIn) && (this.state.userType == "admin") &&
+                  <Navbar.Brand><Link to="/adminpage" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
                 }
                 {!this.state.loggedIn &&
                   <Navbar.Brand><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>

@@ -42,7 +42,6 @@ export default class Homepage extends Component {
                    </div>
                 </div>
 
-                <br /><br /><br /><br /><br /><br />
                 < Footer />
 
             </div>

@@ -45,6 +45,8 @@ label {
 @media screen and (max-width: 800px) {
     .background {
         background: none;
-        background: white;
+        background-color: white;
+        min-height: 100vh;
+        height: 100%;
     }
 }

@@ -79,18 +79,14 @@ import Footer from './Footer';
               {console.log(process.env)}
                 <NavigationBar />
                 <div className={css.search}>
-                    <br></br><br></br>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <h1 style={{fontWeight : "900"}}>PARKING JUST GOT A LOT SIMPLER</h1>
+                    <h1 style={{fontWeight : "900", paddingTop: '8vh'}}>PARKING JUST GOT A LOT SIMPLER</h1>
                     <h3 style={{fontStyle: "italic"}}>Book the Best Spaces and Save up to 20% off</h3>
-                    <br /><br /><br />
-                    <h2 className="mt-5">Where do You want to Park?</h2>
-                    <input type="text" ref={autoCompleteRef}
+                    <h2 style={{paddingBottom:'3vh'}} className="mt-5">Where do You want to Park?</h2>
+                    <input className={css.inputaddr} type="text" ref={autoCompleteRef}
                     onChange={event => setQuery(event.target.value)}
                     value={query} placeholder="Enter Address"/>
-                    <br></br>
                     <button onClick={handleSubmit} className={css.buttonS} type="submit">Search Your Parking Space</button>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
 
                 </div>
@@ -131,7 +127,6 @@ import Footer from './Footer';
                   </center>
 
                 </div>
-                <br/><br/><br/><br/><br/><br/><br/><br/>
                 <Footer />
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
