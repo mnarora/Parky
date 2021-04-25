@@ -47,34 +47,6 @@ export default class UserRegister extends Component {
                 <NavigationBar />
 
                 <div align="center">
-<<<<<<< HEAD
-                <form className={userregister.regform} onSubmit={this.onSubmit}>
-                <h1 style={{fontFamily: "Muli-SemiBold"}}>User Registration</h1>
-                    <div className="form-group mt-5">
-                        <input className={userregister.formcontrol} type="text" onChange={(e) => {this.setState({name : e.target.value});handleName();}} id="name" placeholder="Name" required />
-                        <span id="namemsg"></span>
-                    </div>
-                    <div className="form-group ">
-                        <input type="email" className={userregister.formcontrol} onChange={(e) => {this.setState({email : e.target.value});handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Email" required/>
-                        <span id="emailmsg"></span>
-                    </div>
-                    <div className="form-group">
-                        <input type="number" className={userregister.formcontrol} onChange={(e) => {this.setState({contact : e.target.value});handleContact()}} id="contact" placeholder="Contact No" required />
-                        <span id="contactmsg"></span>
-                    </div>
-                    <div className="form-group ">
-                        <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => {this.setState({password : e.target.value}); checkform();}} placeholder="Password" required />
-                        <span id="passmsg"></span>
-                    </div>
-                    <div className="form-group ">
-                        <input className={userregister.formcontrol} type="password" onChange={()  => checkform()} id="confirm_password" placeholder="Confirm Password" required/>
-                        <span id="msg"></span>
-                    </div>
-                    
-                    <button className={userregister.buttonnx} type="submit" id="submit" >Register</button>
-                    <p className="text-muted mt-4" style={{textAlign: "right"}}>Already have an Account? <Link to="/login" style={{color: 'gray'}}>Sign In</Link></p>
-                </form>
-=======
                     <form className={userregister.regform} onSubmit={this.onSubmit}>
                         <h1 style={{ fontFamily: "Muli-SemiBold" }}>User Registration</h1>
                         <div className="form-group mt-5">
@@ -101,7 +73,6 @@ export default class UserRegister extends Component {
                         <button className={userregister.buttonnx} type="submit" id="submit" >Register</button>
                         <p className="text-muted mt-4" style={{ textAlign: "right" }}>Already have an Account? <Link to="/userlogin" style={{ color: 'gray' }}>Sign In</Link></p>
                     </form>
->>>>>>> 8bfbee6b1c55b263f186da7448353821b0aa42e7
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER} />
             </div>

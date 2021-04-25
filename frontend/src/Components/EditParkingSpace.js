@@ -47,6 +47,18 @@ export default class EditParkingSpace extends Component {
             })
     }
 
+    checkPrice = () => {
+        if (document.getElementById("price").value < 30) {
+            document.getElementById("pricemsg").style.color = "red";
+            document.getElementById("pricemsg").innerHTML = "Price should be greater than Rs 30";
+            document.getElementById("submit").disabled = true
+        }
+        else {
+            document.getElementById("pricemsg").innerHTML = '';
+            document.getElementById("submit").disabled = false
+        }
+    }
+
     render() {
         return (
 
@@ -111,6 +123,7 @@ export default class EditParkingSpace extends Component {
                                             min="1"
                                             value={this.state.spacenumber}
                                             onChange={(e) => this.setState({ spacenumber: e.target.value })}
+                                            
                                         />
                                     </Col>
                                 </FormGroup>
@@ -124,12 +137,13 @@ export default class EditParkingSpace extends Component {
                                             id="price"
                                             min="20"
                                             value={this.state.price}
-                                            onChange={(e) => this.setState({ price: e.target.value })}
+                                            onChange={(e) => { this.setState({ price: e.target.value }); this.checkPrice();}}
                                         />
+                                        <span id="pricemsg" />
                                     </Col>
                                 </FormGroup>
                             </Form>
-                            <Button className={editparkingspace.buttonn} onClick={this.onSubmit}>Edit</Button>
+                            <Button className={editparkingspace.buttonn} id="submit" onClick={this.onSubmit}>Edit</Button>
                         </section>
                     </main>
 
