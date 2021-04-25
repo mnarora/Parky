@@ -83,6 +83,7 @@ class ShowUsers extends Component{
                         <td> {user.email}</td>
                         <td>{user.contact}</td>
                         <td>{user.userType}</td>
+                        
                         <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td>
                         <td><button type="button" onClick= {() => this.deleteUserHandler(user.email)} className="btn btn-danger">Delete User</button></td>
                     </tr>
