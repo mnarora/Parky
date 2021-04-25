@@ -29,6 +29,12 @@ const ParkingSpaceSchema = new Schema({
     },
     booked_space: {
         type: Array
+    },
+    filename: {
+        type: String
+    },
+    filepath: {
+        type: String
     }
 },   { strict: false });
 

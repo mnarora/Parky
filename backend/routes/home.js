@@ -1,5 +1,7 @@
 const express = require("express");
+const path = require('path');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
@@ -264,6 +266,22 @@ router.post("/editprofile/:email", async(req, res) => {
 
 router.delete("/deleteaccount/:email", async(req, res) => {
   const email = req.params.email;
+  await ParkingSpace.find({email})
+  .then(spaces => {
+    spaces.map(space => {
+      console.log(space.filename)
+      const fd = path.resolve(process.cwd(), '../')
+      const filepath = `${fd}/frontend/public/uploads/${space.filename}`
+      fs.unlink(filepath, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+      
+        console.log("file removed")
+      })
+    })
+  })
   await ParkingSpace.deleteMany({email})
   .then(spaces => {
     console.log("Spaces deleted")
@@ -357,6 +375,22 @@ router.delete("/deleteparkingspace/:id", async(req, res) => {
  
   const id = req.params.id;
   console.log(id)
+ 
+  await ParkingSpace.findById(id)
+  .then(space => {
+    console.log(space)
+    const fd = path.resolve(process.cwd(), '../')
+    const filepath = `${fd}/frontend/public/uploads/${space.filename}`
+    fs.unlink(filepath, (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    
+      console.log("file removed")
+    })
+  }
+  )
   await ParkingSpace.findByIdAndDelete(id)
   .then(res.status(200).json({status: 'Parking Space_DELETED',}))
   .catch(err => res.status(400).json({err}))
@@ -468,9 +502,27 @@ router.get("/showusers", async(req, res) =>{
 })
 
 router.get("/showspaces", async(req, res) =>{
+  const fd = path.join(process.cwd(), '../frontend/public/uploads')
+  //const fd = '../../frontend/public/uploads'
+  const filenames = fs.readdirSync(fd, {withFileTypes: true})
+  console.log(filenames)
   await ParkingSpace.find()
   .then(spaces => {
-   
+    // spaces.map((space) => {
+    //   filenames.map(file => {
+    //     const filename = file.name.split('.')[0]
+        
+    //     if(filename === space.address){
+
+    //         space.file = file.name
+    //     }
+    // })}
+    // })
+    spaces.map(space => {
+      
+      console.log(space)
+    })
+    //console.log(spaces)
     return res.status(200).json({spaces})
   })
 })
@@ -509,4 +561,32 @@ router.post("/getSpace", async(req, res) => {
   return res.status(200).json({no_of_available_space: availablespace})
 })
 
+router.post('/uploadfile', async(req, res) => {
+
+  if(req.files == null){
+    res.status(400).json({msg: 'No file uploaded'})
+  }
+  console.log(req.body)
+  const file = req.files.file
+  const fd = path.resolve(process.cwd(), '../')
+  const fileExtension = file.name.split('.').pop()
+  const filename = req.body.address + '.' + fileExtension
+  console.log(filename)
+  const filepath = `${fd}/frontend/public/uploads/${filename}`
+  console.log(filepath)
+  file.mv(`${fd}/frontend/public/uploads/${filename}`, err => {
+    if(err){
+      console.log(err)
+      res.status(500).json({err})
+    }
+    const file = {
+      filename: filename,
+      filepath: filepath
+    }
+    res.status(200).json({
+      file
+    })
+  })
+
+})
 module.exports = router;

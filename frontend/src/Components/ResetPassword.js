@@ -17,7 +17,7 @@ export default class ResetPassword extends Component {
     }
 
     onSubmit = async (e) => {
-        await axios.post('http://localhost:3001/resetpassword', {email:this.state.email, password: this.state.password})
+        await axios.post(process.env.REACT_APP_BACKEND  + '/resetpassword', {email:this.state.email, password: this.state.password})
         .then(async res => {
             alert("Password changed");
             this.props.history.push('/login');
@@ -32,7 +32,7 @@ export default class ResetPassword extends Component {
     generateOTP = async (e) => {
         e.preventDefault()
 
-        await axios.post('http://localhost:3001/sendmail', {email:this.state.email})
+        await axios.post(process.env.REACT_APP_BACKEND  + '/sendmail', {email:this.state.email})
         .then(async res => {
             if (res.data.msg) {
                 document.getElementById('otp').style.color = 'red';

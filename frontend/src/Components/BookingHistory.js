@@ -20,7 +20,7 @@ export default class BookingHistory extends Component {
             this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/bookinghistory/' + sessionStorage.useremail)
+            axios.get(process.env.REACT_APP_BACKEND  + '/bookinghistory/' + sessionStorage.useremail)
             .then(res => {
                
                 this.setState({

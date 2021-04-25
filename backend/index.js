@@ -1,13 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const homeRouter = require('./routes/home');
+const path = require('path');
 require('dotenv').config();
 
 
 const app = express();
 
 app.use(express.json());
+app.use(fileUpload());
 app.use(cors({credentials: true, origin: true}));
 
 app.use("/", homeRouter);

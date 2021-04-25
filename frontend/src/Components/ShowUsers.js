@@ -22,7 +22,7 @@ class ShowUsers extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/showusers/')
+            axios.get(process.env.REACT_APP_BACKEND  + '/showusers/')
             .then(res => {
 
                 this.setState({
@@ -83,6 +83,7 @@ class ShowUsers extends Component{
                         <td> {user.email}</td>
                         <td>{user.contact}</td>
                         <td>{user.userType}</td>
+                        
                         <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td>
                         <td><button type="button" onClick= {() => this.deleteUserHandler(user.email)} className="btn btn-danger">Delete User</button></td>
                     </tr>

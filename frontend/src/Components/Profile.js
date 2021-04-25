@@ -22,7 +22,7 @@ export default class Profile extends Component {
         if (sessionStorage.useremail) {
             this.setState({email:sessionStorage.useremail});
             
-            axios.post('http://localhost:3001/profile/' + sessionStorage.useremail, this.state)
+            axios.post(process.env.REACT_APP_BACKEND  + '/profile/' + sessionStorage.useremail, this.state)
             .then(res => {
                 console.log(res.data.user)
                 this.setState({
@@ -46,7 +46,7 @@ export default class Profile extends Component {
 
     deleteAccountHandler = () => {
         if (window.confirm("Are you sure you want to leave?")) {
-            axios.delete('http://localhost:3001/deleteaccount/' + sessionStorage.useremail)
+            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteaccount/' + sessionStorage.useremail)
             .then(res => {
                 sessionStorage.clear();
                 this.props.history.push('/')

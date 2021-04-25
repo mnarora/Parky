@@ -45,7 +45,7 @@ export default class BookSpace extends Component{
     bookSpaceHandler = (e) => {
         
         e.preventDefault()
-        axios.post('http://localhost:3001/bookspace', this.state)
+        axios.post(process.env.REACT_APP_BACKEND  + '/bookspace', this.state)
         .then(res => {
             if (res.data.error)
                 toast.error(res.data.error)
@@ -93,7 +93,7 @@ export default class BookSpace extends Component{
         e.preventDefault()
         alert("Function called");
         console.log(this.state)
-        axios.post('http://localhost:3001/getSpace', this.state)
+        axios.post(process.env.REACT_APP_BACKEND  + '/getSpace', this.state)
         .then(res => {
             console.log(res.data)
             console.log(res.data.no_of_available_space, this.state.no_of_booked_spaces)

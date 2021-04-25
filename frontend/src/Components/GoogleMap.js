@@ -60,7 +60,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
           }
          
         });
-        await axios.get('http://localhost:3001/bookaslot')
+        await axios.get(process.env.REACT_APP_BACKEND  + '/bookaslot')
         .then(res => {
           for (let j = 0; j < res.data.length; j++){
             if(res.data[j].isVerified == true){
