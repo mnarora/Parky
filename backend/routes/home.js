@@ -374,6 +374,7 @@ router.delete("/deleteparkingspace/:id", async(req, res) => {
       console.log("file removed")
     })
   }
+
   )
   await ParkingSpace.findByIdAndDelete(id)
   .then(res.status(200).json({status: 'Parking Space_DELETED',}))
