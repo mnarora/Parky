@@ -18,7 +18,7 @@ export default class EditParkingSpace extends Component{
         //console.log(this.props.params.email)
  
 
-        axios.post('http://localhost:3001/editparkingspace/' + this.props.match.params.id, this.state)
+        axios.post(process.env.REACT_APP_BACKEND  + '/editparkingspace/' + this.props.match.params.id, this.state)
         .then(res => {
                 
                 this.props.history.push('/showspaces')

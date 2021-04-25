@@ -67,7 +67,7 @@ export default class MySpace extends Component{
     }
 
     viewUserDetails = (address) => {
-        axios.post("http://localhost:3001/bookingdetails/", {address: address})
+        axios.post(process.env.REACT_APP_BACKEND  + '/bookingdetails/', {address: address})
         .then(res => {
             this.props.history.push({
                 pathname: '/user-booking-details',
@@ -93,6 +93,8 @@ export default class MySpace extends Component{
                     <th scope="col">Price per Hour</th>
                     <th scope="col">Number of Parking Space</th>
                     <th scope="col">Surface Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Document</th>
                     <th scope="col">User Details</th>
                     <th scope="col">Edit Space Info</th>
                     <th scope="col">Delete Space</th>
@@ -106,6 +108,8 @@ export default class MySpace extends Component{
                         <td> {space.price} Rs</td>
                         <td>{space.spacenumber}</td>
                         <td>{space.surfacetype}</td>
+                        <td>{space.isVerified == 'true' ? "Verified" : "Not Verified"}</td>
+                        <td><Link to={space.filepath} style={{textDecoration: 'none', color: 'black'}}download target="_blank">{space.filename}</Link></td>
                         <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View User Details</button></td>
                         <td><button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button></td>
                         <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>

@@ -16,7 +16,6 @@ import MySpaces from './Components/MySpace';
 import EditParkingSpace from './Components/EditParkingSpace'
 import NotFoundPage from './Components/NotFoundPage';
 import UserBookingDetails from './Components/UserBookingDetails';
-import AdminRegister from './Components/AdminRegister';
 import AdminPage from './Components/AdminPage';
 import ShowUsers from './Components/ShowUsers';
 import ShowSpaces from './Components/ShowSpaces';
@@ -72,7 +71,6 @@ class App extends Component {
           <LoggedInRoute path="/" exact component={Homepage} />
           <LoggedInRoute path="/ownerregister" exact component={OwnerRegister} />
           <LoggedInRoute path="/userregister" exact component={UserRegister} />
-          <LoggedInRoute path="/adminregister" exact component={AdminRegister} />
           
           <LoggedInRoute path="/login" exact component={AdminLogin} />
           <ProtectedRoute path="/profile" exact component={Profile} />

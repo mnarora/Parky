@@ -2,12 +2,22 @@ const handleContact = () => {
     var x = document.getElementById('contact').value;
     if ((x.length !== 10) && (x !== '')) {
         document.getElementById('contactmsg').style.color = 'red';
-        document.getElementById('contactmsg').innerHTML = 'Contact No should be of 10 digits';
+        if (x.match(/^[0-9]+$/))
+          document.getElementById('contactmsg').innerHTML = 'Contact No should be of 10 digits';
+        else 
+        document.getElementById('contactmsg').innerHTML = 'Invalid Contact No';
         document.getElementById('submit').disabled = true;
     }
     else {
+      if (x.match(/^[0-9]+$/)) {
         document.getElementById('contactmsg').innerHTML = '';
         document.getElementById('submit').disabled = false;
+      }
+      else {
+        document.getElementById('contactmsg').style.color = 'red';
+        document.getElementById('contactmsg').innerHTML = 'Invalid Contact No';
+        document.getElementById('submit').disabled = true;
+      }
     }
 };
 

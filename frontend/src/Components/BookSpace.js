@@ -29,6 +29,8 @@ export default class BookSpace extends Component {
         booked_space_id: ''
     }
 
+    payment = true
+
     yesterday = moment().subtract(1, 'day');
 
     disablePastDt = current => {
@@ -65,13 +67,21 @@ export default class BookSpace extends Component {
             var today_date = new Date();
             if (arrival_date.setHours(0, 0, 0, 0) == today_date.setHours(0, 0, 0, 0)) {
                 var currenttime = new Date().getHours() + ":" + new Date().getMinutes();
+                if (new Date().getHours() < 10)
+                    currenttime = "0" + new Date().getHours() + ":" + new Date().getMinutes();
+                if (new Date().getMinutes() < 10)
+                    currenttime = new Date().getHours() + ":0" + new Date().getMinutes();
+                if (new Date().getHours() < 10 && new Date().getMinutes() < 10)
+                    currenttime = "0" + new Date().getHours() + ":0" + new Date().getMinutes();
                 var arrivaltime = document.getElementById("arrival_time").value;
                 if (currenttime > arrivaltime) {
                     document.getElementById('arrival_timemsg').style.color = 'red';
                     document.getElementById('arrival_timemsg').innerHTML = 'Please Enter Valid Arrival Time';
+                    this.payment = false
                 }
                 else {
                     document.getElementById('arrival_timemsg').innerHTML = '';
+                    this.payment = true
                 }
             }
         }
@@ -80,14 +90,24 @@ export default class BookSpace extends Component {
     checkDepartureTime = () => {
         if (document.getElementById("departure_time").value) {
             var arrival_date = new Date(this.state.arrival_date)
-            var departure_date = new Date(this.state.departure_date)
+            var departure_date = new Date(this.state.departure_date);
+            var currenttime = new Date().getHours() + ":" + new Date().getMinutes();
+            if (new Date().getHours() < 10)
+                currenttime = "0" + new Date().getHours() + ":" + new Date().getMinutes();
+            if (new Date().getMinutes() < 10)
+                currenttime = new Date().getHours() + ":0" + new Date().getMinutes();
+            if (new Date().getHours() < 10 && new Date().getMinutes() < 10)
+                currenttime = "0" + new Date().getHours() + ":0" + new Date().getMinutes();
             if (arrival_date.setHours(0, 0, 0, 0) === departure_date.setHours(0, 0, 0, 0)) {
-                if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value) {
+                if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value || ((departure_date.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)) && (currenttime > document.getElementById("departure_time").value))) {
                     document.getElementById('departure_timemsg').style.color = 'red';
                     document.getElementById('departure_timemsg').innerHTML = 'Please Enter Valid Departure Time';
+                    this.payment = false;
                 }
-                else
+                else {
                     document.getElementById('departure_timemsg').innerHTML = '';
+                    this.payment = true;
+                }
             }
         }
     }
@@ -99,10 +119,18 @@ export default class BookSpace extends Component {
             .then(res => {
                 console.log(res.data)
                 console.log(res.data.no_of_available_space, this.state.no_of_booked_spaces)
-                if (res.data.no_of_available_space <= 0)
+                if (res.data.no_of_available_space <= 0) {
+                    this.payment = false
                     alert("Spot not Available for Specified Interval.\nPlease Change Your Date of Booking or Look for Nearyby Spaces")
-                else if (res.data.no_of_available_space < parseInt(this.state.no_of_booked_spaces))
+
+                }
+                else if (res.data.no_of_available_space < parseInt(this.state.no_of_booked_spaces)) {
+                    this.payment = false
                     alert("No of Available Space " + res.data.no_of_available_space + "\nTry to book " + res.data.no_of_available_space + " or less\n")
+
+                }
+                else
+                    this.payment = true
             })
             .catch(err => {
                 console.log(err)
@@ -199,7 +227,8 @@ export default class BookSpace extends Component {
                         </Form>
 
                     </div>
-                    {this.state.arrival_date && this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && <Payment parkinginfo={this.state} {...this.props} />}
+                    {console.log(this.payment)}
+                    {this.state.arrival_date && this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && this.payment && <Payment parkinginfo={this.state} {...this.props} />}
                     <br />
                 </Container>
                 <Footer />

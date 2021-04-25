@@ -22,7 +22,7 @@ class ShowSpaces extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get('http://localhost:3001/showspaces/')
+            axios.get(process.env.REACT_APP_BACKEND  + '/showspaces/')
             .then(res => {
                 console.log(res.data)
                 this.setState({
@@ -40,7 +40,7 @@ class ShowSpaces extends Component{
 
     deleteParkingSpaceHandler = (id) => {
         if (window.confirm('Do you want to delete?')) {
-            axios.delete('http://localhost:3001/deleteparkingspace/'+ id)
+            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteparkingspace/'+ id)
             .then(res => {
                 this.props.history.push('/showspaces')
                 toast.success("Parking Space deleted")
@@ -110,7 +110,7 @@ class ShowSpaces extends Component{
                 </table>
                 </div>
                 </div>
-                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
+                <div className="mt-5" style={{position: "fixed", bottom: '0', width: '100%', marginTop: '100px'}}>
                 <Footer />
                 </div>
             </div>

@@ -10,6 +10,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import Footer from './Footer';
 import { Component } from 'react';
 import {  toast } from 'react-toastify';
+import {Link} from 'react-router-dom';
 
 class ShowUsers extends Component{
     state = {
@@ -38,7 +39,7 @@ class ShowUsers extends Component{
     }
     deleteUserHandler = (email) => {
         if (window.confirm("Are you sure you want to delete?")) {
-            axios.delete('http://localhost:3001/deleteaccount/' + email)
+            axios.delete(process.env.REACT_APP_BACKEND  + '/deleteaccount/' + email)
             .then(res => {
                 window.location.reload();
                 this.props.history.push('/showusers')
@@ -71,7 +72,8 @@ class ShowUsers extends Component{
                     <th scope="col">Email</th>
                     <th scope="col">Contact</th>
                     <th scope="col">User Type</th>
-                    <th scope="col">Edit</th>
+                    {/* <th scope="col">Edit</th>
+                    <th scope="col">Options</th> */}
                     <th scope="col">Delete</th>
                     </tr>
                 </thead>
@@ -83,8 +85,8 @@ class ShowUsers extends Component{
                         <td> {user.email}</td>
                         <td>{user.contact}</td>
                         <td>{user.userType}</td>
-                        
-                        <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td>
+                        {/* <td>{user.userType  == "owner" ? <Link to ="/myspaces"><button className="btn btn-primary">Space Details</button></Link>: <Link to="/user-booking-details"><button className="btn btn-primary">Booking Details</button></Link>}</td>
+                        <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td> */}
                         <td><button type="button" onClick= {() => this.deleteUserHandler(user.email)} className="btn btn-danger">Delete User</button></td>
                     </tr>
                 ))}
