@@ -10,7 +10,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import Footer from './Footer';
 import { Component } from 'react';
 import {  toast } from 'react-toastify';
-
+import {Link} from 'react-router-dom';
 class ShowSpaces extends Component{
     state = {
         spaces : [],
@@ -99,7 +99,7 @@ class ShowSpaces extends Component{
                         
                         <td>{space.isVerified ? 'Verified' : 'Not Verified'}</td>
                         
-                        <td><a href= {space.filepath} download>{space.filename}</a></td>
+                        <td><Link to = {space.filepath} download target="_blank">{space.filename}</Link></td>
                         
                         <td><button type="button" onClick= {() => this.verifySpaceHandler(space._id)} className="btn btn-primary">Verify Space</button></td>
                         <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>

@@ -266,22 +266,6 @@ router.post("/editprofile/:email", async(req, res) => {
 
 router.delete("/deleteaccount/:email", async(req, res) => {
   const email = req.params.email;
-  await ParkingSpace.find({email})
-  .then(spaces => {
-    spaces.map(space => {
-      console.log(space.filename)
-      const fd = path.resolve(process.cwd(), '../')
-      const filepath = `${fd}/frontend/public/uploads/${space.filename}`
-      fs.unlink(filepath, (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-      
-        console.log("file removed")
-      })
-    })
-  })
   await ParkingSpace.deleteMany({email})
   .then(spaces => {
     console.log("Spaces deleted")
