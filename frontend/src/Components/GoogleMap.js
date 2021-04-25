@@ -37,7 +37,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
     
       };
 
-      async function initMap(props) {
+      async function initMap(props, props2) {
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 15,
         });
@@ -57,6 +57,10 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
             }
             map.setCenter(results[0].geometry.location);
             dcord = results[0].geometry.location;
+          }
+          else {
+            alert("Invalid Address");
+            props2.history.push("/searchspace");
           }
          
         });
@@ -150,7 +154,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
      useEffect(() => {
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API}&libraries=places,geometry`,
-        () => initMap(query)
+        () => initMap(query, props)
       );
     }, []);
     
