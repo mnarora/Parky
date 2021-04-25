@@ -56,7 +56,19 @@ const checkPassword = () => {
     }
   };
 
+  
+
   const checkform = () => {
+    var paswd=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (!document.getElementById('password').value.match(paswd)) {
+      document.getElementById('passmsg').style.color = 'red';
+      document.getElementById('passmsg').innerHTML = 'Password should contain 8 to 15 characters with at least one uppercase, one lowercase, one numeric and one special case character';
+      document.getElementById('submit').disabled = true;
+    }
+    else {
+      document.getElementById('passmsg').innerHTML = '';
+      document.getElementById('submit').disabled = false;
+    }
     if (document.getElementById('password').value ===
       document.getElementById('confirm_password').value) {
         if (document.getElementById('password').value.length) {

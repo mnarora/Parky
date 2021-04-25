@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 export default class Footer extends Component {
     render() {
         return (
-            <div style={{backgroundColor : "black", position: "fixed", bottom : "0", width: "100%", color: "white", fontSize: "18px"}}>
+            <footer className="bg-dark mt-5">
                 <div>
-                    <br /><br />
-                    <p align="center">Copyright &copy; Parky Developed by Manish, Riddhi and Sakshi</p>
-                    <br />
+                    <div className= "container" style={{color: 'white', paddingTop: '2vh', paddingBottom: '1vh'}}>
+                    <p align="center">Copyright &copy; Parky 2021<br/> Developed by Manish, Riddhi and Sakshi</p>
+                    </div>
                 </div>
-            </div>
+            </footer>
         )
     }
 }

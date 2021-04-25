@@ -9,7 +9,7 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-
+import Footer from './Footer';
 
 export default class MySpace extends Component{
     state = {
@@ -123,7 +123,9 @@ export default class MySpace extends Component{
                    
                 </Container>
                 
-               
+                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
+                <Footer />
+                </div>
             </div>
         )
     }

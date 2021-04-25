@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import {handleEmail} from '../FormValidation';
-
+import Footer from './Footer';
 export default class Adminlogin extends Component {
     state = {
         email : '',
@@ -53,13 +53,18 @@ export default class Adminlogin extends Component {
 
 
         return (
-            <div className={login.background}>
+            <div className = {login.background} style={{
+                backgroundImage: `URL("pictures/loginbg.jpg")`,
+                backgroundSize: "cover",
+                height: "100%",
+                minHeight: "100vh"
+            }}>
                 <NavigationBar/>
                 
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="description" height="150px"/>
+                <img src="pictures/login.jpg" alt="description" height="150px"/>
                     <h1>Login</h1>
                 </center>
                     <div className="form-group mt-5">
@@ -75,7 +80,7 @@ export default class Adminlogin extends Component {
                     <Link to="/resetpassword" style={{ textDecoration: 'none', color: 'black' }}><p className="mt-2 text-muted" align="right">Forgot Password</p></Link>                
                 </form>
                 </div>
-                
+                <Footer />
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>
             </div>
         )
