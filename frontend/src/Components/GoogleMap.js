@@ -156,7 +156,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
     
         return (
           
-          <div style={{height : '100%', width : '100%'}}>
+          <div className={css.background} style={{height : '100%', width : '100%'}}>
             
             <NavigationBar/>
             <div className={css.map} id="map">
@@ -210,7 +210,7 @@ import {Card, Button, Col, Row, Container} from 'react-bootstrap';
            </Row>
            </Container>
            <br></br>
-           {cardInfo.length>0 ? null : <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button> }          
+           {cardInfo.length>0 ? null : <button onClick= {forceUpdateHandler} className={css.buttonStyle}>Show nearby places</button> }         
           </div>
      )
     }

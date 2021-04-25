@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Homepage from './Components/Homepage';
-import Login from './Components/Login';
-import Ownerlogin from './Components/ownerlogin';
 import AdminLogin from './Components/AdminLogin';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
@@ -24,6 +22,7 @@ import ShowUsers from './Components/ShowUsers';
 import ShowSpaces from './Components/ShowSpaces';
 import VerifySpace from './Components/VerifySpace';
 import AdminEditProfile from './Components/AdminEditProfile';
+import './CSS/global.css';
 
 class ProtectedRoute extends Component {
   render() {
@@ -71,8 +70,6 @@ class App extends Component {
       <BrowserRouter >
         <Switch>
           <LoggedInRoute path="/" exact component={Homepage} />
-          <LoggedInRoute path="/userlogin" exact component={Login} />
-          <LoggedInRoute path="/ownerlogin" exact component={Ownerlogin}/>
           <LoggedInRoute path="/ownerregister" exact component={OwnerRegister} />
           <LoggedInRoute path="/userregister" exact component={UserRegister} />
           <LoggedInRoute path="/adminregister" exact component={AdminRegister} />
@@ -94,7 +91,7 @@ class App extends Component {
             <ProtectedRoute path="/showusers" exact component={ShowUsers}/>
             <ProtectedRoute path="/admineditprofile/:email" exact component={AdminEditProfile}  />
             <ProtectedRoute path="/showspaces" exact component={ShowSpaces}/>
-          {/* <Route path="*" component={NotFoundPage} /> */}
+            <Route path="*" component={NotFoundPage} />
           
 
         </Switch>

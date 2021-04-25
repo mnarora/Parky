@@ -61,6 +61,7 @@ export default class UserRegister extends Component {
                     </div>
                     <div className="form-group "> 
                         <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => {this.setState({password : e.target.value}); checkform();}} placeholder="Password" required />
+                        <span id="passmsg"></span>
                     </div>
                     <div className="form-group ">
                         <input className={userregister.formcontrol} type="password" onChange={checkform} id="confirm_password" placeholder="Confirm Password" required/>

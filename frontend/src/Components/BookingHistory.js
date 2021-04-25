@@ -161,7 +161,7 @@ export default class BookingHistory extends Component {
                         
                     
                 </div>
-                <div className="mt-5">
+                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
                 <Footer />
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER}/>

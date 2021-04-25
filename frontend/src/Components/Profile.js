@@ -8,6 +8,7 @@ import { Table, Button } from 'reactstrap';
 import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './Footer';
 
 export default class Profile extends Component {
     
@@ -93,17 +94,21 @@ export default class Profile extends Component {
                         </tbody>
 
                     </Table>
-                    <div style={{display: 'inline-flex', marginLeft: '20px'}}>
-                        <Button style={{marginLeft: '400px'}} color="primary" onClick={this.editProfileHandler}>Edit Profile</Button>
-                        <Button style={{marginLeft: '50px'}} color="primary" onClick= {this.deleteAccountHandler}>Delete Account</Button>
+                    <center>
+                    <div className="row container" style={{justifyContent: 'center'}}>
+                        <Button className="col-sm-2 mt-3" color="primary" onClick={this.editProfileHandler}>Edit Profile</Button>
+                        <div className="col-sm-1"></div>
+                        <Button className="col-sm-2 mt-3" color="primary" onClick= {this.deleteAccountHandler}>Delete Account</Button>
                     </div>
-                    
+                    </center>
                 </Container>
                 
                     
             
                 </div>
-
+                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
+                <Footer />
+                </div>
             </div> 
         )
     }
