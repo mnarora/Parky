@@ -94,7 +94,6 @@ export default class BookSpace extends Component {
 
     handleSpace = (e) => {
         e.preventDefault()
-        alert("Function called");
         console.log(this.state)
         axios.post(process.env.REACT_APP_BACKEND + '/getSpace', this.state)
             .then(res => {

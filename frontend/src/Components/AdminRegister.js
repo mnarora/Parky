@@ -27,7 +27,7 @@ export default class AdminRegister extends Component {
                     toast.error(res.data.msg)
                 else {
                     localStorage.setItem('userType', 'admin');
-                    this.props.history.push('/adminlogin')
+                    this.props.history.push('/login')
                     toast.success("Successfully Registered, Login to Continue")
                 }
             })
@@ -61,6 +61,7 @@ export default class AdminRegister extends Component {
                     </div>
                     <div className="form-group "> 
                         <input type="password" className={userregister.formcontrol} id="password" onChange={(e) => {this.setState({password : e.target.value}); checkform();}} placeholder="Password" required />
+                        <span id="passmsg"></span>
                     </div>
                     <div className="form-group ">
                         <input className={userregister.formcontrol} type="password" onChange={checkform} id="confirm_password" placeholder="Confirm Password" required/>
