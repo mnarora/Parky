@@ -13,7 +13,8 @@ import {  toast } from 'react-toastify';
 
 class ShowSpaces extends Component{
     state = {
-        spaces : []
+        spaces : [],
+        filenames : []
     }
 
     componentDidMount() {
@@ -23,9 +24,10 @@ class ShowSpaces extends Component{
             
             axios.get('http://localhost:3001/showspaces/')
             .then(res => {
-
+                console.log(res.data)
                 this.setState({
-                  spaces : res.data.spaces
+                  spaces : res.data.spaces,
+                  filenames : res.data.filenames
                 })
             })
 
@@ -77,12 +79,15 @@ class ShowSpaces extends Component{
                     <th scope="col">Number of Spaces</th>
                     <th scope="col">Accepted Vehicles</th>
                     <th scope="col">Verification Status</th>
+                    <th scope="col">Document</th>
                     <th scope="col">Verify</th>
                     <th scope="col">Delete Space</th>
                     </tr>
                 </thead>
                 <tbody>
                 {this.state.spaces.map((space, index) => (
+                    
+                
                     <tr>
                         <th scope="row">{index+1}</th>
                         <td>{space.email}</td>
@@ -91,7 +96,11 @@ class ShowSpaces extends Component{
                         <td>{space.surfacetype}</td>
                         <td>{space.spacenumber}</td>
                         <td>{space.accepted_vehicles}</td>
+                        
                         <td>{space.isVerified ? 'Verified' : 'Not Verified'}</td>
+                        
+                        <td><a href= {space.filepath} download>{space.filename}</a></td>
+                        
                         <td><button type="button" onClick= {() => this.verifySpaceHandler(space._id)} className="btn btn-primary">Verify Space</button></td>
                         <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>
                     </tr>

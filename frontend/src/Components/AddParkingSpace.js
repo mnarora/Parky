@@ -66,13 +66,34 @@ export default function AddParkingSpace (props){
         spacenumber: 0,
         accepted_vehicles: [],
         isVerified: false,
-       
+        filename: '',
+        filepath: '',
     })
-
+    const [file, setFile] = useState('')
+    const [filename, setFileName] = useState('Upload Document')
     /* eslint-enable */
-    const onSubmit = (event) =>{
+    const onSubmit = async (event) =>{
         event.preventDefault();
         state.email = sessionStorage.useremail
+        console.log(state)
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('address', state.address)
+        let filePath = ''
+        try {
+            const res = await axios.post(process.env.REACT_APP_BACKEND + '/uploadfile', formData, {
+                headers: {
+                    'Content-Type' : 'multipart/form-data'
+                }
+            });
+            
+           
+        } catch (error) {
+            alert("soomthing wrong")
+            alert(error)
+        }
+        
         console.log(state)
         axios.post(process.env.REACT_APP_BACKEND  + '/parkingspace/add', state)
         .then(res => {
@@ -98,7 +119,15 @@ export default function AddParkingSpace (props){
         );
       }, []);
     
-   
+    const fileUpload= (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+        const name = e.target.files[0].name.split('.')[1]
+        const filenamee = state.address + '.' + name
+        setState(prevState =>( {...prevState, filename:filenamee}))
+        const filepath = '../../public/uploads/' + filenamee
+        setState(prevState =>( {...prevState, filepath: filepath}))
+    }
 
    
 
@@ -298,10 +327,16 @@ export default function AddParkingSpace (props){
                                 MiniBus/ Van
                             </Label>
                         </FormGroup>
-
-                    
+                       
+                       
                     </FormGroup>
-
+                    <FormGroup>
+                        
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile"  accept=".pdf,.doc, .docx" onChange = {fileUpload}/>
+                            <label class="custom-file-label" for="customFile">{filename}</label>
+                        </div>
+                    </FormGroup>
                     
                     <div >
                         <center>
