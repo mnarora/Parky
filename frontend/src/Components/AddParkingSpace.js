@@ -125,7 +125,7 @@ export default function AddParkingSpace (props){
         const name = e.target.files[0].name.split('.')[1]
         const filenamee = state.address + '.' + name
         setState(prevState =>( {...prevState, filename:filenamee}))
-        const filepath = '../../public/uploads/' + filenamee
+        const filepath = 'uploads/' + filenamee
         setState(prevState =>( {...prevState, filepath: filepath}))
     }
 
