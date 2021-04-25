@@ -30,7 +30,7 @@ function savePaymentDetails(data) {
 	payment.amount = data.amount
 	payment.transaction_id = data.id
 	payment.booking_id = window.sessionStorage.getItem("booking_id")
-	axios.post("http://localhost:3001/savepaymentdetails", payment)
+	axios.post(process.env.REACT_APP_BACKEND  + '/savepaymentdetails', payment)
 	.then(
 		res => {
 			console.log("saved")
@@ -67,14 +67,14 @@ function Payment(props) {
 		
 		const minutesDifference = (date2-date1) / (1000 * 60)
 		console.log( "No of minutes: " + minutesDifference);
-		props.parkinginfo.price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
+		var Price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
 		console.log(data.amount)
 		savePaymentDetails(data)
 		
 		const options = {
 			key: 'rzp_test_4z2vw67s30xv3b',
 			currency: data.currency,
-			amount: props.parkinginfo.price*100,
+			amount: Price*100,
 			order_id: data.amount.id,
 			name: 'Parky Booking',
 			description: '',
