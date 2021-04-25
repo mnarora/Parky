@@ -62,7 +62,7 @@ export default function AddParkingSpace (props){
         price: '',
         address: '',
         info: '',
-        surfacetype: '',
+        surfacetype: 'Covered',
         spacenumber: 0,
         accepted_vehicles: [],
         isVerified: false,
@@ -90,7 +90,7 @@ export default function AddParkingSpace (props){
             
            
         } catch (error) {
-            alert("soomthing wrong")
+            alert("something wrong")
             alert(error)
         }
         
@@ -129,6 +129,17 @@ export default function AddParkingSpace (props){
         setState(prevState =>( {...prevState, filepath: filepath}))
     }
 
+    const checkPrice = () => {
+        if (document.getElementById("price").value < 30) {
+            document.getElementById("pricemsg").style.color = "red";
+            document.getElementById("pricemsg").innerHTML = "Price should be greater than Rs 30";
+            document.getElementById("submit").disabled = true
+        }
+        else {
+            document.getElementById("pricemsg").innerHTML = '';
+            document.getElementById("submit").disabled = false
+        }
+    }
    
 
    
@@ -154,11 +165,13 @@ export default function AddParkingSpace (props){
                         <Input 
                             type="number" 
                             name="password" 
-                            id="examplePrice" 
+                            id="price" 
+                            min="30"
                             placeholder="Cost of Space" 
                             required
-                            onChange={(event) => setState(prevState =>( {...prevState, price:event.target.value}))}
+                            onChange={(event) => {setState(prevState =>( {...prevState, price:event.target.value}));checkPrice();}}
                         />
+                        <span id ="pricemsg"/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="exampleAddress" hidden>Address</Label>
@@ -204,11 +217,14 @@ export default function AddParkingSpace (props){
                     <FormGroup>
                         <Label for="exampleNumber" hidden>Number</Label>
                         <Input
+                        onkeydown="javascript: return event.keyCode === 8 ||
+                        event.keyCode === 46 ? true : !isNaN(Number(event.key))"
                         type="number"
                         name="number"
                         id="exampleNumber"
                         placeholder="Number of Spaces"
                         required
+                        min="1"
                         onChange={(e) => setState(prevState =>( {...prevState, spacenumber:e.target.value}))}
                         />
                         
@@ -332,7 +348,7 @@ export default function AddParkingSpace (props){
                     <FormGroup>
                         
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile"  accept=".pdf,.doc, .docx" onChange = {fileUpload}/>
+                            <input type="file" class="custom-file-input" required id="customFile"  accept=".pdf,.doc, .docx" onChange = {fileUpload}/>
                             <label class="custom-file-label" for="customFile">{filename}</label>
                         </div>
                     </FormGroup>
@@ -341,10 +357,7 @@ export default function AddParkingSpace (props){
                         <center>
                         <div className="row" style={{justifyContent: 'center'}}>
                             <div className="col-sm-3">
-                                <Button className={addparking.buttonn} style={{backgroundColor: "black", width:'120px'}} onSubmit= {onSubmit}>Submit</Button>
-                            </div>
-                            <div>
-                            <Button className={addparking.buttonn} style={{backgroundColor: "black", width:'120px'}}>Cancel</Button>
+                                <Button className={addparking.buttonn} id="submit" style={{backgroundColor: "black", width:'120px'}} onSubmit= {onSubmit}>Submit</Button>
                             </div>
                         </div>
                         </center>

@@ -64,10 +64,10 @@ export default class Adminlogin extends Component {
                 <div align="center" className="mt-5">
                 <form className={login.logform} onSubmit={this.onSubmit}>
                 <center>
-                <img src="pictures/login.jpg" alt="description" height="150px"/>
+                <img src="pictures/login.jpg" alt="description" style={{height:"40vh"}}/>
                     <h1>Login</h1>
                 </center>
-                    <div className="form-group mt-5">
+                    <div className="form-group">
                         <input type="email" className={login.formcontrol} onChange={(e) => {this.setState({email : e.target.value}); handleEmail()}} id="email" aria-describedby="emailHelp" placeholder="Enter email" required />
                         <span id="emailmsg"></span>
                     </div>
