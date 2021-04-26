@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Homepage from './Components/Homepage';
-import AdminLogin from './Components/AdminLogin';
+import Login from './Components/Login';
 import OwnerRegister from './Components/OwnerRegister';
 import UserRegister from './Components/UserRegister';
 import SearchSpace from './Components/SearchSpace';
@@ -20,7 +20,6 @@ import AdminPage from './Components/AdminPage';
 import ShowUsers from './Components/ShowUsers';
 import ShowSpaces from './Components/ShowSpaces';
 import VerifySpace from './Components/VerifySpace';
-import AdminEditProfile from './Components/AdminEditProfile';
 import './CSS/global.css';
 
 class ProtectedRoute extends Component {
@@ -71,11 +70,12 @@ class App extends Component {
           <LoggedInRoute path="/" exact component={Homepage} />
           <LoggedInRoute path="/ownerregister" exact component={OwnerRegister} />
           <LoggedInRoute path="/userregister" exact component={UserRegister} />
+          <LoggedInRoute path="/login" exact component={Login} />
+          <LoggedInRoute path="/resetpassword" exact component={ResetPassword} />
           
-          <LoggedInRoute path="/login" exact component={AdminLogin} />
           <ProtectedRoute path="/profile" exact component={Profile} />
           <ProtectedRoute path="/editprofile/:email" exact component={EditProfile}  />
-          <Route path="/resetpassword" exact component={ResetPassword} />
+          
           <ProtectedRoute path="/bookspace" exact component={BookSpace}/>
           <ProtectedRoute path="/parkingSpace/add" exact component={AddParkingSpace} />
             <ProtectedRoute path="/bookaslot" exact component={GoogleMap} />
@@ -87,7 +87,6 @@ class App extends Component {
             <ProtectedRoute path="/verifyspace/:id" exact component={VerifySpace}/>
             <ProtectedRoute path="/user-booking-details" exact component={UserBookingDetails}/>
             <ProtectedRoute path="/showusers" exact component={ShowUsers}/>
-            <ProtectedRoute path="/admineditprofile/:email" exact component={AdminEditProfile}  />
             <ProtectedRoute path="/showspaces" exact component={ShowSpaces}/>
             <Route path="*" component={NotFoundPage} />
           
