@@ -14,6 +14,15 @@ export default class UserBookingDetails extends Component {
 
 
     componentDidMount() {
+        const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            this.props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
+        
         $(document).ready(function () {
             $("#myInput").on("keyup", function () {
                 var value = $(this).val().toLowerCase();

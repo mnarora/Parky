@@ -19,6 +19,20 @@ class ShowUsers extends Component{
     }
 
     componentDidMount() {
+        const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            this.props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
+        if(userType === 'owner'){
+            this.props.history.push({
+                pathname: "/ParkingSpace/Add",
+                
+            });
+        }
         if (sessionStorage.useremail) {
            // this.setState({email:sessionStorage.useremail});
             

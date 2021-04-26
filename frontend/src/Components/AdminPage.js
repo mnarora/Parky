@@ -1,4 +1,6 @@
 import React from 'react';
+import {Component} from 'react'
+import { Prompt } from 'react-router-dom'
 import NavigationBar from './Navigationbar';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +12,24 @@ import Footer from './Footer';
 
 
 
-export default function AdminPage() {
+export default class AdminPage extends Component {
+    componentDidMount(){
+        const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            this.props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
+        if(userType === 'owner'){
+            this.props.history.push({
+                pathname: "/ParkingSpace/Add",
+                
+            });
+        }
+    }
+    render(){
     return (
         <div  >
             <NavigationBar />
@@ -45,4 +64,5 @@ export default function AdminPage() {
 
         </div>
     );
+}
 }

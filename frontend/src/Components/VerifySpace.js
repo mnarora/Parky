@@ -17,7 +17,20 @@ export default class EditParkingSpace extends Component{
     componentDidMount() {
         //console.log(this.props.params.email)
  
-
+        const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            this.props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
+        if(userType === 'owner'){
+            this.props.history.push({
+                pathname: "/ParkingSpace/Add",
+                
+            });
+        }
         axios.post(process.env.REACT_APP_BACKEND  + '/editparkingspace/' + this.props.match.params.id, this.state)
         .then(res => {
                 

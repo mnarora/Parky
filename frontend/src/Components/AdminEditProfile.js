@@ -18,6 +18,20 @@ export default class AdminEditProfile extends Component {
         contact_no: ''
     }
     componentDidMount() {
+        const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            this.props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
+        if(userType === 'owner'){
+            this.props.history.push({
+                pathname: "/ParkingSpace/Add",
+                
+            });
+        }
         //console.log(this.props.params.email)
         axios.get(process.env.REACT_APP_BACKEND + '/editprofile/' + this.props.match.params.email)
             .then(res => {

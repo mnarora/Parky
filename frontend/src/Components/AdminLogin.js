@@ -31,6 +31,7 @@ export default class Adminlogin extends Component {
                         });
                     }
                     else if (res.data.user.userType === 'owner') {
+                        
                         this.props.history.push("/ParkingSpace/Add");
                     }
 
