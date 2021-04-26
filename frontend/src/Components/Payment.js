@@ -4,7 +4,6 @@ import Bookspacecss from '../CSS/BookSpace.module.css';
 import axios from 'axios';
 import {  toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import moment from 'moment';
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -19,7 +18,6 @@ function loadScript(src) {
 	})
 }
 function savePaymentDetails(data) {
-	console.log(data)
 	let payment = {
 		transaction_id: '',
 		amount: '',
@@ -52,7 +50,6 @@ function Payment(props) {
 			alert('Razorpay SDK failed to load. Are you online?')
 			return
 		}
-		console.log(props.parkinginfo)
 		const data = await fetch(process.env.REACT_APP_BACKEND  + '/razorpay', 
 							{ method: 'POST', 
 						}).then((t) =>
@@ -66,10 +63,9 @@ function Payment(props) {
 		const date2 = new Date(departuree_time)
 		
 		const minutesDifference = (date2-date1) / (1000 * 60)
-		console.log( "No of minutes: " + minutesDifference);
+
 		var Price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
 		data.amount = Price
-		console.log(data.amount)
 		savePaymentDetails(data)
 		
 		const options = {
@@ -80,8 +76,6 @@ function Payment(props) {
 			name: 'Parky Booking',
 			description: '',
 			handler: function (response) {
-				console.log(response);
-				console.log(props.parkinginfo)
 				props.parkinginfo.price = Price
 				axios.post(process.env.REACT_APP_BACKEND  + '/bookspace', props.parkinginfo)
 				.then(res => {
@@ -93,7 +87,6 @@ function Payment(props) {
 						props.history.push('/bookinghistory')
 					}
 				})
-				console.log(data);
 			},
 			prefill: {
 				name: sessionStorage.name,
@@ -108,7 +101,6 @@ function Payment(props) {
 	return (
 		
 		<div className="Payment" align="center">
-			{console.log(props.parkinginfo)}
 			<button className={Bookspacecss.buttonn} 
 			onClick={displayRazorpay}
 			type="submit"

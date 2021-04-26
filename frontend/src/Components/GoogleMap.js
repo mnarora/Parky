@@ -67,7 +67,7 @@ async function initMap(props, props2) {
   await axios.get(process.env.REACT_APP_BACKEND + '/bookaslot')
     .then(res => {
       for (let j = 0; j < res.data.length; j++) {
-        if (res.data[j].isVerified == true) {
+        if (res.data[j].isVerified === true) {
           places = new google.maps.places.PlacesService(map);
           const param = {
             query: res.data[j].address,

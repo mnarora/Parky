@@ -1,16 +1,13 @@
-import React, { useState , useRef, useEffect} from 'react';
+import React from 'react';
 import NavigationBar from './Navigationbar';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container } from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import homecss from '../CSS/Homepage.module.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Footer from './Footer';
 import { Component } from 'react';
 import {  toast } from 'react-toastify';
-import {Link} from 'react-router-dom';
 
 class ShowUsers extends Component{
     state = {
@@ -47,9 +44,6 @@ class ShowUsers extends Component{
 
            
         }
-        else{
-            console.log("Not an admin")
-        }
     }
     deleteUserHandler = (email) => {
         if (window.confirm("Are you sure you want to delete?")) {
@@ -60,12 +54,11 @@ class ShowUsers extends Component{
                 toast.success("Account deleted")
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
         }
     }
         editUserDetailsHandler = (email) => {
-        console.log(email)
        
         this.props.history.push(`admineditprofile/${email}`)
        

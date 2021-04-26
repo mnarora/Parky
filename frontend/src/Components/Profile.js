@@ -25,16 +25,12 @@ export default class Profile extends Component {
 
             axios.post(process.env.REACT_APP_BACKEND + '/profile/' + sessionStorage.useremail, this.state)
                 .then(res => {
-                    console.log(res.data.user)
                     this.setState({
                         name: res.data.user.name,
                         contact_no: res.data.user.contact
                     })
                 })
 
-        }
-        else {
-            console.log("No user")
         }
     }
 
@@ -54,7 +50,7 @@ export default class Profile extends Component {
                     toast.success("Account deleted")
                 })
                 .catch(err => {
-                    console.log(err)
+                    toast.error(err)
                 })
         }
     }

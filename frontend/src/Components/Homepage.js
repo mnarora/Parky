@@ -13,7 +13,7 @@ export default class Homepage extends Component {
             <div >
                 <NavigationBar />
 
-                <img className={homecss.homepage} src="pictures/homebg.jpg" alt="image" />
+                <img className={homecss.homepage} src="pictures/homebg.jpg" alt="homebgimage" />
 
                 <div className="mt-5 container">
                     <div className="row">
@@ -25,12 +25,12 @@ export default class Homepage extends Component {
                         </div>
                         <div className="col-sm-2"></div>
                         <div className="col-sm-4">
-                            <img style={{ height: "100%" }} className={homecss.image} src="pictures/home1.svg" alt="image" />
+                            <img style={{ height: "100%" }} className={homecss.image} src="pictures/home1.svg" alt="home1image" />
                         </div>
                     </div>
                     <div className="row mt-5">
                         <div className="col-sm-5 mt-5">
-                            <img style={{ height: "90%" }} className={homecss.image} src="pictures/home2.svg" alt="image" />
+                            <img style={{ height: "90%" }} className={homecss.image} src="pictures/home2.svg" alt="imagehome2" />
                         </div>
                         <div className="col-sm-2"></div>
                         <div className="col-sm-4 mt-5">

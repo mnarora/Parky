@@ -140,9 +140,7 @@ router.post('/sendmail', async (req, res) => {
     console.log(req.body)
 
     var transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
+      service: 'gmail',
         auth: {
           user: process.env.PARKY_EMAIL_ID,
           pass: process.env.PARKY_EMAIL_PASS
@@ -330,9 +328,7 @@ router.post("/bookspace", async(req, res) => {
       return res.status(200).json({msg: 'User Account Does not exist'});
       
     var transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
+      service: 'gmail',
         auth: {
           user: process.env.PARKY_EMAIL_ID,
           pass: process.env.PARKY_EMAIL_PASS
@@ -443,9 +439,7 @@ router.post("/cancelorder/:id", async(req, res) => {
   // .catch(err => res.status(400).json({err})) 
 
   var transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: false,
+    service: 'gmail',
     auth: {
       user: process.env.PARKY_EMAIL_ID,
       pass: process.env.PARKY_EMAIL_PASS
@@ -474,9 +468,7 @@ router.post("/getreciept/:id", async(req, res) => {
   var space = await BookingSpace.findById(id);
 
   var transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: false,
+    service: 'gmail',
     auth: {
       user: process.env.PARKY_EMAIL_ID,
       pass: process.env.PARKY_EMAIL_PASS

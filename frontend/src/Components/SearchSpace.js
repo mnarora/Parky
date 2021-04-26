@@ -13,7 +13,6 @@ import Footer from './Footer';
 let autoComplete;
 
 const loadScript = (url, callback) => {
-  console.log("Inside loadScript")
   let script = document.createElement("script");
   script.type = "text/javascript";
 
@@ -30,11 +29,9 @@ const loadScript = (url, callback) => {
 
   script.src = url;
   document.getElementsByTagName("head")[0].appendChild(script);
-  console.log("After loadScrpt")
 };
 
 function handleScriptLoad(updateQuery, autoCompleteRef) {
-  console.log("Inside handleScript")
   autoComplete = new window.google.maps.places.Autocomplete(
     autoCompleteRef.current,
     { fields: ["formatted_address", "geometry", "name"], componentRestrictions: { country: "in" } }
@@ -43,16 +40,12 @@ function handleScriptLoad(updateQuery, autoCompleteRef) {
   autoComplete.addListener("place_changed", () =>
     handlePlaceSelect(updateQuery)
   );
-  console.log("After handlescript")
 }
 
 async function handlePlaceSelect(updateQuery) {
-  console.log("inside handkePlaceSelect")
   const addressObject = autoComplete.getPlace();
   const query = addressObject.formatted_address;
   updateQuery(query);
-  console.log(addressObject);
-  console.log("after handlePlaceSelect")
 }
 
 function BookaSlot(props) {
@@ -76,7 +69,6 @@ function BookaSlot(props) {
 
   return (
     <div>
-      {console.log(process.env)}
       <NavigationBar />
       <div className={css.search}>
         <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -99,7 +91,7 @@ function BookaSlot(props) {
             <div className="col-sm-4 mt-5">
               <div className="card" style={{ border: "2px solid black", borderRadius: "2px" }}>
                 <div className="card-body">
-                  <img class="card-img-top" style={{ width: "50%" }} src="pictures/searchspace2.png" alt="Card image cap" />
+                  <img class="card-img-top" style={{ width: "50%" }} src="pictures/searchspace2.png" alt="searchspace" />
                   <h5 className="card-title mt-3">Search</h5>
                   <p className="text-muted">Search the parking space anytime at your location by using our Website.<br /> Simple And Quick.</p>
                 </div>
@@ -108,7 +100,7 @@ function BookaSlot(props) {
             <div className="col-sm-4  mt-5">
               <div className="card" style={{ border: "2px solid black" }}>
                 <div className="card-body">
-                  <img class="card-img-top" style={{ width: "50%" }} src="pictures/searchspace3.png" alt="Card image cap" />
+                  <img class="card-img-top" style={{ width: "50%" }} src="pictures/searchspace3.png" alt="searchspace" />
                   <h5 className="card-title mt-3">Book</h5>
                   <p className="text-muted">Book space which you searched by your convenience by paying standard amount.<br /> Trusted And Affordable</p>
                 </div>
@@ -117,7 +109,7 @@ function BookaSlot(props) {
             <div className="col-sm-4  mt-5">
               <div className="card" style={{ border: "2px solid black" }}>
                 <div className="card-body">
-                  <img class="card-img-top" style={{ width: "50%" }} src="pictures/searchspace4.jpeg" alt="Card image cap" />
+                  <img class="card-img-top"  style={{ width: "50%" }} src="pictures/searchspace4.jpeg" alt="searchspace" />
                   <h5 className="card-title mt-3">Park</h5>
                   <p className="text-muted">Park vehicle on your dedicated space for the period of time you have booked for. Safe And Secure.</p>
                 </div>

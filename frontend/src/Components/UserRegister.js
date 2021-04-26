@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import { handleContact, handleName, handleEmail, checkform } from '../FormValidation';
+import Footer from './Footer';
 
 export default class UserRegister extends Component {
     state = {
@@ -75,6 +76,7 @@ export default class UserRegister extends Component {
                     </form>
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER} />
+                    <Footer />
             </div>
         )
     }

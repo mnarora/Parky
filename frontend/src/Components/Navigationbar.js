@@ -16,7 +16,6 @@ export default class NavigationBar extends Component {
 
   componentDidMount() {
     if (sessionStorage.useremail) {
-      console.log(sessionStorage.userType)
       this.setState({ loggedIn: true, userType: sessionStorage.userType });
     }
     else
@@ -35,13 +34,13 @@ export default class NavigationBar extends Component {
     return (
       <div>
         <Navbar style={{ minHeight: '80px' }} bg="dark" variant="dark" expand="lg">
-          {(this.state.loggedIn) && (this.state.userType == "owner") &&
+          {(this.state.loggedIn) && (this.state.userType === "owner") &&
             <Navbar.Brand><Link to="/parkingspace/add" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
           }
-          {(this.state.loggedIn) && (this.state.userType == "user") &&
+          {(this.state.loggedIn) && (this.state.userType === "user") &&
             <Navbar.Brand><Link to="/searchspace" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
           }
-          {(this.state.loggedIn) && (this.state.userType == "admin") &&
+          {(this.state.loggedIn) && (this.state.userType === "admin") &&
             <Navbar.Brand><Link to="/adminpage" style={{ textDecoration: 'none', color: 'white' }}>Parky</Link></Navbar.Brand>
           }
           {!this.state.loggedIn &&

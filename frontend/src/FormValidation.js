@@ -29,8 +29,15 @@ const handleName = () => {
         document.getElementById('submit').disabled = true;
     }
     else {
-        document.getElementById('namemsg').innerHTML = '';
-        document.getElementById('submit').disabled = false;
+        if (x.length < 3 || x.length > 20 ) {
+          document.getElementById('namemsg').style.color = 'red';
+          document.getElementById('namemsg').innerHTML = 'Name ranges from 3 to 20 characters';
+          document.getElementById('submit').disabled = true;
+        }
+        else {
+          document.getElementById('namemsg').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
     }
 };
 
@@ -40,11 +47,19 @@ const handleEmail = () => {
     if (x.indexOf("@") <= -1 && (x !== '')) {
         document.getElementById('emailmsg').style.color = 'red';
         document.getElementById('emailmsg').innerHTML = 'invalid email';
+       
         document.getElementById('submit').disabled = true;
     }
     else {
-        document.getElementById('emailmsg').innerHTML = '';
-        document.getElementById('submit').disabled = false;
+        if (x.length < 3 || x.length > 320 ) {
+          document.getElementById('emailmsg').style.color = 'red';
+          document.getElementById('emailmsg').innerHTML = 'Email length ranges from 3 to 320 characters';
+          document.getElementById('submit').disabled = true;
+        }
+        else {
+          document.getElementById('emailmsg').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
     }
 };
 

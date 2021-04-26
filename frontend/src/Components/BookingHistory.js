@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavigationBar from './Navigationbar';
-import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from 'axios';
@@ -27,8 +26,6 @@ export default class BookingHistory extends Component {
                         booked_spaces: res.data.spaces
                     })
 
-                    //console.log(this.state.booked_spaces[0].address);
-
                 })
 
             $(document).ready(function () {
@@ -42,19 +39,15 @@ export default class BookingHistory extends Component {
 
 
         }
-        else {
-            console.log("No user")
-        }
     }
     cancelBookingHandler = (spaceid) => {
-        console.log(spaceid)
         axios.post(process.env.REACT_APP_BACKEND + '/cancelorder/' + spaceid)
             .then(res => {
                 window.location.reload(false)
                 toast.success("Booking Cancelled")
 
             })
-            .catch(err => console.log(err))
+            .catch(err => toast.error(err))
     }
 
     getReciept = (spaceid) => {
@@ -63,16 +56,15 @@ export default class BookingHistory extends Component {
             axios.post(process.env.REACT_APP_BACKEND + '/getreciept/' + spaceid)
                 .then(res => {
                     window.location.reload(false)
-                    console.log(res.data.status)
                     toast.success(res.data.status)
 
                 })
-                .catch(err => console.log(err))
+                .catch(err => toast.error(err))
         }
     }
 
     orderStatus = (space) => {
-        if (space.order_status == "Cancelled")
+        if (space.order_status === "Cancelled")
             return "Cancelled"
         var startTime = new Date(space.arrival_date.split('T')[0] + ' ' + space.arrival_time)
         if (startTime > new Date())
@@ -160,9 +152,6 @@ export default class BookingHistory extends Component {
                     </div>
 
 
-                </div>
-                <div style={{ position: "fixed", bottom: '0', width: '100%' }}>
-                    <Footer />
                 </div>
                 <ToastContainer position={toast.POSITION.TOP_CENTER} />
             </div>

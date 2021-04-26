@@ -19,7 +19,6 @@ export default class EditProfile extends Component {
         contact_no: ''
     }
     componentDidMount() {
-        //console.log(this.props.params.email)
         axios.get(process.env.REACT_APP_BACKEND + '/editprofile/' + this.props.match.params.email)
             .then(res => {
                 this.setState({
@@ -32,10 +31,8 @@ export default class EditProfile extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
         axios.post(process.env.REACT_APP_BACKEND + '/editprofile/' + this.props.match.params.email, this.state)
             .then(res => {
-                console.log(res.data.updated_user)
                 window.sessionStorage.setItem('useremail', res.data.updated_user.email);
                 window.sessionStorage.setItem('name', res.data.updated_user.name);
                 window.sessionStorage.setItem('contact', res.data.updated_user.contact);
@@ -44,7 +41,6 @@ export default class EditProfile extends Component {
 
             })
             .catch(err => {
-                console.log(err)
                 toast.error(err)
             })
     }

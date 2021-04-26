@@ -70,6 +70,14 @@ export default function AddParkingSpace(props) {
     })
     const [file, setFile] = useState('')
     const [filename, setFileName] = useState('Upload Document')
+    const userType  = window.sessionStorage.getItem('userType')
+       
+        if(userType === 'user' ) {
+            props.history.push({
+                pathname: "/searchspace",
+                
+            });
+        }
     /* eslint-enable */
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -77,9 +85,8 @@ export default function AddParkingSpace(props) {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('address', state.address)
-        let filePath = ''
         try {
-            const res = await axios.post(process.env.REACT_APP_BACKEND + '/uploadfile', formData, {
+            await axios.post(process.env.REACT_APP_BACKEND + '/uploadfile', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -212,8 +219,6 @@ export default function AddParkingSpace(props) {
                         <FormGroup>
                             <Label for="exampleNumber" hidden>Number</Label>
                             <Input
-                                onkeydown="javascript: return event.keyCode === 8 ||
-                        event.keyCode === 46 ? true : !isNaN(Number(event.key))"
                                 type="number"
                                 name="number"
                                 id="exampleNumber"
@@ -237,7 +242,6 @@ export default function AddParkingSpace(props) {
                                     value='Car'
                                     onChange={(e) => {
                                         if (document.getElementById('radio1').checked) {
-                                            let rate_value = document.getElementById('radio1').value;
                                             setState(prevState => ({
                                                 ...prevState,
                                                 accepted_vehicles: [...prevState.accepted_vehicles, e.target.value]
@@ -261,7 +265,6 @@ export default function AddParkingSpace(props) {
                                     style={{ width: '10px', height: '10px' }}
                                     onChange={(e) => {
                                         if (document.getElementById('radio2').checked) {
-                                            let rate_value = document.getElementById('radio2').value;
                                             setState(prevState => ({
                                                 ...prevState,
                                                 accepted_vehicles: [...prevState.accepted_vehicles, e.target.value]
@@ -284,7 +287,6 @@ export default function AddParkingSpace(props) {
                                     style={{ width: '10px', height: '10px' }}
                                     onChange={(e) => {
                                         if (document.getElementById('radio3').checked) {
-                                            let value2 = document.getElementById('radio3').value;
                                             setState(prevState => ({
                                                 ...prevState,
                                                 accepted_vehicles: [...prevState.accepted_vehicles, e.target.value]
@@ -306,7 +308,6 @@ export default function AddParkingSpace(props) {
                                     style={{ width: '10px', height: '10px' }}
                                     onChange={(e) => {
                                         if (document.getElementById('radio4').checked) {
-                                            let value3 = document.getElementById('radio4').value;
                                             setState(prevState => ({
                                                 ...prevState,
                                                 accepted_vehicles: [...prevState.accepted_vehicles, e.target.value]
@@ -328,7 +329,6 @@ export default function AddParkingSpace(props) {
                                     style={{ width: '10px', height: '10px' }}
                                     onChange={(e) => {
                                         if (document.getElementById('radio5').checked) {
-                                            let value4 = document.getElementById('radio5').value;
                                             setState(prevState => ({
                                                 ...prevState,
                                                 accepted_vehicles: [...prevState.accepted_vehicles, e.target.value]

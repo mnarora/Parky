@@ -4,12 +4,11 @@ import 'bootstrap/dist/js/bootstrap.js';
 import mySpace from '../CSS/MySpace.module.css';
 import NavigationBar from './Navigationbar';
 import axios from 'axios';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-import Footer from './Footer';
 
 export default class MySpace extends Component{
     state = {
@@ -41,9 +40,6 @@ export default class MySpace extends Component{
 
            
         }
-        else{
-            console.log("No user")
-        }
     }
 
     deleteParkingSpaceHandler = (id) => {
@@ -55,12 +51,11 @@ export default class MySpace extends Component{
                 window.location.reload()
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
         }
     }
     editParkingSpaceHandler = (id) => {
-        console.log(id)
        
         this.props.history.push(`/editparkingspace/${id}`)
        
@@ -73,7 +68,6 @@ export default class MySpace extends Component{
                 pathname: '/user-booking-details',
                 state: res.data.bookingDetails
             })
-            console.log(res.data.bookingDetails)
         })
     }
     render(){
@@ -108,7 +102,7 @@ export default class MySpace extends Component{
                         <td> {space.price} Rs</td>
                         <td>{space.spacenumber}</td>
                         <td>{space.surfacetype}</td>
-                        <td>{space.isVerified == 'true' ? "Verified" : "Not Verified"}</td>
+                        <td>{space.isVerified === true ? "Verified" : "Not Verified"}</td>
                         <td><Link to={space.filepath} style={{textDecoration: 'none', color: 'black'}}download target="_blank">{space.filename}</Link></td>
                         <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View User Details</button></td>
                         <td><button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button></td>
@@ -127,9 +121,6 @@ export default class MySpace extends Component{
                    
                 </Container>
                 
-                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
-                <Footer />
-                </div>
             </div>
         )
     }

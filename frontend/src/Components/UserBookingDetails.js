@@ -3,11 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import mySpace from '../CSS/MySpace.module.css';
 import NavigationBar from './Navigationbar';
-import axios from 'axios';
-import { Container, Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 export default class UserBookingDetails extends Component {
@@ -37,7 +33,6 @@ export default class UserBookingDetails extends Component {
         return (
             <div className={mySpace.background}>
                 <NavigationBar />
-                {console.log(this.props)}
                 <h1 style={{ textAlign: 'center', marginTop: '50px' }}><u>Booking Details</u></h1>
                 <div className={"mt-5 "} style={{ marginLeft: "10%", marginRight: "10%" }} >
                     <input className="form-control col-sm-3 mb-4" style={{ marginRight: "0" }} id="myInput" type="text" placeholder="Search.."></input>
@@ -72,7 +67,7 @@ export default class UserBookingDetails extends Component {
                             </tbody>
                         </table>
                     </div>
-                    {this.props.location.state.length == 0 &&
+                    {this.props.location.state.length === 0 &&
                         <h3 className="mt-5" style={{ textAlign: 'center', color: 'red' }}>There are no Bookings on this Space</h3>}
                 </div>
             </div>

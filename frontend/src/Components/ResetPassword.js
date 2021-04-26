@@ -25,7 +25,6 @@ export default class ResetPassword extends Component {
             })
             .catch(err => {
                 alert(err);
-                console.log(err);
             })
     }
 
@@ -46,7 +45,7 @@ export default class ResetPassword extends Component {
 
             })
             .catch(err => {
-                console.log(err);
+                toast.error(err);
             })
     }
 

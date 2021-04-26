@@ -1,6 +1,5 @@
 import React from 'react';
-import {Component} from 'react'
-import { Prompt } from 'react-router-dom'
+import {Component} from 'react';
 import NavigationBar from './Navigationbar';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,12 +43,12 @@ export default class AdminPage extends Component {
                     </div>
                     <div className="col-sm-2"></div>
                     <div className="col-sm-4">
-                        <img style={{ height: "100%" }} className={homecss.image} src="pictures/client.jpg" alt="image" />
+                        <img style={{ height: "100%" }} className={homecss.image} src="pictures/client.jpg" alt="clientimage" />
                     </div>
                 </div>
                 <div className="row mt-5">
                     <div className="col-sm-5 mt-5">
-                        <img style={{ height: "80%" }} className={homecss.image} src="pictures/verify.png" alt="image" />
+                        <img style={{ height: "80%" }} className={homecss.image} src="pictures/verify.png" alt="verifyimage" />
                     </div>
                     <div className="col-sm-2"></div>
                     <div className="col-sm-4 mt-5">

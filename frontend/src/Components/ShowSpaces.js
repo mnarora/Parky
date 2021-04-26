@@ -1,11 +1,9 @@
-import React, { useState , useRef, useEffect} from 'react';
+import React from 'react';
 import NavigationBar from './Navigationbar';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container } from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import homecss from '../CSS/Homepage.module.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Footer from './Footer';
 import { Component } from 'react';
@@ -38,7 +36,6 @@ class ShowSpaces extends Component{
             
             axios.get(process.env.REACT_APP_BACKEND  + '/showspaces/')
             .then(res => {
-                console.log(res.data)
                 this.setState({
                   spaces : res.data.spaces,
                   filenames : res.data.filenames
@@ -46,9 +43,6 @@ class ShowSpaces extends Component{
             })
 
            
-        }
-        else{
-            console.log("Not an admin")
         }
     }
 
@@ -61,13 +55,11 @@ class ShowSpaces extends Component{
                 window.location.reload()
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
         }
     }
     verifySpaceHandler = (id) => {
-        
-        console.log(id)
        
         this.props.history.push(`/verifyspace/${id}`)
        

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Container, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './Footer';
 
 export default class EditParkingSpace extends Component {
     state = {
@@ -28,7 +29,6 @@ export default class EditParkingSpace extends Component {
             });
         }
         
-        //console.log(this.props.params.email)
         axios.get(process.env.REACT_APP_BACKEND + '/editparkingspace/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
@@ -42,7 +42,6 @@ export default class EditParkingSpace extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
         axios.post(process.env.REACT_APP_BACKEND + '/editparkingspace/' + this.props.match.params.id, this.state)
             .then(res => {
 
@@ -51,7 +50,6 @@ export default class EditParkingSpace extends Component {
 
             })
             .catch(err => {
-                console.log(err)
                 toast.error(err)
             })
     }
@@ -160,6 +158,7 @@ export default class EditParkingSpace extends Component {
 
                 </Container>
 
+                <Footer />
 
             </div>
         )

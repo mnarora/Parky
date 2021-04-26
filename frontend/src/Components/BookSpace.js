@@ -29,7 +29,8 @@ export default class BookSpace extends Component {
         booked_space_id: ''
     }
 
-    payment = true
+    payment = true;
+    pay = true;
 
     yesterday = moment().subtract(1, 'day');
 
@@ -57,7 +58,7 @@ export default class BookSpace extends Component {
                 }
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
     }
 
@@ -65,7 +66,7 @@ export default class BookSpace extends Component {
         if (document.getElementById('arrival_time').value) {
             var arrival_date = new Date(this.state.arrival_date)
             var today_date = new Date();
-            if (arrival_date.setHours(0, 0, 0, 0) == today_date.setHours(0, 0, 0, 0)) {
+            if (arrival_date.setHours(0, 0, 0, 0) === today_date.setHours(0, 0, 0, 0)) {
                 var currenttime = new Date().getHours() + ":" + new Date().getMinutes();
                 if (new Date().getHours() < 10)
                     currenttime = "0" + new Date().getHours() + ":" + new Date().getMinutes();
@@ -99,7 +100,7 @@ export default class BookSpace extends Component {
             if (new Date().getHours() < 10 && new Date().getMinutes() < 10)
                 currenttime = "0" + new Date().getHours() + ":0" + new Date().getMinutes();
             if (arrival_date.setHours(0, 0, 0, 0) === departure_date.setHours(0, 0, 0, 0)) {
-                if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value || ((departure_date.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)) && (currenttime > document.getElementById("departure_time").value))) {
+                if (document.getElementById("departure_time").value <= document.getElementById("arrival_time").value || ((departure_date.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) && (currenttime > document.getElementById("departure_time").value))) {
                     document.getElementById('departure_timemsg').style.color = 'red';
                     document.getElementById('departure_timemsg').innerHTML = 'Please Enter Valid Departure Time';
                     this.payment = false;
@@ -112,28 +113,27 @@ export default class BookSpace extends Component {
         }
     }
 
-    handleSpace = (e) => {
+    handleSpace = async (e) => {
         e.preventDefault()
-        console.log(this.state)
-        axios.post(process.env.REACT_APP_BACKEND + '/getSpace', this.state)
+        await axios.post(process.env.REACT_APP_BACKEND + '/getSpace', this.state)
             .then(res => {
-                console.log(res.data)
-                console.log(res.data.no_of_available_space, this.state.no_of_booked_spaces)
                 if (res.data.no_of_available_space <= 0) {
-                    this.payment = false
-                    alert("Spot not Available for Specified Interval.\nPlease Change Your Date of Booking or Look for Nearyby Spaces")
-
+                    this.pay = false
+                    alert("Spot not Available for Specified Interval.\nPlease Change Your Date of Booking or Look for Nearyby Spaces");
+                    return false
                 }
                 else if (res.data.no_of_available_space < parseInt(this.state.no_of_booked_spaces)) {
-                    this.payment = false
+                    this.pay = false
                     alert("No of Available Space " + res.data.no_of_available_space + "\nTry to book " + res.data.no_of_available_space + " or less\n")
-
+                    return false
                 }
-                else
-                    this.payment = true
+                else {
+                    this.pay = true
+                    return true
+                }
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
     }
 
@@ -213,22 +213,22 @@ export default class BookSpace extends Component {
                                 type="number"
                                 className="mb-5"
                                 style={{ width: '50%', marginLeft: '10%' }}
-                                onBlur={this.handleSpace}
                                 required
                                 onChange={(e) => {
+                                    this.handleSpace(e);
                                     if (e.target.value <= this.props.location.state.parkingspace.spacenumber) {
                                         this.setState({ no_of_booked_spaces: e.target.value })
                                     }
                                     else {
                                         alert("You selected more spaces. Available spaces are: " + this.props.location.state.parkingspace.spacenumber)
-                                    }
+                                    };
+                                    
                                 }}
                             />
                         </Form>
 
                     </div>
-                    {console.log(this.payment)}
-                    {this.state.arrival_date && this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && this.payment && <Payment parkinginfo={this.state} {...this.props} />}
+                    {this.state.arrival_date && this.state.departure_date && this.state.arrival_time && this.state.departure_time && this.state.no_of_booked_spaces && this.payment && this.pay && <Payment parkinginfo={this.state} {...this.props} />}
                     <br />
                 </Container>
                 <Footer />
