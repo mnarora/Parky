@@ -68,6 +68,7 @@ function Payment(props) {
 		const minutesDifference = (date2-date1) / (1000 * 60)
 		console.log( "No of minutes: " + minutesDifference);
 		var Price = Math.floor((parseInt(props.parkinginfo.price ) * parseInt(props.parkinginfo.no_of_booked_spaces) *parseInt(minutesDifference)) / 60)
+		data.amount = Price
 		console.log(data.amount)
 		savePaymentDetails(data)
 		
@@ -81,7 +82,7 @@ function Payment(props) {
 			handler: function (response) {
 				console.log(response);
 				console.log(props.parkinginfo)
-				
+				props.parkinginfo.price = Price
 				axios.post(process.env.REACT_APP_BACKEND  + '/bookspace', props.parkinginfo)
 				.then(res => {
 					if (res.data.error) {
