@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import { handleEmail } from '../FormValidation';
 import Footer from './Footer';
-export default class Adminlogin extends Component {
+export default class Login extends Component {
     state = {
         email: '',
         password: ''
