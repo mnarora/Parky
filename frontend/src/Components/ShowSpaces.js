@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import Footer from './Footer';
 import { Component } from 'react';
 import {  toast } from 'react-toastify';
 import {Link} from 'react-router-dom';
@@ -34,7 +33,7 @@ class ShowSpaces extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get(process.env.REACT_APP_BACKEND  + '/showspaces/')
+            axios.post(process.env.REACT_APP_BACKEND  + '/showspaces/')
             .then(res => {
                 this.setState({
                   spaces : res.data.spaces,
@@ -115,9 +114,6 @@ class ShowSpaces extends Component{
                 </tbody>
                 </table>
                 </div>
-                </div>
-                <div className="mt-5" style={{position: "fixed", bottom: '0', width: '100%', marginTop: '100px'}}>
-                <Footer />
                 </div>
             </div>
         );

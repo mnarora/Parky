@@ -19,7 +19,7 @@ export default class EditProfile extends Component {
         contact_no: ''
     }
     componentDidMount() {
-        axios.get(process.env.REACT_APP_BACKEND + '/editprofile/' + this.props.match.params.email)
+        axios.post(process.env.REACT_APP_BACKEND + '/editprof/' + this.props.match.params.email)
             .then(res => {
                 this.setState({
                     name: res.data.user.name,
@@ -51,7 +51,8 @@ export default class EditProfile extends Component {
                 <NavigationBar />
                 <Container>
                     <h1 style={{ textAlign: 'center', marginTop: "30px" }}>Update Profile</h1>
-                    <Form style={{ width: '50%', alignItems: "center", marginLeft: "250px", marginTop: "100px" }} >
+                    <center>
+                    <Form className="mt-5" style={{ width: '50%', alignItems: "center" }} >
                         <FormGroup row onSubmit={this.onSubmit}>
                             <Label for="exampleName" sm={2}>Name</Label>
                             <Col>
@@ -97,7 +98,9 @@ export default class EditProfile extends Component {
                         </FormGroup>
 
                     </Form>
-                    <Button style={{ marginLeft: '450px', marginTop: "50px", width: "200px" }} color="primary" id="submit" onClick={this.onSubmit}>Update</Button>
+                    
+                    <Button style={{ width: "200px" }} color="primary" id="submit" onClick={this.onSubmit}>Update</Button>
+                    </center>
                 </Container>
                 <div style={{ position: "fixed", bottom: '0', width: '100%' }}>
                     <Footer />

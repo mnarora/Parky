@@ -29,7 +29,7 @@ export default class EditParkingSpace extends Component {
             });
         }
         
-        axios.get(process.env.REACT_APP_BACKEND + '/editparkingspace/' + this.props.match.params.id)
+        axios.post(process.env.REACT_APP_BACKEND + '/editspace/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
                     address: res.data.space.address,

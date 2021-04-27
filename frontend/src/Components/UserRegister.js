@@ -33,7 +33,7 @@ export default class UserRegister extends Component {
                 }
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err)
             })
     }
 
@@ -49,7 +49,7 @@ export default class UserRegister extends Component {
 
                 <div align="center">
                     <form className={userregister.regform} onSubmit={this.onSubmit}>
-                        <h1 style={{ fontFamily: "Muli-SemiBold" }}>User Registration</h1>
+                        <h1 style={{ fontFamily: "Muli-SemiBold" }}>Rentee Registration</h1>
                         <div className="form-group mt-5">
                             <input className={userregister.formcontrol} type="text" onChange={(e) => { this.setState({ name: e.target.value }); handleName(); }} id="name" placeholder="Name" required />
                             <span id="namemsg"></span>

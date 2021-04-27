@@ -19,7 +19,7 @@ export default class BookingHistory extends Component {
             this.setState({ email: sessionStorage.useremail });
 
 
-            axios.get(process.env.REACT_APP_BACKEND + '/bookinghistory/' + sessionStorage.useremail)
+            axios.post(process.env.REACT_APP_BACKEND + '/bookinghistory/' + sessionStorage.useremail)
                 .then(res => {
 
                     this.setState({

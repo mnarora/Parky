@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import Footer from './Footer';
 import { Component } from 'react';
 import {  toast } from 'react-toastify';
 
@@ -34,7 +33,7 @@ class ShowUsers extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get(process.env.REACT_APP_BACKEND  + '/showusers/')
+            axios.post(process.env.REACT_APP_BACKEND  + '/showusers/')
             .then(res => {
 
                 this.setState({
@@ -79,8 +78,8 @@ class ShowUsers extends Component{
                     <th scope="col">Email</th>
                     <th scope="col">Contact</th>
                     <th scope="col">User Type</th>
-                    {/* <th scope="col">Edit</th>
-                    <th scope="col">Options</th> */}
+                    <th scope="col">Edit</th>
+                    {/* <th scope="col">Options</th> */}
                     <th scope="col">Delete</th>
                     </tr>
                 </thead>
@@ -92,6 +91,7 @@ class ShowUsers extends Component{
                         <td> {user.email}</td>
                         <td>{user.contact}</td>
                         <td>{user.userType}</td>
+                        <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td>
                         {/* <td>{user.userType  == "owner" ? <Link to ="/myspaces"><button className="btn btn-primary">Space Details</button></Link>: <Link to="/user-booking-details"><button className="btn btn-primary">Booking Details</button></Link>}</td>
                         <td><button type="button" onClick= {() => this.editUserDetailsHandler(user.email)} className="btn btn-primary">Edit Details</button></td> */}
                         <td><button type="button" onClick= {() => this.deleteUserHandler(user.email)} className="btn btn-danger">Delete User</button></td>
@@ -101,9 +101,6 @@ class ShowUsers extends Component{
                 </tbody>
                 </table>
                 </div>
-                </div>
-                <div style={{position: "fixed", bottom: '0', width: '100%'}}>
-                <Footer />
                 </div>
             </div>
         );

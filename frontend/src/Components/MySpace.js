@@ -21,7 +21,7 @@ export default class MySpace extends Component{
            // this.setState({email:sessionStorage.useremail});
             
             
-            axios.get(process.env.REACT_APP_BACKEND  + '/myspaces/' + sessionStorage.useremail)
+            axios.post(process.env.REACT_APP_BACKEND  + '/myspaces/' + sessionStorage.useremail)
             .then(res => {
 
                 this.setState({
@@ -89,7 +89,7 @@ export default class MySpace extends Component{
                     <th scope="col">Surface Type</th>
                     <th scope="col">Status</th>
                     <th scope="col">Document</th>
-                    <th scope="col">User Details</th>
+                    <th scope="col">Booking Details</th>
                     <th scope="col">Edit Space Info</th>
                     <th scope="col">Delete Space</th>
                     </tr>
@@ -104,7 +104,7 @@ export default class MySpace extends Component{
                         <td>{space.surfacetype}</td>
                         <td>{space.isVerified === true ? "Verified" : "Not Verified"}</td>
                         <td><Link to={space.filepath} style={{textDecoration: 'none', color: 'black'}}download target="_blank">{space.filename}</Link></td>
-                        <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View User Details</button></td>
+                        <td><button type="button" className="btn btn-success" onClick={() => this.viewUserDetails(space.address)}>View Booking Details</button></td>
                         <td><button type="button" onClick= {() => this.editParkingSpaceHandler(space._id)} className="btn btn-primary">Edit Space</button></td>
                         <td><button type="button" onClick= {() => this.deleteParkingSpaceHandler(space._id)} className="btn btn-danger">Delete Space</button></td>
                     </tr>

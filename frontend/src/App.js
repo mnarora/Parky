@@ -20,6 +20,7 @@ import AdminPage from './Components/AdminPage';
 import ShowUsers from './Components/ShowUsers';
 import ShowSpaces from './Components/ShowSpaces';
 import VerifySpace from './Components/VerifySpace';
+import AdminEditProfile from './Components/AdminEditProfile';
 import './CSS/global.css';
 
 class ProtectedRoute extends Component {
@@ -88,6 +89,7 @@ class App extends Component {
             <ProtectedRoute path="/user-booking-details" exact component={UserBookingDetails}/>
             <ProtectedRoute path="/showusers" exact component={ShowUsers}/>
             <ProtectedRoute path="/showspaces" exact component={ShowSpaces}/>
+            <ProtectedRoute path="/admineditprofile/:email" exact component={AdminEditProfile}/>
             <Route path="*" component={NotFoundPage} />
           
 

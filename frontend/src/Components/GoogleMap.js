@@ -64,7 +64,7 @@ async function initMap(props, props2) {
     }
 
   });
-  await axios.get(process.env.REACT_APP_BACKEND + '/bookaslot')
+  await axios.post(process.env.REACT_APP_BACKEND + '/bookaslot')
     .then(res => {
       for (let j = 0; j < res.data.length; j++) {
         if (res.data[j].isVerified === true) {

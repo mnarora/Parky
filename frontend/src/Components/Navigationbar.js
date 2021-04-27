@@ -55,7 +55,7 @@ export default class NavigationBar extends Component {
               <div className="ml-auto mr-5">
                 <Nav>
                   <NavDropdown title="Register" id="basic-nav-dropdown">
-                    <NavDropdown.Item><Link to="/userregister" style={{ textDecoration: 'none', color: 'black' }}>User</Link></NavDropdown.Item>
+                    <NavDropdown.Item><Link to="/userregister" style={{ textDecoration: 'none', color: 'black' }}>Rentee</Link></NavDropdown.Item>
                     <NavDropdown.Item><Link to="/ownerregister" style={{ textDecoration: 'none', color: 'black' }}>Parking Space Owner</Link></NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title="Login" id="basic-nav-dropdown">
